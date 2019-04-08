@@ -1,0 +1,137 @@
+.varilo-nav  {
+	width:100%;
+	display: flex;
+	justify-content:center;
+	position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    background: white;
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+
+
+	.nav-content {
+		width:100%;
+		max-width:1320px;
+		display: flex;
+		align-items:center;
+		padding: 0px;
+		max-height: 55px;
+		min-height: 55px;
+		justify-content: space-between;
+		transition: 0.5s all ease;
+		@media (max-width: 768px) {
+			align-items: flex-start;
+		}
+		.logo-row {
+			display: flex;
+			justify-content: space-between;
+			min-height:55px;
+		
+			@media (max-width: 768px) {
+				width: 100%;
+			}
+			.navbar-brand {
+				margin-right:20px;
+				padding:0px 20px;
+				display: flex;
+				align-items:center;
+			}
+
+			.mobile-hamb {
+			    display: none;
+			    font-size: 25px;
+			    cursor: pointer;
+			    border: 0;
+		        width: 67px;
+			    height:55px;
+			    background: transparent;
+		        justify-content: center;
+	            align-items: center;
+		        outline:none;
+	            color: #143583;
+			    i:before {
+					content: "\f0c9";
+			    }
+
+
+				@media (max-width: 768px) {
+					display: flex;
+				}
+			}
+		}
+
+		.nav-collapse-wrapper {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+
+			@media (max-width: 768px) {
+				display: none;
+			}
+
+			.navbar-list-item {
+				display: flex;
+			}
+		}
+		.navbar-list {
+			display: flex;
+			list-style: none;
+			.navbar-list-item {
+				color:black;
+				.nav-link {
+					text-decoration: none;
+					color: #242424;
+					display: block;
+					padding: 0 1rem;
+					display: flex;
+					font-size: 0.9rem;
+					align-items: center;
+					img {
+						border-radius: 50%;
+						height: 32px;
+						margin-right: 5px;
+					}
+
+					@media (max-width: 850px) {
+						padding:10px;
+					}
+
+				}
+
+
+			}
+		}
+		&.opened {
+			display: flex;
+			flex-direction:column;
+			height:auto;
+			max-height: 600px;
+
+			.mobile-hamb i:before{
+			    content: "\f00d" !important;
+			}
+			.nav-collapse-wrapper  {
+				display: flex;
+				flex-direction:row;
+				justify-content: center;
+				padding: 20px 0px;
+				@media (max-width: 425px) {
+					flex-direction:column;
+					padding: 10px 0px;
+				}
+				.navbar-list {
+					display: flex;
+					flex-direction:column;
+					.nav-link {
+					    padding: 15px 35px;
+					    font-size: 14px;
+						@media (max-width: 425px) {
+							padding: 13px 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

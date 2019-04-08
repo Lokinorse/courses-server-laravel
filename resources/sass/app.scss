@@ -1,0 +1,27 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Exo+2:400,600,700&subset=cyrillic');
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import './cabinet';
+@import './landing';
+@import './components/nav';
+@import './components/paymodal';
+
+
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+
+#app {
+	padding-top:70px;
+}

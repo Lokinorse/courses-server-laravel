@@ -1,0 +1,182 @@
+.lesson-payout-modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5294117647058824);
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+    &.opened {
+    	display: flex;
+    }
+	.lesson-payout-modal {
+	    width: 100%;
+	    background: white;
+	    //padding: 20px;
+	    .lesson-payout-modal-header {
+	    	padding: 10px;
+	    	border-bottom: 1px solid #e1e1e1;
+	    	display: flex;
+	    	justify-content:space-between;
+	    	&>span {
+	    		font-size:16px;
+	    	}
+	    	button {
+	    		border:none;
+	    		background: transparent;
+				cursor: pointer;
+    			padding: 1px 10px;
+	    	}
+	    }
+	    .lesson-payout-modal-body {
+			height: 220px;
+	    	display: flex;
+
+
+	    	.processing {
+				padding:10px;
+				align-items: center !important;
+				justify-content: center !important;
+				display: flex;
+	    	}
+	    	
+	    	.pay-step {
+				font-size: 30px;
+				display: none;
+				justify-content: flex-start;
+				width: 100%;
+				font-weight: bolder;
+				color: grey;
+				text-transform: uppercase;
+				flex-direction:column;
+				align-items: center;
+
+
+
+				&.active {
+					display: flex;
+				}
+
+
+				.pay-info {
+					width:100%;
+					height:100%;
+					color:grey;
+					flex:1;
+					display: flex;
+					flex-direction:column;
+					.payment-info-content {
+						flex:1;
+						padding:10px;
+						padding-top: 25px;
+						display: flex;
+						flex-direction:column;
+						h5 {
+						    font-size: 22px;
+						    margin-bottom: 10px;
+						    font-weight: lighter;
+						    color: black;
+							text-align: center;
+						}
+						input {
+							padding: 5px;
+							border: 1px solid black;
+							font-size: 16px;
+						    margin-top: 10px;
+
+						}
+						.payment-text {
+							font-size: 12px;
+							font-weight: lighter;
+							text-align: center;
+							width: 100%;
+							display: block;
+							line-height: 1.4;
+							margin-top: 10px;
+							&.price-wrapper {
+								font-size: 16px;
+								color: black;
+							    margin-bottom: 2px;
+							    margin-top: 0px;
+								text-align: left;
+								text-transform: initial;
+								#price-number, #current-plan {
+									font-weight: bolder;
+								}
+							}
+						}
+						.payment-action-button-wrapper {
+							width:100%;
+							flex:1;
+							align-items: center;
+							justify-content: center;
+							display: flex;
+							a,.senler-btn {
+								height: 34px;
+								font-size: 14px;
+								background: #5d5dff;
+								border: none;
+								padding: 0px 15px;
+								color: white;
+								cursor: pointer;
+								align-items: center;
+								justify-content: center;
+								display: flex;
+							    text-transform: none;
+								border-radius:0px;
+								font-weight: lighter;
+							}
+						}
+
+					}
+				}
+				.payment-footer {
+					width:100%;
+					background: #eee;
+					min-height: 50px;
+					padding:0px 10px;
+					display: flex;
+					justify-content: flex-end;
+					align-items:center;
+					button, a {
+						height: 34px;
+						background: #5d5dff;
+						border: none;
+						padding: 0px 15px;
+						color: white;
+						cursor: pointer;
+						font-size: 16px;
+						display: flex;
+						align-items: center;
+					}
+				}
+
+				span {
+					line-height: 1;
+					font-size: 20px;
+					text-align: center;
+				}
+
+				.fa {
+					margin-right:10px;
+					font-size: 70px;
+					margin-bottom:20px;
+				    font-weight: normal;
+				}
+				.fa-sync {	
+				    font-weight: bold;
+					animation: rotation 2s infinite linear;
+				}
+	    	}
+	    }
+	}
+}
+
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to   {transform: rotate(359deg);}
+}
