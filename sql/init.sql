@@ -13,6 +13,9 @@
 
 
 -- Дамп структуры базы данных courses
+CREATE DATABASE IF NOT EXISTS `courses` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `courses`;
+
 -- Дамп структуры для таблица courses.data_rows
 CREATE TABLE IF NOT EXISTS `data_rows` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -364,11 +367,24 @@ CREATE TABLE IF NOT EXISTS `units` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `videos` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unit_type` smallint(6) NOT NULL DEFAULT '0',
+  `description` longtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы courses.units: ~0 rows (приблизительно)
+-- Дамп данных таблицы courses.units: ~11 rows (приблизительно)
 /*!40000 ALTER TABLE `units` DISABLE KEYS */;
+INSERT INTO `units` (`id`, `created_at`, `updated_at`, `name`, `videos`, `unit_type`, `description`) VALUES
+	(2, '2019-04-08 19:49:44', '2019-04-08 23:35:18', 'Новый Программа', '[]', 0, NULL),
+	(3, '2019-04-08 19:49:54', '2019-04-08 19:49:54', 'Новый Курс', NULL, 1, NULL),
+	(4, '2019-04-08 19:49:55', '2019-04-08 19:49:55', 'Новый Глава', NULL, 2, NULL),
+	(6, '2019-04-08 19:52:38', '2019-04-08 19:52:38', 'Новый Курс', NULL, 1, NULL),
+	(7, '2019-04-08 19:52:39', '2019-04-08 19:52:39', 'Новый Глава', NULL, 2, NULL),
+	(8, '2019-04-08 23:32:57', '2019-04-08 23:32:57', 'Новый Глава', NULL, 2, NULL),
+	(9, '2019-04-08 23:34:32', '2019-04-08 23:34:32', 'Новый Курс', NULL, 1, NULL),
+	(10, '2019-04-08 23:34:34', '2019-04-08 23:34:34', 'Новый Урок', NULL, 3, NULL),
+	(11, '2019-04-08 23:35:07', '2019-04-08 23:35:07', 'Новый Курс', NULL, 1, NULL),
+	(12, '2019-04-08 23:35:09', '2019-04-08 23:35:09', 'Новый Глава', NULL, 2, NULL),
+	(13, '2019-04-08 23:35:12', '2019-04-08 23:35:12', 'Новый Урок', NULL, 3, NULL);
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 
 -- Дамп структуры для таблица courses.unit_relations
@@ -378,10 +394,21 @@ CREATE TABLE IF NOT EXISTS `unit_relations` (
   `child_id` int(11) NOT NULL,
   `order` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы courses.unit_relations: ~0 rows (приблизительно)
+-- Дамп данных таблицы courses.unit_relations: ~10 rows (приблизительно)
 /*!40000 ALTER TABLE `unit_relations` DISABLE KEYS */;
+INSERT INTO `unit_relations` (`id`, `parent_id`, `child_id`, `order`) VALUES
+	(3, 1, 3, 0),
+	(4, 3, 4, 0),
+	(15, 5, 9, 0),
+	(16, 9, 10, 0),
+	(17, 5, 6, 1),
+	(18, 6, 7, 0),
+	(19, 7, 8, 0),
+	(26, 2, 11, 0),
+	(27, 11, 12, 0),
+	(28, 12, 13, 0);
 /*!40000 ALTER TABLE `unit_relations` ENABLE KEYS */;
 
 -- Дамп структуры для таблица courses.users
