@@ -1,0 +1,155 @@
+/* RESUME */
+
+
+@mixin rippledpaper() {
+	$bg-color: #eee;
+	$main-color: #fff;
+	$text-color: #333;
+	height: auto;
+	overflow: hidden;
+	padding: 20px;
+	background: $main-color;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+	
+	&:before, &:after {
+	  content: ""; height: 2px;
+	  position: absolute;
+	  left: 0;
+	  right: 0;
+	  -webkit-clip-path: polygon(0% 0%, 5%  100%, 10% 0%, 15%  100%, 20% 0%, 25% 100%, 30% 0%, 35%  100%, 40% 0%, 45%  100%, 50% 0%, 55%  100%, 60% 0%, 65%  100%, 70% 0%, 75%  100%, 80% 0%, 85%  100%, 90% 0%, 95%  100%, 100% 0%);
+	}
+	&:before {
+	  background-color: $bg-color;
+	  top: 0;
+	}
+	&:after {
+	  background-color: $main-color;
+	  bottom: -2px;
+	}
+}
+
+
+.rippled {
+	background: white;
+	margin-top:40px;
+	//@include rippledpaper()
+}
+
+.resume-section {
+    .lp-content {
+    	display: flex;
+    	justify-content:flex-start;
+    	align-items:center;
+    	flex-direction:column;
+/*     	h1 {
+    		color: white;
+		    background: #2e302c;
+		    padding: 10px;
+    	} */
+    }
+	.person-resume-wrapper {
+		position: relative;
+		width: 970px;
+		margin: 0px auto;
+		
+		.person-resume-box {
+			
+			padding: 40px 50px;
+			display: flex;
+			flex-direction: column;
+			
+
+			.resume-header {
+				font-size: 25px;
+				text-align: center;
+				font-weight: lighter;
+				margin-bottom: 40px;
+			}
+
+			.resume-content {
+				display: flex;
+
+
+				.person-image {
+					align-items: center;
+				}
+
+				.person-description {
+					margin-left:80px;
+					.person-name {
+						font-size:32px;
+					}
+					.person-badge {
+						font-size:18px;
+						color:#a4a4a4;
+					}
+					.person-text {
+						margin-top: 18px;
+						font-size:18px;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 1024px) {
+	    .person-resume-wrapper {
+	    	width:100%;
+	    	max-width: 860px;
+	    	.person-resume-box {
+    		    padding: 30px;
+    		    .person-description {
+    		    	margin-left:40px;
+    		    }
+	    	}
+	    }
+	}
+	@media (max-width: 720px) {
+	    .person-resume-wrapper {
+	    	width:100%;
+	    	max-width: 860px;
+	    	.person-resume-box {
+    		    padding: 30px;
+    		    .resume-content {
+
+	    		    flex-direction: column;
+	    		    .person-description {
+	    		    	margin-left:0px;
+	    		    }
+	    		    .person-image {
+	    		    	display: flex;
+	    		    	justify-content:center;
+	    		    	img {
+			    		    width: 210px;
+	    		    	}
+	    		    }
+	    		    .person-name, .person-badge {
+	    		    	text-align: center;
+	    		    }
+					.person-text {
+					    margin-top: 30px;
+					    font-size: 16px;
+					}
+    		    }
+	    	}
+	    }
+	}
+	@media (max-width: 425px) {
+	    .person-resume-wrapper {
+	    	.person-resume-box {
+    		    padding: 15px;
+    		    .person-image {
+	    		    img {
+			    	    width: 190px;
+	    		    }
+    		    }
+
+	    	}
+	    }
+	}
+}
+
+#teacher {
+	.person-text {
+		font-size:16px;
+	}
+}

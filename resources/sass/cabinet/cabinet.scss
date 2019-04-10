@@ -1,0 +1,26 @@
+.cabinet-programs {
+    margin-top:20px;
+    .cabinet-program-wrapper {
+        display: flex;
+        flex-direction: column;
+        background: #0000000a;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        .cabinet-program-thumb {
+            min-height:100px;
+            position: relative;
+            img {
+                width: 100%;
+            }
+            .cabinet-program-title {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                background: #000000b5;
+                border-radius: 50px;
+                color: white;
+                padding: 5px 15px;
+            }
+        }
+    }
+}

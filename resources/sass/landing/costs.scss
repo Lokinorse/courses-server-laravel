@@ -1,0 +1,164 @@
+@mixin colorize-costs-item($color) {
+	border: 2px solid $color;
+	.cta-btn {
+		background: $color;
+	}
+	.round-corner-badge {
+		background: $color;
+	}
+
+}
+
+/*  COSTS  */
+.costs-section {
+	background-image: url(/img/jslp/running-man.jpg), url(/img/jslp/beach-gamak.jpg);
+	background-position: top right, bottom left;
+	background-repeat: no-repeat, no-repeat;
+    background-size: auto 48%, auto 50%;
+    .lp-content {
+    	display: flex;
+    	justify-content:flex-start;
+    	align-items:center;
+    	flex-direction:column;
+    }
+    .costs-wrapper {
+    	display: flex;
+    	justify-content:space-between;
+    	width:100%;
+    	max-width: 1060px;
+    	padding:0px 10px;
+	    align-items: flex-start;
+    	.costs-item-wrapper {
+	       	min-height:200px;
+	    	background: white;
+	    	width:30%;
+	    	border: 2px solid #4aaae5;
+    	    border-radius: 4px;
+    	    position:relative;
+    	    transition: 0.3s all ease;
+	    	//transform: scale(1);
+    	    &:hover {
+    	    	transform: scale(1.05);
+    	    }
+
+    	    .round-corner-badge {
+    	    	position: absolute;
+				top: -30px;
+				left: -30px;
+    	    	background: #4aaae5;
+    	    	height:60px;
+    	    	width:60px;
+    	    	color:white;
+    	    	font-size:16px;
+    	    	border-radius: 50%;
+    	    	display: flex;
+    	    	justify-content: center;
+    	    	align-items: center;
+    	    }
+
+
+    	    .cost-item-title-wrapper {
+    	    	padding: 40px 0px;
+    	    	display: flex;
+    	    	justify-content: center;
+    	    	align-items: center;
+    	    	flex-direction: column;
+    	    	position: relative;
+    	    	.cost-title {
+    	    		font-size:30px;
+    	    	}
+    	    	.cost-title-badge {
+    	    		color:#e6346e;
+    	    		font-size: 14px;
+	    	    	position: absolute;
+					bottom: 21px;
+    	    	}
+    	    }
+    	    ul {
+    	    	display: flex;
+    	    	padding:0px 26px;
+    	    	list-style: none;
+    	    	flex-direction: column;
+				margin-bottom: 34px;
+    	    	li {
+					&:before {
+					  content: "-";
+					  padding-right: 5px;
+					}
+    	    		padding: 8px 0px;
+    	    		line-height: 1;
+    	    		font-size: 15px;
+    	    	}
+    	    }
+    	    .cost-price-wrapper {
+    	    	display: flex;
+	    		font-size:28px;
+	    		font-weight: bolder;
+	    		justify-content:center;
+    		    background: #f1f1f1;
+	    		i {
+	    			font-size:24px;
+	    		}
+	    		span, strike {
+	    			padding:10px;
+	    		}
+    	    	.old-price {
+    	    		color:#ff6666;
+    	    	}
+				.new-price {
+					color:black;
+				}
+    	    }
+    	    .cta-btn {
+    	    	background: #4aaae5;
+    			font-size: 18px;
+    	    	color:white;
+    	    	padding:18px 0px;
+    	    	border:0px;
+				margin-left: -1px;
+    			width: calc(100% + 2px);
+    	    	cursor: pointer;
+				display: flex;
+				justify-content: center;
+    	    }
+    	    &:nth-child(2) {
+		    	@include colorize-costs-item(#e67334)
+    	    }
+    	    &:nth-child(3) {
+		    	@include colorize-costs-item(#ff0060)
+    	    }
+    	}
+    }
+
+	@media (max-width: 1270px) {
+    	background-size: auto 34%, auto 35%;
+	}
+	@media (max-width: 922px) {
+	    .costs-wrapper {
+	    	.costs-item-wrapper {
+	    		width:32%;
+	    	}
+	    }
+	}
+	@media (max-width: 870px) {
+		background: white;
+	    .costs-wrapper {
+	    	flex-direction:column;
+	    	.costs-item-wrapper {
+	    		width:100%;
+	    		margin-bottom:20px;
+	    		.round-corner-badge {
+					top: 0px;
+					left: 0px;
+					width: 100%;
+					color: #ffffff;
+					height: 24px;
+					border-radius: 0px;
+	    		}
+	    		li {
+	    			text-align: center;
+	    		}
+	    	}
+	    }
+	}
+}

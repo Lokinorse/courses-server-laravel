@@ -1,0 +1,74 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Exo+2:400,600,700&subset=cyrillic');
+// Variables
+* {
+	font-family: 'Exo 2', sans-serif;
+	padding:0px;
+	margin:0px;
+	box-sizing:border-box;
+}
+
+body {
+	//min-height:5000px;
+}
+
+a {
+	color: #e6346e;
+	text-decoration: none;
+}
+
+
+.pinky {
+	color:#e6346e;
+}
+
+.matrix-section {
+
+}
+
+.lp-h1 {
+	font-size: 32px;
+	color:black;
+	text-align: center;
+	margin: 70px;
+	font-weight: normal;
+	span {
+		color:#e6346e;
+	}
+	@media (max-width: 769px) {
+		margin: 30px 0px;
+		padding: 0px 10px;
+		font-size:28px;
+	}
+}
+
+.lp-section {
+	width: 100%;
+	display: flex;
+	position: relative;
+	justify-content:center;
+	&.padded {
+		padding: 0px 10px;
+		padding-bottom: 70px;
+		@media (max-width: 769px) {
+			padding-bottom: 40px;
+		}
+	}
+	&.grey {
+		background-color:#f7f6f6;
+	}
+	&.white {
+		background-color:white;
+	}
+	&.blue {
+		background-color:#90c4e9;
+	}
+	&.dark-grey {
+		background-color:#3f3f3f;
+	}
+}
+.lp-content {
+	max-width: 1320px;
+	width: 100%;
+	min-height: 50px;
+}

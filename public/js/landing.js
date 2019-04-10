@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/components/fakeModal.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/fakeModal.js ***!
-  \**********************************************/
+/***/ "./resources/js/components/modal.js":
+/*!******************************************!*\
+  !*** ./resources/js/components/modal.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -165,21 +165,13 @@ $(document).on("click", ".lesson-payout-modal-wrapper, .pay-modal-close", functi
 
 /***/ }),
 
-/***/ "./resources/js/landing.js":
-/*!*********************************!*\
-  !*** ./resources/js/landing.js ***!
-  \*********************************/
+/***/ "./resources/js/landing/faq.js":
+/*!*************************************!*\
+  !*** ./resources/js/landing/faq.js ***!
+  \*************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(/*! ./components/fakeModal */ "./resources/js/components/fakeModal.js");
-
-$(document).on("click", ".mobile-hamb", function () {
-  $(".nav-content").toggleClass("opened");
-});
-$(document).on("click", ".varilo-nav .nav-link", function () {
-  $(".nav-content").removeClass("opened");
-});
 $(document).on("click", ".faq-item", function () {
   if ($(this).hasClass("opened")) {
     $(this).removeClass("opened");
@@ -189,6 +181,62 @@ $(document).on("click", ".faq-item", function () {
   $(".faq-item").removeClass("opened");
   $(this).addClass("opened");
 });
+
+/***/ }),
+
+/***/ "./resources/js/landing/landing.js":
+/*!*****************************************!*\
+  !*** ./resources/js/landing/landing.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js");
+
+var _require = __webpack_require__(/*! ../utils/scroll */ "./resources/js/utils/scroll.js"),
+    smoothScroll = _require.smoothScroll;
+
+__webpack_require__(/*! ../menu/hamburger */ "./resources/js/menu/hamburger.js");
+
+__webpack_require__(/*! ./faq */ "./resources/js/landing/faq.js");
+
+$(document).on("click", "a", function (e) {
+  var aid = $(this).attr("href");
+
+  if (aid.indexOf("/#") != -1) {
+    aid = aid.replace("/", "");
+
+    if ($(aid).length) {
+      e.preventDefault();
+      smoothScroll($(window), $(aid).offset().top - 55, 300);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/menu/hamburger.js":
+/*!****************************************!*\
+  !*** ./resources/js/menu/hamburger.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on("click", ".mobile-hamb", function () {
+  $(".nav-content").toggleClass("opened");
+});
+$(document).on("click", ".varilo-nav .nav-link", function () {
+  $(".nav-content").removeClass("opened");
+});
+
+/***/ }),
+
+/***/ "./resources/js/utils/scroll.js":
+/*!**************************************!*\
+  !*** ./resources/js/utils/scroll.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function smoothScroll(el, to, duration) {
   if (duration < 0) {
@@ -205,48 +253,44 @@ function smoothScroll(el, to, duration) {
   }.bind(this), 10);
 }
 
-$(document).on("click", "a", function (e) {
-  var aid = $(this).attr("href");
-
-  if (aid.indexOf("/#") != -1) {
-    aid = aid.replace("/", "");
-
-    if ($(aid).length) {
-      e.preventDefault();
-      smoothScroll($(window), $(aid).offset().top - 55, 300);
-    }
-  }
-});
-window.selectedPlan = "tarif-ya-sam"; //VK.Retargeting.Init('VK-RTRG-317062-3gRde');  
-
-/* var convert = window.convert = function (conversionName) {
-    console.log(conversionName)
-
-    if (conversionName.startsWith("tarif")) {
-        window.selectedPlan = conversionName;
-    }
-
-    if (window.location.href.startsWith("http://courses")) return;
-    ym(51609848, 'reachGoal', conversionName);
-    VK.Retargeting.Event(conversionName)
-} */
-
-/* $(document).on("click", "[data-conversion]", function(e) {
-    //e.preventDefault();
-    var conversionName = $(this).data("conversion");
-    convert(conversionName);
-}) */
+module.exports = {
+  smoothScroll: smoothScroll
+};
 
 /***/ }),
 
-/***/ 2:
-/*!***************************************!*\
-  !*** multi ./resources/js/landing.js ***!
-  \***************************************/
+/***/ "./resources/sass/app.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/app.scss ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/landing.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/landing.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 0:
+/*!*******************************************************************************************************!*\
+  !*** multi ./resources/js/landing/landing.js ./resources/sass/app.scss ./resources/sass/landing.scss ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\courses\resources\js\landing.js */"./resources/js/landing.js");
+__webpack_require__(/*! C:\laragon\www\courses\resources\js\landing\landing.js */"./resources/js/landing/landing.js");
+__webpack_require__(/*! C:\laragon\www\courses\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\laragon\www\courses\resources\sass\landing.scss */"./resources/sass/landing.scss");
 
 
 /***/ })

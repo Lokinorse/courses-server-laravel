@@ -1,0 +1,101 @@
+
+/*  FAQ  */
+
+.faq-section {
+    .lp-content {
+    	display: flex;
+    	justify-content:flex-start;
+    	align-items:center;
+    	flex-direction:column;
+    }
+	.faq-wrapper {
+		width:100%;
+		max-width: 1000px;
+
+		.faq-item {
+			display: flex;
+			flex-direction:column;
+			margin-bottom: 30px;
+			border-radius: 7px;
+			overflow: hidden;
+			background: linear-gradient(135deg, #feffff 0%, #e2e2e2 100%);
+			border: 1px solid #e8e8e8;
+			.question {
+
+			    //background: #e2e2e2;
+			    padding: 22px;
+			    font-size: 18px;
+				display: flex;
+				align-items:center;
+				cursor: pointer;
+    			justify-content: space-between;
+    			transition: 0.5s all ease;
+    			img {
+    				transition: 0.5s all ease;
+    				transform: rotate(0deg);
+				    width: 20px;
+				    margin-left:10px;
+    			}
+				@media (max-width: 768px) {
+				    padding: 16px;
+				    .q-text {
+				    	font-size: 16px;
+				    }
+				}
+			}
+
+			.answer {
+				opacity: 0;
+				overflow: hidden;
+				height:0px;
+				transition: 0.5s all ease;
+				//margin: 0px 40px;
+				display: inline-block;
+				
+				//border-radius: 0px 0px 20px 20px;
+				//background: white;
+				box-shadow: inset 0px -2px 2px rgba(0, 0, 0, 0.2);
+				box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+			}
+
+			&.opened {
+				box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.21);
+    			img {
+    				transform: rotate(180deg);
+    			}
+    			.question {
+					
+					//border-bottom: 2px solid #d4d4d4;
+    			}
+				.answer {
+					opacity: 1;
+					height: auto;
+					padding:36px 18px;
+					position: relative;
+					&:before {
+						width: 40px;
+						height: 2px;
+						display: inline-block;
+						background: #e6346e;
+						float: left;
+						top: 22px;
+						content: "";
+						position: absolute;
+					}
+					@media (max-width: 768px) {
+						//margin: 0px 16px;
+					    padding: 34px 16px;
+					    padding-bottom: 16px;
+					    font-size:16px;
+					}
+					@media (max-width: 768px) {
+						//margin: 0px 5px;
+					    padding: 34px 10px;
+					    padding-bottom: 10px;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,16 +1,21 @@
+@import 'variables';
 
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Exo+2:400,600,700&subset=cyrillic');
 // Variables
-@import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-@import './learning-process';
-@import './landing';
+@import './learning/learning-process';
+@import './cabinet/cabinet';
 @import './components/nav';
-@import './components/paymodal';
 
+
+//PRISM 
+@import './components/prism';
 
 
 .fixed-top {

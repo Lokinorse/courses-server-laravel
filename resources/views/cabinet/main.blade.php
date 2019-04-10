@@ -1,44 +1,39 @@
-@extends('layouts.cabinet')
+@extends('layouts.app')
 
 @section('content')
 <div class="container cabinet-room">
     <div class="row">
         <div class="col-md-12">
-        <h1 class="course-name">{{$unit->name}}</h1>
-        </div>
-        <div class="col-md-12">
-            <div class="progress">
-                <div class="progress-bar" style="width: 5%" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <label class="progresslabel">Ваш прогресс: 5%</label>
-        </div>
-
-        <div class="col-md-12">
-          @markdown($unit->description)
+            <h1 class="course-name">Личный кабинет</h1>
         </div>
     </div>
-    <div class="row course-content-wrapper justify-content-center">
-
-
-        <div class="col-md-4 lesson-nav-wrapper">
-          @include('cabinet.hierarchy', ["unit" => $unit]) 
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Программы</h2>
         </div>
+        <div class="col-md-12">
 
-        <div class="col-md-8">
-            <div class="lesson-wrapper tab-content">
-                <div class="tab-pane fade show">
-                  
+            <div class="container cabinet-programs">
+                <div class="row">
+                    @foreach($units as $unit)
+                        <div class="cabinet-program-wrapper col-md-4">
+                            <div class="cabinet-program-thumb">
+                                <img src="{{url("storage/".$unit->thumb)}}"/>
+                                <span class="cabinet-program-title">{{$unit->name}}</span>
+                            </div>
+                            <div class="cabinet-program-footer">
+                                <div class="cabinet-program-price">Стоимость: 20 000р.</div>
+                                <a href="#"><i class="fa fa-unlock"></i> Разблокировать</a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
-
             </div>
         </div>
+
     </div>
 </div>
 
-@include("parts.paymodal")
 
 
 

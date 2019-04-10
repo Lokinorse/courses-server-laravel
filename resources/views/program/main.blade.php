@@ -1,4 +1,4 @@
-@extends('layouts.cabinet')
+@extends('layouts.app')
 
 @section('content')
 <div class="container cabinet-room">
@@ -35,8 +35,6 @@
         </div>
     </div>
 </div>
-
-@include("parts.paymodal")
 
 
 

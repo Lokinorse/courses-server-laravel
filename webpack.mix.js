@@ -13,10 +13,11 @@ const mix = require('laravel-mix');
 
 mix.disableSuccessNotifications();
 
-mix.js('resources/js/cabinet.js', 'public/js')
-	.js('resources/js/sublanding.js', 'public/js')
-	.js('resources/js/landing.js', 'public/js')
-	.js('resources/js/cheatsheet.js', 'public/js')
-	.sass('resources/sass/app.scss', 'public/css')
-	.sass('resources/sass/vkapp.scss', 'public/css')
-	.sass('resources/sass/landing.scss', 'public/css');
+mix
+//JS
+.js('resources/js/landing/landing.js', 'public/js')
+.js('resources/js/app/app.js', 'public/js')
+
+//SCSS
+.sass('resources/sass/app.scss', 'public/css')
+.sass('resources/sass/landing.scss', 'public/css');

@@ -17,10 +17,10 @@ class CabinetController extends Controller
 	{
 		//$request->user()->authorizeRoles(['admin', 'student', 'teacher']);
 
-		$unit = Unit::first();
+		$units = Unit::where('unit_type', 0)->get();
 
 
-		return view('cabinet.main', ["unit" => $unit]);
+		return view('cabinet.main', compact('units'));
 
 	}
 
