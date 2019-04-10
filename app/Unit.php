@@ -12,12 +12,27 @@ class Unit extends Model
         return $this->belongsToMany('App\Unit', 'unit_relations', 'parent_id', 'child_id')->withPivot('order');
     }
 
-    public function renderChildren($type = null)
+    public function renderChildren($active)
     {
         return new \Illuminate\Support\HtmlString(
-            \Illuminate\Support\Facades\View::make("vendor.voyager.units.list", ['item' => $this])->render()
+            \Illuminate\Support\Facades\View::make("vendor.voyager.units.list", ['item' => $this, 'active' => $active])->render()
         );
     }
+
+
+
+    public function getHierarchy()
+    {
+        return $this->orderedChilds()->get()->sortByDesc(function ($item, $key) {
+            return $item->id;
+        })->sortBy(function ($item, $key) {
+            return $item->pivot->order;
+        })->map(function($unit) {
+            return collect([$unit,$unit->getHierarchy()]);
+        });
+    }
+
+    
 
     private function flushHierarchy() {
         $childs = $this->orderedChilds()->get();
@@ -45,6 +60,31 @@ class Unit extends Model
                 $child->createHierarchyByOrder($childOrder);
             }
         }
+    }
+
+    public function parents() {
+        return $this->belongsToMany('App\Unit', 'unit_relations', 'child_id', 'parent_id');
+    }
+
+    public function getBreadcrumbs($program_id, $path = []) {
+
+        $parents = $this->parents()->get();
+
+        if ($parents->count() < 1) return $path; 
+        
+        //Если родитель один, добавляем его к текущему path, конкатинируем пути
+        if ($parents->count() == 1) {
+            $direct_parent = $parents->first();
+            $path[] = $direct_parent->id;
+            return $direct_parent->getBreadcrumbs($program_id, $path); 
+        }
+
+        //Если в конце идет вилка из нескольких родителей
+        if ($parents->count() > 1) {
+            $path[] = $program_id; 
+            return $path;
+        }
+
     }
 
     public function reorder($order) {

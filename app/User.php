@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\UserProgress;
+
 class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
@@ -44,4 +46,11 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function progress() {
+        return $this->belongsToMany('App\Unit', 'user_progress', 'user_id', 'unit_id');
+        //UserProgress::where('program_id', $program_id)
+    }
+
 }

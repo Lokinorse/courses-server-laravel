@@ -33,3 +33,7 @@ Route::post('/transaction', 'ApiController@transactionSave');
 Route::prefix('cabinet')->group(function () {
 	Route::get('/', 'CabinetController@index')->name('cabinet');
 });
+
+
+Route::get('{program_slug}/{lesson_slug}', 'LearningController@showLesson');
+Route::get('{program_slug}', 'LearningController@showLesson');

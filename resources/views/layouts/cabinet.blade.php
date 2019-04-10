@@ -22,8 +22,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/prism/prism.css') }}" rel="stylesheet">
 
-<!--     <link href="{{ asset('css/video-js.css') }}" rel="stylesheet"> -->
+    <script src="{{ asset('lib/prism/prism.js') }}"></script>
+    <link href="{{ asset('lib/prism/prism.css') }}" rel="stylesheet">
+
 
 
 

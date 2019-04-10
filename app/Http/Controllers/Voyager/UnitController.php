@@ -191,7 +191,7 @@ class UnitController extends VoyagerBaseController
                 $query->where($search->key, $search_filter, $search_value);
             }
 
-            $query->where("unit_type", 0);
+            //$query->where("unit_type", 0);
             
 
             if ($orderBy && in_array($orderBy, $dataType->fields())) {
