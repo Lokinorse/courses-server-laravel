@@ -1,8 +1,7 @@
 require('../components/prism')
 
 require('../bootstrap');
-require('../components/modal');
-
+const { initModal } = require('../components/modal');
 
 
 $(document).on("click", ".nav-chapter-list .nav-link", function (e) {
@@ -20,3 +19,17 @@ $(document).on("click", ".nav-chapter-list .nav-link", function (e) {
 
 
 })
+
+
+var promoModal = initModal({
+    name: "promocode",
+    onOpen: function (model) {
+        $(model.dom).find(".next-step").on("click", function () {
+            model.processing();
+        })
+    }
+})
+
+promoModal.open();
+
+console.log("TEST", promoModal)

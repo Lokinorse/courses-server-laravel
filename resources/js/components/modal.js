@@ -1,91 +1,70 @@
-function openmodal(top) {
-	modalStepChange(0)
-	$(".lesson-payout-modal-wrapper").addClass("opened");
+function openmodal(name) {
+	var html = $("#" + name).html();
+	$("body").append(html)
+}
 
+function closemodal(name) {
+	$("[data-modal='" + name + "']").remove();
+}
 
-	$(".lesson-payout-modal").css("position", "fixed")
+function Modal({ name, onOpen, onBeforeOpen, onClose }) {
+	this.name = name;
+	this.onOpen = onOpen
+	this.onBeforeOpen = onBeforeOpen
+	this.onClose = onClose
+	var modal = this 
 
-	$(".lesson-payout-modal").css("top", "30px")
-	$(".lesson-payout-modal").css("left", "0px")
+	this.opened = false;
 
-	if (window.location.search && window.location.search.indexOf("fullscreen=1") !== -1 && top) {
-		$(".lesson-payout-modal").css("top", (top - 250) + "px")
+	this.open = function() {
+		if (modal.onBeforeOpen) {
+			if (!modal.onBeforeOpen(modal)) return;
+		}
+		openmodal(name)
+		modal.opened = true;
+		modal.dom = $("[data-modal='" + name + "']")[0];
+		if (modal.onOpen) modal.onOpen(modal)
+	}
+	this.close = function () {
+		closemodal(name)
+		if (modal.onClose) modal.onClose(modal)
 	}
 
-}
-
-window.openmodal = openmodal;
-
-var modalStepChange = window.modalStepChange = function (step) {
-	$(".pay-step").removeClass("active");
-	$(".pay-step[data-modalstep='"+step+"']").addClass('active');
-
-	if (step == 1) {
-		$("#current-plan").html(window.plans[window.selectedPlan].name)
-		$("#price-number").html(window.plans[window.selectedPlan].price)
+	this.processing = function() {
+		if (!modal.dom) return 
+		$(modal.dom).find('.modal-content').html("Загрузка...")
 	}
+
+
 }
 
-function closemodal() {
-	$(".lesson-payout-modal-wrapper").removeClass("opened");
-}
 
+function initModal(params) {
+	//Init open triggers
 
-$(document).on("submit", "#payment-form", function(e) {
-	e.preventDefault();
-	var formData = $(this).serializeArray();
+	var modal = new Modal(params);
+	var name = params.name
 
-
-	modalStep++;
-	modalStepChange(modalStep);
-	setTimeout(function() {
-		modalStep++;
-		modalStepChange(modalStep);
-	}, 1500);
-	window.convert("oplata");
-
-	formData.push({
-		value: window.plans[window.selectedPlan].name, 
-		name:"plan"
-	}, {
-		value: window.location.href,
-		name: "url",
-	}, {
-		value: window.plans[window.selectedPlan].price,
-		name: "price",
+	$(document).on("click", "[data-modaltrigger='"+name+"']", function() {
+		modal.open();
 	})
 
-	$.post("/transaction", formData, function(data) {
-		console.log(data);
+	//Close by times symbol
+	$(document).on("click", "[data-modalclose='" + name + "']", function () {
+		modal.close();
 	})
-})
+	//Cancel propagation to wrapper
+	$(document).on("mouseup", "[data-modal='" + name + "'] .modal-inner-content", function (event) {
+		event.stopImmediatePropagation();
+	})
+	//Close by 
+	$(document).on("mouseup", "[data-modal='" + name + "']", function () {
+		modal.close();
+	})
+	return modal;
 
+}
 
-$(document).on("click", ".next-step", function(e) {
-	e.stopPropagation();
-	e.preventDefault();
-	modalStep++;
-	modalStepChange(modalStep);
-	if (modalStep == 2) {
-
-	}
-})
-$(document).on("click", ".payment-action-button-wrapper", function(e) {
-	window.convert("rassilka")
-})
-
-
-
-$(document).on("click", ".lesson-payout-modal-body", function(e) {
-	e.stopImmediatePropagation();
-	
-})
-
-
-
-
-$(document).on("click", ".lesson-payout-modal-wrapper, .pay-modal-close", function(e) {
-	closemodal();
-})
-
-//openmodal()
+module.exports = {
+	initModal: initModal
+}

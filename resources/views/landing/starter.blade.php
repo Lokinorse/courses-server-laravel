@@ -1,5 +1,8 @@
 <section class="lp-section starter-section">
 	<div class="lp-content">
-		<a class="lp-cta-button" href="/#costs"><i class="fa fa-play-circle"></i> Начать обучение</a>
+		<button class="lp-cta-button" data-modaltrigger="vk-login"><i class="fa fa-play-circle"></i> Начать обучение</button>
 	</div>
+
+
+
 </section>

@@ -5,7 +5,10 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
 @import './utils/_normalize';
+
+/* components */
 @import './components/nav';
+@import './components/modal';
 
 /* PARTS */
 
@@ -18,3 +21,4 @@
 @import './landing/faq';
 @import './landing/footer';
 @import './landing/starter';
+@import './landing/vk-login-modal';

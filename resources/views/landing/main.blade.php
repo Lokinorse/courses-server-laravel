@@ -12,6 +12,7 @@
 	@include("landing.starter", ["position" => 2])
 	@include("landing.footer")
 
+    @include("landing.modals.vk-login")
 @endsection
 
 @section('landing-nav')

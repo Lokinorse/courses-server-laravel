@@ -53,4 +53,17 @@ class User extends \TCG\Voyager\Models\User
         //UserProgress::where('program_id', $program_id)
     }
 
+    public function transactions() {
+        return $this->hasMany('App\Transaction');
+        //UserProgress::where('program_id', $program_id)
+    }
+    public function isPromoUsed($promo_id) {
+        $usedPromo = $this->transactions()->where('status', 1)->where("promo_id", $promo_id)->first();
+        return !!$usedPromo;
+    }
+
+    public function getBalanceAttribute() {
+        return $this->transactions()->where("status",1)->get()->sum('value');
+    }
+
 }

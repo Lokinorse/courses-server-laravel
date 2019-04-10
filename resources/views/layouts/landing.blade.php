@@ -51,12 +51,7 @@
     <!-- /Yandex.Metrika counter -->
 
 
-
-    <script type="text/javascript">!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?160",t.onload=function(){VK.Retargeting.Init("VK-RTRG-317062-3gRde"),VK.Retargeting.Hit()},document.head.appendChild(t)}();</script><noscript><img src="https://vk.com/rtrg?p=VK-RTRG-317062-3gRde" style="position:fixed; left:-999px;" alt=""/></noscript>
-    <script src="https://vk.com/js/api/openapi.js?144"></script>  
-
-
-    <script type="text/javascript">
+     <script type="text/javascript">
         var plans = {
             "tarif-ya-sam": {
                 name: "Я сам",
@@ -74,10 +69,16 @@
                 price: "12 500",
             }
         }
-    </script>
+    </script> 
 
     <!-- Styles -->
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
+
+
+    <script>
+        var loggedUser = {!!json_encode(Auth::user())!!}
+    </script>
+
 </head>
 <body>
     <div id="app">
@@ -92,12 +93,6 @@
 
 
 
-
-    <!-- VK Widget -->
-    <div id="vk_community_messages"></div>
-    <script type="text/javascript">
-    VK.Widgets.CommunityMessages("vk_community_messages", 175501230, {disableExpandChatSound: "1",disableNewMessagesSound: "1",tooltipButtonText: "Есть вопрос?"});
-    </script>
 
 
 </body>

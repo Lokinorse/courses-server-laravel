@@ -1,4 +1,4 @@
-require('../components/modal');
+const { initModal } = require('../components/modal');
 const {smoothScroll} = require('../utils/scroll');
 
 
@@ -17,4 +17,21 @@ $(document).on("click", "a", function(e) {
             smoothScroll($(window), $(aid).offset().top - 55, 300);
         }
     } 
+})
+
+initModal({
+    name:"vk-login", 
+    onBeforeOpen: function(model) {
+        if (window.loggedUser) {
+            window.location = "/cabinet"
+            return false;
+        }
+        return true
+    },
+    onOpen: function(model) {
+        $(model.dom).find(".next-step").on("click", function() {
+            model.processing();
+        })
+
+    }
 })

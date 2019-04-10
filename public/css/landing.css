@@ -5751,6 +5751,8 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
+/* components */
+
 .varilo-nav {
   width: 100%;
   display: flex;
@@ -5910,6 +5912,84 @@ readers do not read off random characters that represent icons */
   .varilo-nav .nav-content.opened .nav-collapse-wrapper .navbar-list .nav-link {
     padding: 13px 20px;
   }
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.29);
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-wrapper .actions-group {
+  display: flex;
+  flex: 1;
+}
+
+.modal-wrapper .actions-group.pull-left {
+  justify-content: flex-end;
+}
+
+.modal-wrapper .actions-group button,
+.modal-wrapper .actions-group a {
+  padding: 10px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-wrapper .actions-group button.next-step,
+.modal-wrapper .actions-group a.next-step {
+  background: #0081c6;
+}
+
+.modal-wrapper .modal-inner-content {
+  height: 100%;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-wrapper .modal-inner-content > div {
+  width: 100%;
+  padding: 10px;
+}
+
+.modal-wrapper .modal-inner-content .modal-header {
+  border-bottom: 1px solid whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bolder;
+  font-size: 20px;
+  color: #5f5f5f;
+}
+
+.modal-wrapper .modal-inner-content .modal-header [data-modalclose] {
+  cursor: pointer;
+}
+
+.modal-wrapper .modal-inner-content .modal-content {
+  display: flex;
+  flex: 1;
+  border-radius: 0;
+  border: none;
+}
+
+.modal-wrapper .modal-inner-content .modal-footer {
+  border-top: 1px solid whitesmoke;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* PARTS */
@@ -7314,5 +7394,17 @@ footer .lp-content .white-logo {
     height: 55px;
     font-size: 16px;
   }
+}
+
+.modal-vk-login .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-vk-login .modal-content img {
+  max-width: 70px;
+  margin-bottom: 26px;
 }
 

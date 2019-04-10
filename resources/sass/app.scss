@@ -11,8 +11,11 @@
 @import '~bootstrap/scss/bootstrap';
 @import './learning/learning-process';
 @import './cabinet/cabinet';
-@import './components/nav';
 
+
+/* components */
+@import './components/nav';
+@import './components/modal';
 
 //PRISM 
 @import './components/prism';

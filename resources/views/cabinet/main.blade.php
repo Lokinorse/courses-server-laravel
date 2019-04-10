@@ -34,7 +34,8 @@
     </div>
 </div>
 
-
-
+@if (!Auth::user()->isPromoUsed(2)) 
+    @include("cabinet.modals.promocode")
+@endif
 
 @endsection
