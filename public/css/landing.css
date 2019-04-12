@@ -5984,6 +5984,7 @@ readers do not read off random characters that represent icons */
   flex: 1;
   border-radius: 0;
   border: none;
+  font-size: 16px;
 }
 
 .modal-wrapper .modal-inner-content .modal-footer {

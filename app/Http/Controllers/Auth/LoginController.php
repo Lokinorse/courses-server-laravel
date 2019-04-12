@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers\Auth;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
-use Socialite;
-use App\User;
-use TCG\Voyager\Models\Role;
 
+use App\Http\Controllers\Controller;
+use App\User;
+use Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Socialite;
+use TCG\Voyager\Models\Role;
 
 class LoginController extends Controller
 {
@@ -20,7 +20,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
     use AuthenticatesUsers;
     /**
      * Where to redirect users after login.
@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         if ($req->input("state")) {
             $actionPayload = json_decode($req->input("state"));
-            switch(isset($actionPayload) && $actionPayload->action) {
+            switch (isset($actionPayload) && $actionPayload->action) {
                 case "connect_group":
                     $pjc = new ProjectController();
                     return $pjc->finishConnect($req, $actionPayload);
@@ -57,6 +57,13 @@ class LoginController extends Controller
         $authUser->provider_user_token = $data->token;
         $authUser->save();
         Auth::login($authUser, true);
+
+        $autenticationPath = $req->session()->get("authentication_init_path");
+        if ($autenticationPath) {
+            $req->session()->put('authentication_init_path', null);
+            return redirect("/".$autenticationPath);
+        }
+
         return redirect($this->redirectTo);
     }
     public function findOrCreateUser($data, $provider)
@@ -64,7 +71,6 @@ class LoginController extends Controller
         $authUser = User::where('provider_user_id', $data->id)->where("provider", $provider)->first();
         $user = $data->user;
 
-        
         if ($authUser) {
             $authUser->provider = $provider;
             $authUser->provider_user_id = $data->id;
@@ -84,12 +90,12 @@ class LoginController extends Controller
             'provider' => $provider,
             'provider_user_id' => $data->id,
             'provider_user_token' => $data->token,
-            'nickname'     => $data->nickname,
-            'name'     => $data->name,
-            'avatar'     => $data->avatar,
-            'email'    => $data->email,
-            'first_name'     => $user["first_name"],
-            'last_name'     => $user["last_name"],
+            'nickname' => $data->nickname,
+            'name' => $data->name,
+            'avatar' => $data->avatar,
+            'email' => $data->email,
+            'first_name' => $user["first_name"],
+            'last_name' => $user["last_name"],
             'role_id' => $role->id,
         ]);
     }

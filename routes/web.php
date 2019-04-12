@@ -13,7 +13,7 @@
 Auth::routes();
 
 
-Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider')->name("oauth");
 Route::get('callback/{provider}', 'ApiCallbackController@handleProviderCallback');
 
 Route::group(['prefix' => 'admin'], function () {
@@ -31,9 +31,17 @@ Route::get('/jslp', 'LandingController@index');
 
 Route::post('/transaction', 'ApiController@transactionSave');
 Route::prefix('cabinet')->group(function () {
-	Route::get('/', 'CabinetController@index')->name('cabinet');
+	Route::get('/', 'CabinetController@index')->name("cabinet");
 });
+
+
+Route::get('/purchase/{unit_id}', 'PurchaseController@index');
+Route::get('/promo/{promo_id}/{vk_user_id}', 'PromoController@index');
 
 
 Route::get('{program_slug}/{lesson_slug}', 'LearningController@showLesson');
 Route::get('{program_slug}', 'LearningController@showLesson');
+
+
+
+

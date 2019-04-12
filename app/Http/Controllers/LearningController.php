@@ -7,6 +7,11 @@ use Auth;
 
 class LearningController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
     public function showLesson($program_slug, $lesson_slug = null)
     {
         $program = Unit::where("slug", $program_slug)->where("unit_type", 0)->first();

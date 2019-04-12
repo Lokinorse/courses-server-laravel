@@ -93,6 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+window.initedModals = {};
+
 function openmodal(name) {
   var html = $("#" + name).html();
   $("body").append(html);
@@ -155,9 +157,23 @@ function initModal(params) {
   $(document).on("mouseup", "[data-modal='" + name + "']", function () {
     modal.close();
   });
+
+  if (params.openOnInit) {
+    modal.open();
+  }
+
+  window.initedModals["name"] = modal;
   return modal;
 }
 
+$(document).on('click', '[data-modaltrigger]', function (event) {
+  var modalName = $(this).data('modaltrigger');
+  if (window.initedModals[modalName]) return window.initedModals[modalName].open();
+  initModal({
+    name: modalName,
+    openOnInit: true
+  });
+});
 module.exports = {
   initModal: initModal
 };

@@ -18,7 +18,7 @@ class CabinetController extends Controller
 		//$request->user()->authorizeRoles(['admin', 'student', 'teacher']);
 
 		$units = Unit::where('unit_type', 0)->get();
-
+		
 		//$user = Auth::user();
 
 		//$transactions = $user->transactions()->get();

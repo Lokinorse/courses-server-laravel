@@ -3,10 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use App\UserProgress;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -47,23 +43,32 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function progress() {
+    public function progress()
+    {
         return $this->belongsToMany('App\Unit', 'user_progress', 'user_id', 'unit_id');
         //UserProgress::where('program_id', $program_id)
     }
 
-    public function transactions() {
+    public function transactions()
+    {
         return $this->hasMany('App\Transaction');
         //UserProgress::where('program_id', $program_id)
     }
-    public function isPromoUsed($promo_id) {
+    public function isPromoUsed($promo_id)
+    {
         $usedPromo = $this->transactions()->where('status', 1)->where("promo_id", $promo_id)->first();
         return !!$usedPromo;
     }
 
-    public function getBalanceAttribute() {
-        return $this->transactions()->where("status",1)->get()->sum('value');
+    public function isUnitPurchased($unit_id)
+    {
+        $unitPurchased = $this->transactions()->where('status', 1)->where("target_id", $unit_id)->first();
+        return !!$unitPurchased;
+    }
+
+    public function getBalanceAttribute()
+    {
+        return $this->transactions()->where("status", 1)->get()->sum('value');
     }
 
 }

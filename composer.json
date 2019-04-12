@@ -13,8 +13,10 @@
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
+        "nesbot/carbon": "^2.16",
         "socialiteproviders/vkontakte": "^4.0",
-        "tcg/voyager": "^1.2"
+        "tcg/voyager": "^1.2",
+        "vkcom/vk-php-sdk": "^5.92"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
