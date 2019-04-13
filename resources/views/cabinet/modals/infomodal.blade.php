@@ -1,28 +1,33 @@
-@extends("parts.modal")
-
 @php 
     $modal = (object) json_decode(session()->get('message_modal'));
 @endphp
 
-{{-- SETTINGS --}}
-@section('modal_id', 'infomodal')
-@section('modal-max-height', '300px')
-@section('modal-max-width', '700px')
+@component('components.modal')
+    @slot('modal_id', 'infomodal')
+    @slot('modal_max_height', '300px')
+    @slot('modal_max_width', '700px')
 
-@if (isset($modal->header))
-    @section('modal_header')
-        {!! $modal->header !!}
-    @endsection
-@endif
-@if (isset($modal->content))
-    @section('modal_content')
-        {!! $modal->content !!}
-    @endsection
-@endif
+    @if (isset($modal->header))
+        @slot('modal_header')
+            {!! $modal->header !!}
+        @endslot
+    @endif
+
+    @if (isset($modal->content))
+        @slot('modal_content')
+            {!! $modal->content !!}
+        @endslot
+    @endif
+
+    @if (isset($modal->footer))
+        @slot('modal_footer')
+            {!! $modal->footer !!}
+        @endslot
+    @endif
+@endcomponent
 
 
-@if (isset($modal->footer))
-    @section('modal_footer')
-        {!! $modal->footer !!}
-    @endsection
-@endif
+
+
+
+

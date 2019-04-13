@@ -1,6 +1,8 @@
 require('../components/prism')
 
 require('../bootstrap');
+require('../components/tests');
+
 const { initModal } = require('../components/modal');
 
 
@@ -30,3 +32,4 @@ var infoModal = initModal({
     name: "infomodal",
     openOnInit: true
 })
+

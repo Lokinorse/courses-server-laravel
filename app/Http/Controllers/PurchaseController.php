@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Unit;
 use App\Transaction;
+use App\UserProgress;
 use App\User;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -33,6 +35,9 @@ class PurchaseController extends Controller
             ];
             return redirect("cabinet")->with("message_modal", json_encode($modal));
         }
+        $first_lesson = $unit->getLessons()->first();
+
+        DB::beginTransaction();
 
         $transaction = new Transaction();
         $transaction->user_id = $user->id;
@@ -43,6 +48,17 @@ class PurchaseController extends Controller
         $transaction->target_id = $unit->id;
         $transaction->is_real = 1;
         $transaction->save();
+
+        $progress = new UserProgress();
+        $progress->user_id = $user->id;
+        $progress->program_id = $unit->id;
+        $progress->unit_id = $first_lesson->id;
+        $progress->status = 0;
+        $progress->save();
+
+        DB::commit();
+
+
 
         $modal = [
             "header" => "Успешно раблокирован курс!",

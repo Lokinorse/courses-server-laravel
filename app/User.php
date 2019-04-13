@@ -46,14 +46,13 @@ class User extends \TCG\Voyager\Models\User
     public function progress()
     {
         return $this->belongsToMany('App\Unit', 'user_progress', 'user_id', 'unit_id');
-        //UserProgress::where('program_id', $program_id)
     }
 
     public function transactions()
     {
         return $this->hasMany('App\Transaction');
-        //UserProgress::where('program_id', $program_id)
     }
+
     public function isPromoUsed($promo_id)
     {
         $usedPromo = $this->transactions()->where('status', 1)->where("promo_id", $promo_id)->first();
@@ -69,6 +68,20 @@ class User extends \TCG\Voyager\Models\User
     public function getBalanceAttribute()
     {
         return $this->transactions()->where("status", 1)->get()->sum('value');
+    }
+
+    public function getCurrentLesson($program_id)
+    {
+        $program = Unit::where("id", $program_id)->first();
+        $progress = $this->progress()->withPivot("status")->get();
+
+        $currentLesson = $progress->first(function($unit) {
+            return $unit->pivot->status == 0;
+        });
+        if (!$currentLesson) {
+            $currentLesson = $program->getLessons()->first();
+        }
+        return $currentLesson;
     }
 
 }

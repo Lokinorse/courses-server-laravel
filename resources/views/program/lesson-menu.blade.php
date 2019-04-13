@@ -23,7 +23,7 @@
                 $unit_type_text = "Раздел";
                 $unit_class = "unit-chapter";
                 break;
-                case 3:
+            case 3:
                 # "3": "Урок"
                 $icon = "play-circle";
                 $unit_type_text = "Урок";
@@ -32,38 +32,43 @@
                 $unit_class = "unit-lesson";
                 
                 break;
-                default:
+            default:
                 $icon = "voyager-study";
                 $unit_type_text = "Программа";
                 $unit_class = "unit-program";
                 break;
         }
 
-        $currentProgress = $progress->first(function ($value, $key) use ($child) {
-            return $value->id == $child->id;
-        });
+        $currentLessonStatus = $child->getStatus($progress);
         
         $progressBadge = null; 
-        if ($currentProgress) {
-            switch ($currentProgress->pivot->status) {
-                case 0:
-                    
-                    $progressBadge = "arrow-right";
-                break;
-                case 1:
-                    $progressBadge = "check-circle";
-                break;
-                case 2:
-                    $progressBadge = "check-double";
-                break;
-                case 3:
-                    $progressBadge = "hourglass-half";
-                break;
-                default:
-                    $progressBadge = null;
-                break;
-            }
+        switch ($currentLessonStatus) {
+            case -1:
+                $progressBadge = "unlock";
+            break;
+            case -2:
+                $progressBadge = "hourglass-half";
+            break;
+            case -3:
+                $progressBadge = "lock";
+            break;
+            case 0:
+                $progressBadge = "arrow-right";
+            break;
+            case 1:
+                $progressBadge = "check-circle";
+            break;
+            case 2:
+                $progressBadge = "check-double";
+            break;
+            case 3:
+                $progressBadge = "hourglass-half";
+            break;
+            default:
+                $progressBadge = null;
+            break;
         }
+
         
 
         $isActive = $child->slug == $lesson->slug;
@@ -80,7 +85,6 @@
                 {{ $key + 1}} {{$child->name}}
             </span>
             @if ($progressBadge) <span class="{{$progressBadge}} unit-badge fa fa-{{$progressBadge}}"></span> @endif
-            @if (!$currentProgress) <span class="lock unit-badge fa fa-lock"></span> @endif
         </a>
     @else 
         <div class="unit @if (!$isPathPart) collapsed @endif" data-toggle="collapse" href="{{$href}}" role="button">

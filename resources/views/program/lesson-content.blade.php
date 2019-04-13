@@ -7,23 +7,22 @@
     $content = $lesson->description;
     if (trim($content) == "") $content = null;
 
-
+    $currentLessonStatus = $lesson->getStatus($progress);
 @endphp
 
-@if ($videoURL)
-    <div class="lesson-pane">
-        <h5>Видео</h5>
-        <div class="lesson-pane-content">    
-            <video src="{{$videoURL}}" controls></video>
-        </div>
-    </div>
-    @endif
+@switch($currentLessonStatus)
+    @case(-3)
+        @include('program.lesson-states.locked', [ "program" => $program ])
+        @break
     
-    @if ($content)
-    <div class="lesson-pane">
-        <h5>Материалы к уроку</h5>
-        <div class="lesson-pane-content">
-            {!! $content !!}
-        </div>    
-    </div>
-@endif
+    @case(-2)
+        @include('program.lesson-states.in-creation')
+        @break
+
+    @default
+        @include('program.lesson-states.opened', [
+            "lesson" => $lesson, 
+            "status" => $currentLessonStatus, 
+            "program" => $program
+        ])
+@endswitch

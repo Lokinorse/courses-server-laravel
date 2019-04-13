@@ -1,26 +1,26 @@
-@extends("parts.modal")
+@component('components.modal')
+    {{-- SETTINGS --}}
+    @slot('modal_id', 'vk-login')
+    @slot('modal_max_height', '300px')
+    @slot('modal_max_width', '700px')
 
+    {{-- HEADER --}}
+    @slot('modal_header', 'Начало обучения')
 
+    @slot('modal_content')
 
-{{-- SETTINGS --}}
-@section('modal_id', 'vk-login')
-@section('modal-max-height', '300px')
-@section('modal-max-width', '700px')
+            <a class="main-button" href="{{url('auth/vkontakte')}}">
+                <img src="{{asset("img/vk_logo.png")}}"/>
+            </a>
+            Чтобы начать обучение, необходимо войти на платформу с помощью вконтакте.
 
-{{-- HEADER --}}
-@section('modal_header', 'Начало обучения')
+    @endslot
 
-@section('modal_content')
+    @slot('modal_footer')
+        <div class="actions-group pull-left">
+            <a class="modal-actions main-button" href="{{url('auth/vkontakte')}}">Войти с помощью Вконтакте</a>
+        </div>
+    @endslot
 
-        <a class="next-step" href="{{url('auth/vkontakte')}}">
-            <img src="{{asset("img/vk_logo.png")}}"/>
-        </a>
-        Чтобы начать обучение, необходимо войти на платформу с помощью вконтакте.
+@endcomponent
 
-@endsection
-
-@section('modal_footer')
-    <div class="actions-group pull-left">
-        <a class="modal-actions next-step" href="{{url('auth/vkontakte')}}">Войти с помощью Вконтакте</a>
-    </div>
-@endsection

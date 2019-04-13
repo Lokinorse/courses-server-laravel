@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Unit;
+use App\UserProgress;
 use Auth;
-
+use Illuminate\Support\Facades\DB;
 class LearningController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
 
     public function showLesson($program_slug, $lesson_slug = null)
     {
@@ -23,15 +20,19 @@ class LearningController extends Controller
 
         $menu = $program->getHierarchy();
 
-        $lessons = $menu->flatten()->filter(function ($unit) {
-            return $unit->unit_type == 3;
-        });
-
+        $lessons = $program->getLessons();
+        $lesson = null;
         if (!$lesson_slug) {
-            $lesson = $lessons->first();
+            if ($user) $lesson = $user->getCurrentLesson($program->id);
+            if (!isset($lesson)) $lesson = $lessons->first();
+            if (!isset($lesson)) abort(404);
+
+            return redirect($program->slug . "/" . $lesson->slug);
         } else {
             $lesson = Unit::where("slug", $lesson_slug)->where("unit_type", 3)->first();
         }
+
+
         if (!$lesson) {
             abort(404);
         }
@@ -41,13 +42,14 @@ class LearningController extends Controller
             $progress = $user->progress()->withPivot("status")->where('program_id', $program->id)->orderBy("id")->get();
         }
 
-        if (!$lesson_slug) {
-            return redirect($program->slug . "/" . $lesson->slug);
-        }
 
         $percentProgress = 0;
-        if ($progress->count() > 0 && $lessons->count() > 0) {
-            $percentProgress = $progress->count() / $lessons->count() * 100;
+        $doneCount = $progress->filter(function ($p) {
+            return $p->pivot->status > 0;
+        })->count();
+        
+        if ($doneCount > 0 && $lessons->count() > 0) {
+            $percentProgress = $doneCount / $lessons->count() * 100;
         }
 
         $breadcrumbs = $lesson->getBreadcrumbs($program->id);
@@ -66,4 +68,34 @@ class LearningController extends Controller
     {
         return view('jslp.main');
     }
+
+    public function passUnit($program_id, $unit_id)
+    {   
+        
+        $program = Unit::where("id", $program_id)->first();
+        $unit = Unit::where("id", $unit_id)->first();
+        $user = Auth::user();
+        if (!$unit || !$user || !$program) abort(404);
+
+        DB::beginTransaction();
+
+        $progress = UserProgress::where("user_id", $user->id)->where('program_id', $program->id)->where("unit_id", $unit->id)->first();
+        $progress->status = 1;
+        $progress->save();
+
+
+        $nextLesson = $program->nextLesson($unit_id);
+
+        $openedUnitProgress = new UserProgress();
+        $openedUnitProgress->status = 0;
+        $openedUnitProgress->program_id = $program->id;
+        $openedUnitProgress->unit_id = $nextLesson->id;
+        $openedUnitProgress->user_id = $user->id;
+        $openedUnitProgress->save();
+        
+        DB::commit();
+
+        return redirect($program->slug);
+    }
+    
 }

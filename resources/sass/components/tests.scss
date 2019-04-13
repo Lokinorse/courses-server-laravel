@@ -1,0 +1,22 @@
+.modal-lessontest {
+    .step-label {
+        font-size: 14px;
+        margin-bottom: 10px;
+        display: block;
+        padding-left: 10px;
+    }
+    h6 {
+        font-size: 18px;
+    }
+    .test-radio-group {
+        p {
+            margin: 0px;
+            padding: 3px 0px;
+            padding-left: 10px;
+            &:hover {
+                background: rgba(46, 124, 255, 0.05);
+                border-radius: 4px;
+            }
+        }
+    }
+}

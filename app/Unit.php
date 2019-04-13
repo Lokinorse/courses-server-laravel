@@ -12,6 +12,10 @@ class Unit extends Model
         return $this->belongsToMany('App\Unit', 'unit_relations', 'parent_id', 'child_id')->withPivot('order');
     }
 
+    public function test() {
+        return $this->hasOne('App\Test');
+    }
+
     public function renderChildren($active)
     {
         return new \Illuminate\Support\HtmlString(
@@ -66,6 +70,28 @@ class Unit extends Model
         return $this->belongsToMany('App\Unit', 'unit_relations', 'child_id', 'parent_id');
     }
 
+    public function getLessons() {
+        return $this->getHierarchy()->flatten()->filter(function ($unit) {
+            return $unit->unit_type == 3;
+        });
+    }
+
+    //Запускается в рамках программы
+    public function nextLesson($prev_unit_id) {
+        $lessons = $this->getLessons();
+        $reduceNext = $lessons->reduce(function($result, $item) use ($prev_unit_id) {
+            $get_this = $result[0];
+            if (!$get_this && $item->id == $prev_unit_id) $result[0] = true;
+            if ($get_this) {
+                $result[0] = false;
+                $result[1] = $item;
+            }
+            return $result;
+        }, [false, null]);
+        $next_lesson = $reduceNext[1];
+        return $next_lesson;
+    }
+
     public function getBreadcrumbs($program_id, $path = []) {
 
         $parents = $this->parents()->get();
@@ -102,6 +128,36 @@ class Unit extends Model
 
         DB::commit();
         return true;
+
+    }
+
+
+    public function getStatus($progress) {
+        $lesson = $this;
+
+        $status = -1; //По умолчанию открытый
+        $currentProgress = $progress->first(function ($value, $key) use ($lesson) {
+            return $value->id == $lesson->id;
+        });
+
+
+
+        //Закрытый - -3
+        if (!$lesson->unlocked) {
+            $status = -3;
+        }
+
+        //Если у пользователя есть прогресс по этому уроку - ставим этот прогресс в качестве статуса
+        if ($currentProgress) $status = $currentProgress->pivot->status;
+
+        //Если у пользователя есть прогресс (например урок открыт) но урок недоделан - ставим недоделанность
+        if ($currentProgress && !$lesson->completed) $status = -2;
+
+
+
+        
+        return $status;
+
 
     }
     
