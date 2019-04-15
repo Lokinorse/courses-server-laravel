@@ -14,11 +14,13 @@
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "^2.16",
+        "pusher/pusher-php-server": "^3.4",
         "socialiteproviders/vkontakte": "^4.0",
         "tcg/voyager": "^1.2",
         "vkcom/vk-php-sdk": "^5.92"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",

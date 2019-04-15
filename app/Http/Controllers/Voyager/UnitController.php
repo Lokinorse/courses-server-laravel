@@ -64,16 +64,15 @@ class UnitController extends VoyagerBaseController
                 $unit_type_text = "Программа";
                 break;
         }
-        //dd($unit_type);
 
         $request->replace([
             "name" => "Новый ".$unit_type_text,
             "unit_type" => $unit_type,
+            "slug" => ""
         ]);
 
-
         // Validate fields with ajax
-        $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
+        //$val = $this->validateBread($request->all(), $dataType->addRows)->validate();
         $savedUnit = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
 
 

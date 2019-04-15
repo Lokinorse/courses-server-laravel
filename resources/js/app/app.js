@@ -2,9 +2,10 @@ require('../components/prism')
 
 require('../bootstrap');
 require('../components/tests');
+var {initChat} = require('../components/chat.js');
 
 const { initModal } = require('../components/modal');
-
+const {initTabs} = require('../components/tabs');
 
 $(document).on("click", ".nav-chapter-list .nav-link", function (e) {
     e.preventDefault();
@@ -32,4 +33,17 @@ var infoModal = initModal({
     name: "infomodal",
     openOnInit: true
 })
+
+var answerModal = initModal({
+    name: "answermodal",
+    openOnInit: false
+})
+
+initChat('unit-chat', 'unit', 'comment', answerModal)
+initChat('unit-faq', 'unit', 'faq', answerModal)
+
+initTabs('.communication-tabs');
+
+
+
 

@@ -36608,8 +36608,14 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ../components/tests */ "./resources/js/components/tests.js");
 
-var _require = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
-    initModal = _require.initModal;
+var _require = __webpack_require__(/*! ../components/chat.js */ "./resources/js/components/chat.js"),
+    initChat = _require.initChat;
+
+var _require2 = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
+    initModal = _require2.initModal;
+
+var _require3 = __webpack_require__(/*! ../components/tabs */ "./resources/js/components/tabs.js"),
+    initTabs = _require3.initTabs;
 
 $(document).on("click", ".nav-chapter-list .nav-link", function (e) {
   e.preventDefault();
@@ -36628,6 +36634,13 @@ var infoModal = initModal({
   name: "infomodal",
   openOnInit: true
 });
+var answerModal = initModal({
+  name: "answermodal",
+  openOnInit: false
+});
+initChat('unit-chat', 'unit', 'comment', answerModal);
+initChat('unit-faq', 'unit', 'faq', answerModal);
+initTabs('.communication-tabs');
 
 /***/ }),
 
@@ -36678,14 +36691,99 @@ if (token) {
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-// import Echo from 'laravel-echo'
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+
+/* 
+import Echo from 'laravel-echo'
+
+window.Pusher = require('pusher-js');
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: true
+});
+ */
+
+/***/ }),
+
+/***/ "./resources/js/components/chat.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/chat.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var debug = true;
+
+function initChat(chatId, destination_type, message_type, answerModal) {
+  var loop = null;
+  var $chatWrapper = $("#" + chatId);
+  if (!$chatWrapper.length) return;
+  var input = $("#" + chatId + " .message-input");
+
+  function refreshChat(callback) {
+    if (!$chatWrapper.length) return;
+    $.ajax({
+      url: "/messages/".concat(destination_type, "/").concat(currentUnit.id, "/").concat(message_type),
+      method: "get"
+    }).done(function (res) {
+      var chatmessages = $chatWrapper.find(".chat-messages");
+      $chatWrapper.find(".chat-messages").html(res);
+      callback();
+    });
+  }
+
+  function refreshLoop() {
+    if (!chatId || !destination_type || !chat_target_id) return;
+    refreshChat(function () {
+      if (debug) return;
+      loop = setTimeout(refreshLoop, 5000);
+    });
+  }
+
+  function sendMessage(message, parentId) {
+    if (loop) clearTimeout(loop);
+    input.val("");
+    parentId = parentId ? "/" + parentId : "";
+    $.ajax({
+      url: "/sendMessage/".concat(destination_type, "/").concat(chat_target_id, "/").concat(message_type).concat(parentId),
+      method: "get",
+      data: {
+        message: message
+      }
+    }).done(function (res) {
+      refreshLoop();
+    });
+  }
+
+  $(document).on("keydown", "#" + chatId + " .message-input", function (e) {
+    if (e.keyCode == 13) {
+      var message = e.target.value;
+      sendMessage(message);
+    }
+  });
+  $(document).on("click", "#" + chatId + " .send-chat-message", function (e) {
+    var message = input.val();
+    sendMessage(message);
+  });
+  $(document).on('click', "#" + chatId + " .make_reply", function () {
+    answerModal.open();
+    var parentId = $(this).data('messageid');
+    var message_type = $(this).data('messagetype');
+    $(answerModal.dom).find(".answer-area").val("");
+    $(answerModal.dom).find(".main-button").on("click", function () {
+      var text = $(answerModal.dom).find(".answer-area").val();
+      sendMessage(text, parentId);
+      answerModal.close();
+      $(answerModal.dom).find(".answer-area").val("");
+    });
+  });
+  refreshLoop();
+}
+
+module.exports = {
+  initChat: initChat
+};
 
 /***/ }),
 
@@ -37259,6 +37357,29 @@ Prism.languages.javascript = Prism.languages.extend("clike", {
 
 /***/ }),
 
+/***/ "./resources/js/components/tabs.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/tabs.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function initTabs(selector) {
+  $(document).on("click", selector + " .tab-pill", function () {
+    $(this).parent().find('.tab-pill').removeClass("active");
+    $(this).addClass("active");
+    var currentTabId = $(this).prop('id');
+    $(selector + " .tab-content").removeClass("active");
+    $(selector + " .tab-content[data-tabtarget='".concat(currentTabId, "']")).addClass('active');
+  });
+}
+
+module.exports = {
+  initTabs: initTabs
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/tests.js":
 /*!******************************************!*\
   !*** ./resources/js/components/tests.js ***!
@@ -37269,16 +37390,16 @@ Prism.languages.javascript = Prism.languages.extend("clike", {
 var _require = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
     initModal = _require.initModal;
 
+var currentStep = 0;
+var test_id = null;
+var results = {};
 var testModal = initModal({
   name: "lessontest"
 });
-var currentStep = 0;
 
 function totalSteps() {
   return window.test_questions.length;
 }
-
-var results = {};
 
 function getCurrentStep() {
   return window.test_questions[currentStep];
@@ -37321,17 +37442,10 @@ function renderAnswers(question_id) {
 function renderTestStep() {
   var currentQuestion = getCurrentStep();
   var questionTitle = currentQuestion.question;
-  renderButtons();
-  var content = "\n        <div class=\"test-wrapper\">\n            <span class=\"step-label\">\u0428\u0430\u0433 ".concat(currentStep + 1, " \u0438\u0437 ").concat(totalSteps(), "</span>\n            <h6>").concat(questionTitle, "</h6>\n            <div class=\"test-radio-group\">\n                ").concat(renderAnswers(currentQuestion.question_id), "\n            </div>\n        </div>\n    ");
+  renderButtons(["prev", "next", "done"]);
+  var content = "\n        <div class=\"test-wrapper\">\n            <span class=\"step-label\">\u0428\u0430\u0433 ".concat(currentStep + 1, " \u0438\u0437 ").concat(totalSteps(), "</span>\n            <h6>\u0412\u043E\u043F\u0440\u043E\u0441: ").concat(questionTitle, "</h6>\n            <div class=\"test-radio-group\">\n                ").concat(renderAnswers(currentQuestion.question_id), "\n            </div>\n        </div>\n    ");
   renderIntoModal(content);
 }
-
-$(document).on("click", ".open_test", function () {
-  results = {};
-  currentStep = 0;
-  testModal.open();
-  renderTestStep();
-});
 
 function nextStep() {
   currentStep++;
@@ -37343,40 +37457,132 @@ function prevStep() {
   renderTestStep();
 }
 
+function setCircularProgress(current, total) {
+  var element = $('.circularProgress');
+  var textElement = $('.circularProgress__overlay');
+
+  window.setPercentage = function setPercentage(p) {
+    element[0].className = 'circularProgress --' + p;
+  };
+
+  textElement.text("".concat(current, " \u0438\u0437 ").concat(total));
+  var percent = 0;
+  if (current > 0 && total > 0) percent = current / total * 100;
+  var animationPercent = 0;
+
+  var _int = setInterval(function () {
+    animationPercent++;
+    window.setPercentage(animationPercent);
+    if (animationPercent == percent) clearInterval(_int);
+  }, 10);
+}
+
+function renderFailure(res) {
+  var content = "\n        <div class=\"test-result-wrapper\">\n            <div class=\"circularProgress\">\n                <div class=\"circularProgress__overlay\"></div>\n            </div>\n            <h3>\u042D\u0442\u043E \u043F\u0440\u043E\u0432\u0430\u043B!</h3>\n            <span>\u0427\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0440\u043E\u043A, \u0442\u044B \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u043E\u0439\u0442\u0438 \u044D\u0442\u043E\u0442 \u0442\u0435\u0441\u0442 \u0435\u0449\u0435 \u0440\u0430\u0437</span>\n        </div>\n    ";
+  renderIntoModal(content);
+  var current = res.total_questions - res.mistakes;
+  setCircularProgress(current, res.total_questions);
+  renderButtons(["refresh"]);
+}
+
+function renderSuccess(res) {
+  var content = "\n        <div class=\"test-result-wrapper\">\n            <div class=\"circularProgress\">\n                <div class=\"circularProgress__overlay\"></div>\n            </div>\n            <h3>\u042D\u0442\u043E \u0443\u0441\u043F\u0435\u0445!</h3>\n            <span>\u0422\u044B \u043E\u0442\u043A\u0440\u044B\u043B \u043D\u043E\u0432\u044B\u0439 \u0443\u0440\u043E\u043A! \u041C\u043E\u0436\u0435\u0448\u044C \u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u043C\u0443 \u0443\u0440\u043E\u043A\u0443.</span>\n        </div>\n    ";
+  renderIntoModal(content);
+  var current = res.total_questions - res.mistakes;
+  setCircularProgress(current, res.total_questions);
+  renderButtons(["refresh", "goto_lesson"]);
+}
+
 function done() {
-  console.log("ГОТОВО", results);
+  if (!window.currentProgram || !window.currentUnit || !test_id) return;
+  $.ajax({
+    url: "/processTest/".concat(window.currentProgram.id, "/").concat(window.currentUnit.id, "/").concat(test_id),
+    data: {
+      testresult: results
+    }
+  }).done(function (res) {
+    if (!res) return;
+    return res.is_passed ? renderSuccess(res) : renderFailure(res);
+  });
 }
 
 function generateButton(directionClass, text) {
   return $("<button class=\"modal-actions main-button ".concat(directionClass, "\">").concat(text, "</button>"));
 }
 
-function renderButtons() {
+function renderButtons(buttons) {
   $(testModal.dom).find(".modal-footer .actions-group").html("");
-  console.log(getPrevStep(), getNextStep());
+  $.each(buttons, function (key, button) {
+    console.log(button);
 
-  if (getPrevStep()) {
-    $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-prev", "Назад"));
-  }
+    switch (button) {
+      case "prev":
+        if (getPrevStep()) $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-prev", "Назад"));
+        break;
 
-  if (!getNextStep()) {
-    $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-done", "Завершить"));
-  }
+      case "done":
+        if (!getNextStep()) $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-done", "Завершить"));
+        break;
 
-  if (getNextStep()) {
-    $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-next", "Далее"));
-  }
+      case "next":
+        if (getNextStep()) $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-next", "Далее"));
+        break;
 
+      case "refresh":
+        $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-refresh", "Перепройти"));
+        break;
+
+      case "goto_lesson":
+        $(testModal.dom).find(".modal-footer .actions-group").append(generateButton("test-goto", "Перейти к уроку"));
+        break;
+    }
+  });
   $(".test-next, .test-done").prop("disabled", true);
 }
 
+function testTesting() {
+  /* TEST */
+  results = {
+    4: "9",
+    15: "11",
+    16: "22",
+    17: "18",
+    18: "24"
+  };
+  test_id = 1;
+  /* TEST */
+
+  testModal.open();
+  done();
+} //testTesting();
+
+
+function initTest() {
+  results = {};
+  currentStep = 0;
+  testModal.close();
+  testModal.open();
+  renderTestStep();
+}
+
+$(document).on("click", ".open_test, .test-refresh", function () {
+  test_id = $(this).data('testid') || test_id;
+  initTest();
+});
 $(document).on("click", ".modal-lessontest .test-next", nextStep);
 $(document).on("click", ".modal-lessontest .test-prev", prevStep);
 $(document).on("click", ".modal-lessontest .test-done", done);
+$(document).on("click", ".modal-lessontest .test-refresh", initTest);
+$(document).on("click", ".modal-lessontest .test-goto", function () {
+  window.location = "/".concat(currentProgram.slug, "/");
+});
 $(document).on("change", ".answer-radio", function (e) {
   var currentQuestion = getCurrentStep();
   results[currentQuestion.question_id] = e.target.value;
   $(".test-next, .test-done").prop("disabled", false);
+});
+$(document).on("click", ".test-radio-group p", function () {
+  $(this).find("input").prop('checked', true).trigger('change');
 });
 
 /***/ }),

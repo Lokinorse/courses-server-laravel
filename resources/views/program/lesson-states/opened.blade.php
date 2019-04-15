@@ -1,7 +1,7 @@
 @php 
-    $videos = json_decode($lesson->videos);
+/*     $videos = json_decode($lesson->videos);
     $videoURL = null;
-    if (isset($videos[0])) $videoURL = url("storage/".json_decode($lesson->videos)[0]);
+    if (isset($videos[0])) $videoURL = url("storage/".json_decode($lesson->videos)[0]); */
 
     $content = $lesson->description;
     if (trim($content) == "") $content = null;
@@ -74,11 +74,12 @@
 @endswitch
 
 
-@if ($videoURL)
-    <div class="lesson-pane">
+
+@if ($lesson->youtube_video_id) 
+<div class="lesson-pane">
         <h5>Видео</h5>
         <div class="lesson-pane-content">    
-            <video src="{{$videoURL}}" controls></video>
+            <iframe class="youtube-video" height="415" src="https://www.youtube-nocookie.com/embed/{!! trim($lesson->youtube_video_id) !!}?rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 @endif
@@ -100,3 +101,5 @@
 
 @include("program.modals.testmodal")
 
+
+@include("program.communication", ['lesson' => $lesson])

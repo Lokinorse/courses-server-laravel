@@ -1,0 +1,152 @@
+.chat-wrapper {
+    width: 100%;
+    .chat-input {
+        padding: 10px;
+        display: flex;
+        margin-bottom: 5px;
+        box-shadow: 0px 2px 3px #efefef;
+        input {
+            padding: 5px 10px;
+            background: #e6f1fb;
+            border: none;
+            flex: 1;
+            border-radius: 5px;
+        }
+        .send-chat-message {
+            /*             color: blue;
+            border: none;
+            background: red;
+            border-radius: 20px;
+            height:20px;
+            width:20px;
+            display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+    }
+    .chat-messages {
+        overflow-y: auto;
+        height: 700px;
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #d8d8d8;
+            outline: 1px solid slategrey;
+        }
+        .empty-chat {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 20px 0px;
+            overflow-y: auto;
+            max-height: 700px;
+            color: grey;
+            font-style: italic;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message-wrapper {
+            display: flex;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            .avatar-thumb {
+                margin-right: 10px;
+                img {
+                    border-radius: 50px;
+                }
+            }
+            .message-content {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-right: 10px;
+                .message-badge {
+                    background: #0000000a;
+                    border-radius: 10px;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .message-header {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        a {
+                            display: flex;
+                            align-items: center;
+                            img {
+                                max-height: 20px;
+                                margin-right: 10px;
+                            }
+                            margin-right: 10px;
+                        }
+                        .message-date {
+                            color: darkgrey;
+                            font-size: 12px;
+                        }
+                    }
+                }
+                .reply {
+                    display: flex;
+                    font-size: 14px;
+                    margin-top: 12px;
+                    color: #848484;
+                    margin-left: 15px;
+                    i {
+                        transform: rotate(180deg);
+                        padding-top: 10px;
+                        padding-left: 6px;
+                    }
+                }
+                .message-actions-wrapper {
+                    display: flex;
+                    .make_reply {
+                        background: transparent;
+                        border: none;
+                        border-radius: 3px;
+                        color: #00000070;
+                        padding: 2px 5px;
+                        font-size: 12px;
+                        max-width: 61px;
+                        cursor: pointer;
+                        &:hover {
+                            background: #8080802e;
+                        }
+                    }
+                }
+            }
+            &.faq-question {
+                & > .message-content {
+                    & > h4 {
+                        font-size: 14px;
+                        margin-bottom: 0px;
+                        background: #f5ebd6;
+                        padding: 3px;
+                        border-radius: 5px 5px 0px 0px;
+                        color: #ffa700;
+                        padding: 6px 10px;
+                    }
+                    & > .message-badge {
+                        background: #ffa7000d;
+                        border-radius: 0px 0px 5px 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal-answermodal {
+
+    .answer-area {
+        border-radius: 5px;
+        border: none;
+        background: #fbfbfb;
+        height: 100%;
+        paddinG: 10px;   
+    }
+}

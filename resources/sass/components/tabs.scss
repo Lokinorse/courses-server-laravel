@@ -1,0 +1,25 @@
+.tab-headers {
+    display: flex;
+    padding: 10px 15px;
+    padding-bottom: 0px;
+    .tab-pill {
+        margin-right: 10px;
+        padding: 5px 15px;
+        background: #f8fafc;
+        border-radius: 5px;
+        box-shadow: 0px 2px 1px 1px #00000017;
+        cursor: pointer;
+        &.active {
+            background: #de9000;
+            color: white;
+            box-shadow: inset 0px 2px 1px 1px #00000017;
+        }
+    }
+}
+
+[data-tabtarget] {
+    display: none !important;
+    &.active {
+        display: flex !important;
+    }
+}

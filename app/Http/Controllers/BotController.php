@@ -12,7 +12,9 @@ class BotController extends Controller
 
     public function process(Request $request)
     {
+        //dd(env('VKONTAKTE_BOT_SECRET'));
         $secret = $request->secret;
+        //dd($secret);
         if ($secret != env('VKONTAKTE_BOT_SECRET')) {
             return "invalid";
         }

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script>
+    var currentUnit = {!!json_encode($lesson) !!}
+    var currentProgram = {!!json_encode($program) !!}
+</script>
+
 <div class="container cabinet-room">
     <div class="row">
         <div class="col-md-12">

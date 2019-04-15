@@ -1,0 +1,14 @@
+@font-face{
+    font-family:'tinymce';     
+    src:url('/fonts/tinymce/tinymce.eot');
+    src:url('/fonts/tinymce/tinymce.eot?#iefix') format('embedded-opentype'),url('/fonts/tinymce/tinymce.woff') format('woff'),url('/fonts/tinymce/tinymce.ttf') format('truetype'),url('/fonts/tinymce/tinymce.svg#tinymce') format('svg');     
+    font-weight:normal;     
+    font-style:normal;
+}
+
+@font-face{font-family:'tinymce-small';     
+    src:url('/fonts/tinymce/tinymce-small.eot');     
+    src:url('/fonts/tinymce/tinymce-small.eot?#iefix') format('embedded-opentype'),url('/fonts/tinymce/tinymce-small.woff') format('woff'),url('/fonts/tinymce/tinymce-small.ttf') format('truetype'),url('/fonts/tinymce/tinymce-small.svg#tinymce') format('svg');     
+    font-weight:normal;     
+    font-style:normal;
+}

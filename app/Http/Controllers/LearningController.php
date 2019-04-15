@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Test;
+use App\TestResult;
 use App\Unit;
 use App\UserProgress;
 use Auth;
 use Illuminate\Support\Facades\DB;
+
+
+use Illuminate\Http\Request;
 class LearningController extends Controller
 {
 
@@ -15,34 +20,38 @@ class LearningController extends Controller
         if (!$program) {
             abort(404);
         }
-
+        
         $user = Auth::user();
-
-        $menu = $program->getHierarchy();
-
-        $lessons = $program->getLessons();
-        $lesson = null;
+        
         if (!$lesson_slug) {
             if ($user) $lesson = $user->getCurrentLesson($program->id);
             if (!isset($lesson)) $lesson = $lessons->first();
             if (!isset($lesson)) abort(404);
-
             return redirect($program->slug . "/" . $lesson->slug);
-        } else {
-            $lesson = Unit::where("slug", $lesson_slug)->where("unit_type", 3)->first();
-        }
+        } 
+        
+        
+        
+        $menu = $program->getCachedHierarchy();
+        //$menu = $program->getHierarchy();
+        
+        $lessons = $program->getCachedLessons();
+        //$lessons = $program->getLessons();
 
-
+        $lesson = null;
+        
+        $lesson = Unit::where("slug", $lesson_slug)->where("unit_type", 3)->first();
+        
         if (!$lesson) {
             abort(404);
         }
-
+        
         $progress = collect([]);
         if ($user) {
             $progress = $user->progress()->withPivot("status")->where('program_id', $program->id)->orderBy("id")->get();
         }
-
-
+        
+        
         $percentProgress = 0;
         $doneCount = $progress->filter(function ($p) {
             return $p->pivot->status > 0;
@@ -51,8 +60,9 @@ class LearningController extends Controller
         if ($doneCount > 0 && $lessons->count() > 0) {
             $percentProgress = $doneCount / $lessons->count() * 100;
         }
-
+        
         $breadcrumbs = $lesson->getBreadcrumbs($program->id);
+
 
         return view('program.main', compact(
             'program',
@@ -64,6 +74,8 @@ class LearningController extends Controller
             'breadcrumbs'
         ));
     }
+
+
     public function showProgram($program_slug)
     {
         return view('jslp.main');
@@ -85,17 +97,48 @@ class LearningController extends Controller
 
 
         $nextLesson = $program->nextLesson($unit_id);
-
-        $openedUnitProgress = new UserProgress();
-        $openedUnitProgress->status = 0;
-        $openedUnitProgress->program_id = $program->id;
-        $openedUnitProgress->unit_id = $nextLesson->id;
-        $openedUnitProgress->user_id = $user->id;
-        $openedUnitProgress->save();
+        if ($nextLesson) {
+            $openedUnitProgress = new UserProgress();
+            $openedUnitProgress->status = 0;
+            $openedUnitProgress->program_id = $program->id;
+            $openedUnitProgress->unit_id = $nextLesson->id;
+            $openedUnitProgress->user_id = $user->id;
+            $openedUnitProgress->save();
+        }
         
         DB::commit();
 
         return redirect($program->slug);
+    }
+
+
+    public function processTest($program_id, $unit_id, $test_id, Request $req) {
+
+        $test = Test::where('id', $test_id)->first();
+        $user = Auth::user();
+        
+        if (!$req->testresult || !$test || !$user) abort(404);
+        
+        $check = $test->checkTestResults($req->testresult);
+
+        $testResult = new TestResult();
+        $testResult->test_id = $test_id;
+        $testResult->user_id = $user->id;
+        $testResult->json_answers = json_encode($req->testresult);
+        $testResult->mistakes = $check->mistakes;
+        $testResult->is_passed = $check->is_passed;
+        $testResult->save();
+
+        if ($check->is_passed) {
+            $this->passUnit($program_id, $unit_id);
+            return response()->json($check);
+        } 
+
+        return response()->json((object) [
+            "is_passed" => false, 
+            "mistakes" => $check->mistakes, 
+            "total_questions" => $check->answers->count()
+        ]);
     }
     
 }

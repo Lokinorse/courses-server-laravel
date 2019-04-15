@@ -5,15 +5,30 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\UnitRelation;
-
+use App\Message;
+use Illuminate\Support\Facades\Cache;
 class Unit extends Model
 {
     public function orderedChilds() {
         return $this->belongsToMany('App\Unit', 'unit_relations', 'parent_id', 'child_id')->withPivot('order');
     }
 
+
+    public function rootFaq() {
+        $destination_type = "unit";
+        $target_id = $this->id;
+        return Message::where('destination_type', $destination_type)->where('message_type', 'faq')->where('target_id', $target_id)->where("parent_id", 0);
+    }
+
+    public function rootMessages() {
+        $destination_type = "unit";
+        $target_id = $this->id;
+        return Message::where('destination_type', $destination_type)->where('message_type', 'comment')->where('target_id', $target_id)->where("parent_id", 0);
+    }
+
+
     public function test() {
-        return $this->hasOne('App\Test');
+        return $this->belongsTo('App\Test');
     }
 
     public function renderChildren($active)
@@ -36,7 +51,25 @@ class Unit extends Model
         });
     }
 
-    
+    public function getCachedHierarchy() {
+        return Cache::rememberForever($this->id . "_HIERARCHY", function () {
+            return $this->getHierarchy();
+        });
+    }
+
+
+    public function getLessons() {
+        return $this->getHierarchy()->flatten()->filter(function ($unit) {
+            return $unit->unit_type == 3;
+        });
+    }
+
+    public function getCachedLessons() {
+        return Cache::rememberForever($this->id . "_LESSONS", function () {
+            return $this->getLessons();
+        });
+    } 
+
 
     private function flushHierarchy() {
         $childs = $this->orderedChilds()->get();
@@ -70,11 +103,7 @@ class Unit extends Model
         return $this->belongsToMany('App\Unit', 'unit_relations', 'child_id', 'parent_id');
     }
 
-    public function getLessons() {
-        return $this->getHierarchy()->flatten()->filter(function ($unit) {
-            return $unit->unit_type == 3;
-        });
-    }
+
 
     //Запускается в рамках программы
     public function nextLesson($prev_unit_id) {

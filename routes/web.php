@@ -42,19 +42,28 @@ Route::get('/', 'LandingController@index');
 Route::get('/vklanding', 'IntoWebController@index');
 Route::get('/jslp', 'LandingController@index');
 
-Route::post('/transaction', 'ApiController@transactionSave');
+//Route::post('/transaction', 'ApiController@transactionSave');
 Route::prefix('cabinet')->group(function () {
 	Route::get('/', 'CabinetController@index')->name("cabinet");
 });
+
+
+Route::get('/messages/{destination_type}/{target_id}/{message_type}', 'ChatController@index');
+Route::get('/sendMessage/{destination_type}/{target_id}/{message_type}/{parent_id}', 'ChatController@sendMessage');
+Route::get('/sendMessage/{destination_type}/{target_id}/{message_type}', 'ChatController@sendMessage');
 
 
 Route::get('/purchase/{unit_id}', 'PurchaseController@index');
 Route::get('/promo/{promo_id}/{vk_user_id}', 'PromoController@index');
 
 
-Route::get('pass_unit/{program_id}/{unit_id}', 'LearningController@passUnit');
+Route::get('/processTest/{program_id}/{unit_id}/{test_id}', 'LearningController@processTest');
+Route::get('/pass_unit/{program_id}/{unit_id}', 'LearningController@passUnit');
+
 Route::get('{program_slug}/{lesson_slug}', 'LearningController@showLesson');
 Route::get('{program_slug}', 'LearningController@showLesson');
+
+
 
 
 
