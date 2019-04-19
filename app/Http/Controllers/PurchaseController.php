@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Unit;
+use App\Program;
 use App\Transaction;
 use App\UserProgress;
 use App\User;
@@ -17,59 +17,66 @@ class PurchaseController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($unit_id)
+    public function index($program_id)
     {
 
-        $unit = Unit::where("id", $unit_id)->first();
+        $program = Program::find($program_id);
         $user = Auth::user();
-        if (!$user || !$unit || $user->isUnitPurchased($unit_id) ) {
+        if (!$user || !$program || $user->isProgramPurchased($program_id) ) {
             abort(404);
         }
+        //dd("TEST");
 
-        if ($user->balance <  $unit->cost) {
+        if ($user->balance <  $program->cost) {
             $modal = [
                 "header" => "Недостаточно денег",
                 "content" => "
-                    Сейчас на счету у тебя " . $user->balance ." рублей. <br/> Для разблокировки курса требуется ". $unit->cost . " рублей.
+                    Сейчас на счету у тебя " . $user->balance ." рублей. <br/> Для разблокировки курса требуется ". $program->cost . " рублей.
                 "
             ];
             return redirect("cabinet")->with("message_modal", json_encode($modal));
         }
-        $first_lesson = $unit->getLessons()->first();
-
+        
         DB::beginTransaction();
+        try {
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->promo_id = null;
+            $transaction->description = "Разблокировка учебного юнита";
+            $transaction->value = $program->cost * -1;
+            $transaction->status = 1;
+            $transaction->target_id = $program->id;
+            $transaction->target_type = 'program';
+            $transaction->is_real = 1;
+            $transaction->save();
+            
+            $first_course = $program->sortedCourses()->first();
 
-        $transaction = new Transaction();
-        $transaction->user_id = $user->id;
-        $transaction->promo_id = null;
-        $transaction->description = "Разблокировка учебного юнита";
-        $transaction->value = $unit->cost * -1;
-        $transaction->status = 1;
-        $transaction->target_id = $unit->id;
-        $transaction->is_real = 1;
-        $transaction->save();
+            $first_course->unlock();
 
-        $progress = new UserProgress();
-        $progress->user_id = $user->id;
-        $progress->program_id = $unit->id;
-        $progress->unit_id = $first_lesson->id;
-        $progress->status = 0;
-        $progress->save();
+            //throw new \Exception("TEST");
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            DB::rollback();
+        }
+
 
         DB::commit();
 
 
 
         $modal = [
-            "header" => "Успешно раблокирован курс!",
+            "header" => "Успех!",
             "content" => 
-                $unit->name. " успешно разблокирован.
+                $program->name. " успешно разблокирована.
                 <br/>
                 Теперь ты в любое время можешь получить к нему доступ к личном кабинете.
             ",
             "footer" => '
                 <div class="actions-group pull-left">
-                    <a class="modal-actions next-step" href="'.url($unit->slug).'">Пройти к обучению</a>
+                    <a class="main-button" href="'.url($program->slug . '/' . $first_course->slug).'">Пройти к обучению</a>
                 </div>
             ',
         ];

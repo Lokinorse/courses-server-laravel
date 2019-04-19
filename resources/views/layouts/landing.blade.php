@@ -76,6 +76,7 @@
 
     <script>
         var loggedUser = {!!json_encode(Auth::user())!!}
+ 
     </script>
 
 </head>

@@ -1,4 +1,4 @@
-@foreach ($menu->all() as $key => $menuItem)
+@foreach ($lessons->all() as $key => $menuItem)
 
     @php
         $isActive = null;
@@ -95,7 +95,7 @@
         </div>
         @if (isset($childMenu) && $childMenu->count() > 0)
         <div class="collapse nav-chapter-list-wrapper @if ($isPathPart) show @endif" id="child{{$child->id}}">
-            @include('program.lesson-menu', ['menu' => $childMenu, 'progress' => $progress, 'lesson' => $lesson])
+            @include('learning.lesson-menu', ['menu' => $childMenu, 'progress' => $progress, 'lesson' => $lesson])
         </div>
         @endif
     @endif 

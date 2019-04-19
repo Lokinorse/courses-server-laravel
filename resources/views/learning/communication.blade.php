@@ -4,7 +4,7 @@
         <div class="tab-pill" id="faq">Задать вопрос по уроку</div>
     </div>
 
-    <script>var chat_target_id = {{$lesson->id}};</script>
+    <script>var chat_target_id = {{$current_lesson->id}};</script>
     <div class="lesson-pane-content tab-content active" data-tabtarget="comments">
         <div id="unit-chat" class="chat-wrapper">
             @if (Auth::user()) 
@@ -29,4 +29,4 @@
     </div>  
 </div>
 
-@include("program.modals.answer")
+@include("learning.modals.answer")

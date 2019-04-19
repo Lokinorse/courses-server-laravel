@@ -3,7 +3,7 @@
     $videoURL = null;
     if (isset($videos[0])) $videoURL = url("storage/".json_decode($lesson->videos)[0]); */
 
-    $content = $lesson->description;
+    $content = $current_lesson->description;
     if (trim($content) == "") $content = null;
 
 
@@ -25,7 +25,7 @@
         </div>
         <div class="lesson-pane-footer">
             @if (Auth::user())
-                <a class="main-button" href="{{url($program->slug)}}">Перейти к текущему уроку</a>
+                <a class="main-button" href="{{$program->getResumeUrl()}}">Перейти к текущему уроку</a>
             @else 
                 <a class="main-button" href="{{route('oauth', ["vkontakte"])}}">Авторизоваться</a>
             @endif
@@ -47,7 +47,8 @@
                 Это задание уже выполнено. Переходи к следующему заданию и продолжай в том же духе!
             </div>
             <div class="lesson-pane-footer">
-                <a class="main-button" href="{{url($program->slug)}}">Перейти к следующему уроку</a>
+                <a class="main-button" href="{{$program->getNextLessonUrl($current_lesson->id)}}">К следующему уроку</a>
+                <a class="main-button" href="{{$program->getResumeUrl()}}">К текущему уроку</a>
             </div>
         </div>
     @break
@@ -58,7 +59,7 @@
                 Это задание уже выполнено и проверено
             </div>
             <div class="lesson-pane-footer">
-                <a class="main-button" href="{{url($program->slug)}}">Перейти к следующему уроку</a>
+                <a class="main-button" href="{{$program->getNextLessonUrl($current_lesson->id)}}">Перейти к следующему уроку</a>
             </div>
         </div>
     @break
@@ -75,18 +76,19 @@
 
 
 
-@if ($lesson->youtube_video_id) 
+@if ($current_lesson->youtube_video_id) 
 <div class="lesson-pane">
         <h5>Видео</h5>
         <div class="lesson-pane-content">    
-            <iframe class="youtube-video" height="415" src="https://www.youtube-nocookie.com/embed/{!! trim($lesson->youtube_video_id) !!}?rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="youtube-video" height="415" src="https://www.youtube-nocookie.com/embed/{!! trim($current_lesson->youtube_video_id) !!}?rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 @endif
 
-@component('program.components.next-step')
+@component('learning.components.next-step')
     @slot('current_lesson_status', $currentLessonStatus)
-    @slot('current_lesson', $lesson)
+    @slot('current_lesson', $current_lesson)
+    @slot('course', $course)
     @slot('program', $program)
 @endcomponent
 
@@ -99,7 +101,7 @@
 </div>
 @endif
 
-@include("program.modals.testmodal")
+@include("learning.modals.testmodal")
 
 
-@include("program.communication", ['lesson' => $lesson])
+@include("learning.communication", ['current_lesson' => $current_lesson])

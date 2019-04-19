@@ -9,7 +9,7 @@ function initChat(chatId, destination_type, message_type, answerModal) {
     function refreshChat(callback) {
         if (!$chatWrapper.length) return;
         $.ajax({
-            url: `/messages/${destination_type}/${currentUnit.id}/${message_type}`,
+            url: `/messages/${destination_type}/${chat_target_id}/${message_type}`,
             method: "get"
         }).done(res => {
             var chatmessages = $chatWrapper.find(".chat-messages")

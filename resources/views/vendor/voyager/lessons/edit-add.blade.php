@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    @if (!$add)
+    @if (!$add && $dataTypeContent->lesson_type == "test")
         <h1 class="page-title">
             <i class="voyager-list"></i> Редактор теста
             <div class="btn btn-success add_question_item" data-rootid="{{$dataTypeContent->id}}">Добавить вопрос</div>
@@ -254,7 +254,7 @@
             });
 
             function refreshContents() {
-                $.get("{{ url('admin/tests/get_test_items/'.$dataTypeContent->id) }}", function(data) {
+                $.get("{{ url('admin/lessons/get_test_items/'.$dataTypeContent->id) }}", function(data) {
                     $("#unit_contents").html(data)
 
                     if (selectedQuestionId) $("[data-questionid='"+selectedQuestionId+"']").addClass("selectedQuestion")
@@ -266,7 +266,7 @@
 
             $(document).on("click", ".add_question_item", function(e) {
                 console.log("test")
-                var routePart = "{{ url('admin/tests/create_question/'.$dataTypeContent->id) }}"
+                var routePart = "{{ url('admin/lessons/create_question/'.$dataTypeContent->id) }}"
                 $.get(routePart, function() {
                     refreshContents()
                     changeSavedState("dirty")
@@ -275,7 +275,7 @@
 
             $(document).on("click", ".add_answer_item", function(e) {
                 if (!selectedQuestionId) return;
-                var routePart = "{{ url('admin/tests/create_answer/') }}"
+                var routePart = "{{ url('admin/lessons/create_answer/') }}"
                 $.get(routePart+"/"+selectedQuestionId, function() {
                     refreshContents()
                     changeSavedState("dirty")
@@ -326,7 +326,7 @@
                 var data = formArrayToObject($(this).serializeArray());
                 var prefixUrl = "{{url('/')}}"
                 $.ajax({
-                    url: prefixUrl + "/admin/tests/edit_"+datatype+"/"+id,
+                    url: prefixUrl + "/admin/lessons/edit_"+datatype+"/"+id,
                     type: 'POST',
                     dataType: "JSON",
                     data: data,
@@ -371,9 +371,9 @@
                 e.preventDefault()
                 var ordering = JSON.stringify($('#unit_contents').nestable('serialize'))
                 console.log(ordering)
-                console.log("{{ url('admin/tests/reorder/'.$dataTypeContent->id) }}")
+                console.log("{{ url('admin/lessons/reorderTest/'.$dataTypeContent->id) }}")
                 $.ajax({
-                    url: "{{ url('admin/tests/reorder/'.$dataTypeContent->id) }}",
+                    url: "{{ url('admin/lessons/reorderTest/'.$dataTypeContent->id) }}",
                     type: 'POST',
                     dataType: "JSON",
                     data: {order: $('#unit_contents').nestable('serialize')},

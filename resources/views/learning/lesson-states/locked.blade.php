@@ -5,7 +5,7 @@
             Не расстраивайся, ведь чтобы его открыть, тебе всего лишь нужно пройти его предшественников! 
         </div>
         <div class="lesson-pane-footer">
-            <a class="main-button" href="{{url($program->slug)}}">Перейти к текущему уроку</a>
+            <a class="main-button" href="{{$program->getResumeUrl()}}">Перейти к текущему уроку</a>
         </div>
     @else 
         <div class="lesson-pane-content">

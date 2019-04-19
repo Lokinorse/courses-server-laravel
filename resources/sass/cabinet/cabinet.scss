@@ -109,3 +109,91 @@
         }
     }
 }
+
+.cabinet-program-courses {
+    margin-top: 15px;
+    b {
+        text-transform: uppercase;
+    }
+    .courses-list-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .course-item {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+
+
+
+            .course-thumb {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 170px;
+                width: 100%;
+                top:0px;
+                transition: all 0.5s ease;
+                img {
+                    width:100%;
+                    max-height:300px;
+                }  
+                .badge {
+                    position: absolute;
+                    height: 40px;
+                    width: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    font-weight: bolder;
+                    font-size: 18px;
+                    color: white;
+                    background: #323330d9;
+                }
+                
+                .index-badge {
+                    top: 13px;
+                    left: 12px;
+                    background: #323330;
+                }
+    
+                .done-badge {
+                    color: #00f100;
+
+                }
+                .play-badge {
+                    font-size: 11px;
+                    color: #f0db4f;
+                }
+            }
+            &.current {
+                .index-badge {
+                    background: #ff8a00;
+                    box-shadow: 0px 2px 2px 0px #00000021;
+                }
+            }
+            .course-name {
+                display: flex;
+                font-size: 20px;
+                color: black;
+                font-size: 16px;
+                text-align: center;
+                font-weight: bolder;
+            }
+            &:hover {
+                text-decoration: none;
+                background: #00000014;
+
+                .course-thumb {
+                    top: -5px;
+
+                }
+            }
+        }
+    }
+}

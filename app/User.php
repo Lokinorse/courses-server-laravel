@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 
+use App\UserCoursesProgress;
+use App\UserLessonsProgress;
+
+
 class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
@@ -59,10 +63,14 @@ class User extends \TCG\Voyager\Models\User
         return !!$usedPromo;
     }
 
-    public function isUnitPurchased($unit_id)
+    public function isProgramPurchased($program_id)
     {
-        $unitPurchased = $this->transactions()->where('status', 1)->where("target_id", $unit_id)->first();
-        return !!$unitPurchased;
+        $programPurchased = $this->transactions()
+            ->where('status', 1)
+            ->where("target_id", $program_id)
+            ->where("target_type", "program")
+            ->first();
+        return !!$programPurchased;
     }
 
     public function getBalanceAttribute()
@@ -70,7 +78,7 @@ class User extends \TCG\Voyager\Models\User
         return $this->transactions()->where("status", 1)->get()->sum('value');
     }
 
-    public function getCurrentLesson($program_id)
+    /*     public function getCurrentLesson($program_id)
     {
         $program = Unit::where("id", $program_id)->first();
         $progress = $this->progress()->withPivot("status")->get();
@@ -82,6 +90,15 @@ class User extends \TCG\Voyager\Models\User
             $currentLesson = $program->getLessons()->first();
         }
         return $currentLesson;
+    } */
+
+    public function coursesProgress()
+    {
+        return UserCoursesProgress::where("user_id", $this->id);
     }
 
+    public function lessonsProgress()
+    {
+        return UserLessonsProgress::where("user_id", $this->id);
+    }
 }

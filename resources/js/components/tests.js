@@ -1,14 +1,20 @@
 const { initModal } = require('../components/modal');
 
 var currentStep = 0;
-var test_id = null;
 var results = {};
 
 
 
-var testModal = initModal({
+/* var testModal = initModal({
     name: "lessontest"
-})
+}) */
+
+testModal = {
+    dom: $("#test-wrapper")[0]
+}
+
+
+
 function totalSteps() {
     return window.test_questions.length
 }
@@ -144,9 +150,9 @@ function renderSuccess(res) {
 }
 
 function done() {
-    if (!window.currentProgram || !window.currentUnit || !test_id) return;
+    if (!window.currentProgram || !window.currentLesson) return;
     $.ajax({
-        url: `/processTest/${window.currentProgram.id}/${window.currentUnit.id}/${test_id}`,
+        url: `/processTest/${window.currentProgram.id}/${window.currentLesson.id}`,
         data: {testresult: results},
     }).done(function(res) {
         if (!res) return;
@@ -191,9 +197,8 @@ function renderButtons(buttons) {
 function testTesting() {
     /* TEST */
     results = {4: "9", 15: "11", 16: "22", 17: "18", 18: "24"}
-    test_id = 1;
     /* TEST */
-    testModal.open();
+    //testModal.open();
     done()
 }
 //testTesting();
@@ -201,23 +206,17 @@ function testTesting() {
 function initTest() {
     results = {};
     currentStep = 0;
-    testModal.close();
-    testModal.open();
+    //testModal.close();
+    //testModal.open();
     renderTestStep()
 }
 
-
-$(document).on("click", ".open_test, .test-refresh", function() {
-    test_id = $(this).data('testid') || test_id;
-    initTest()
-})
-
-$(document).on("click", ".modal-lessontest .test-next", nextStep)
-$(document).on("click", ".modal-lessontest .test-prev", prevStep)
-$(document).on("click", ".modal-lessontest .test-done", done)
-$(document).on("click", ".modal-lessontest .test-refresh", initTest)
-$(document).on("click", ".modal-lessontest .test-goto", function() {
-    window.location = `/${currentProgram.slug}/`
+$(document).on("click", "#test-wrapper .test-next", nextStep)
+$(document).on("click", "#test-wrapper .test-prev", prevStep)
+$(document).on("click", "#test-wrapper .test-done", done)
+$(document).on("click", "#test-wrapper .test-refresh", initTest)
+$(document).on("click", "#test-wrapper .test-goto", function() {
+    window.location = nextLessonUrl
 })
 
 
@@ -231,3 +230,5 @@ $(document).on("click", ".test-radio-group p", function() {
     $(this).find("input").prop('checked', true).trigger('change');
 })
 
+
+if (currentLesson && currentLesson.lesson_type == 'test' && (typeof test_questions != 'undefined')) initTest();

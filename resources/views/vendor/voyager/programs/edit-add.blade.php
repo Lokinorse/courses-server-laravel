@@ -118,8 +118,6 @@
         <h1 class="page-title">
             <i class="voyager-list"></i> Содержимое
             <div class="btn btn-success add_unit_item" data-unittype="1" data-rootid="{{$dataTypeContent->id}}"><i class="voyager-book"></i> Добавить курс</div>
-            <div class="btn btn-success add_unit_item" data-unittype="2" data-rootid="{{$dataTypeContent->id}}"><i class="voyager-folder"></i> Добавить главу</div>
-            <div class="btn btn-success add_unit_item" data-unittype="3" data-rootid="{{$dataTypeContent->id}}"><i class="voyager-file-text"></i> Добавить урок</div>
 
         </h1>
         <div class="page-content container-fluid">
@@ -253,7 +251,7 @@
             });
 
             function refreshContents() {
-                $.get("{{ url('admin/units/unit_contents/'.$dataTypeContent->id) }}", function(data) {
+                $.get("{{ url('admin/programs/program_contents/'.$dataTypeContent->id) }}", function(data) {
                     $("#unit_contents").html(data)
                 })
             }
@@ -263,8 +261,8 @@
             $(document).on("click", ".add_unit_item", function(e) {
                 var unitType = $(this).data("unittype");
 
-                var routePart = "{{ url('admin/units/create_unit/'.$dataTypeContent->id) }}"
-                $.get(routePart+"/"+unitType+"/1", function() {
+                var routePart = "{{ url('admin/programs/create_course/'.$dataTypeContent->id) }}"
+                $.get(routePart, function() {
                     refreshContents()
                     changeSavedState("dirty")
                 })
@@ -274,7 +272,7 @@
                 if (!res) return;
                 var id = $(this).data("id");
                 $.ajax({
-                    url: "{{ url('admin/units/') }}/"+id,
+                    url: "{{ url('admin/courses/') }}/"+id,
                     type: 'DELETE',
                     dataType: "JSON",
                     success: function () {
@@ -291,9 +289,9 @@
             $(document).on("click", ".save-order", function(e) {
                 e.preventDefault()
                 var ordering = JSON.stringify($('#unit_contents').nestable('serialize'))
-                console.log("{{ url('admin/units/reorder/'.$dataTypeContent->id) }}")
+                console.log("{{ url('admin/programs/reorder/'.$dataTypeContent->id) }}")
                 $.ajax({
-                    url: "{{ url('admin/units/reorder/'.$dataTypeContent->id) }}",
+                    url: "{{ url('admin/programs/reorder/'.$dataTypeContent->id) }}",
                     type: 'POST',
                     dataType: "JSON",
                     data: {order: $('#unit_contents').nestable('serialize')},

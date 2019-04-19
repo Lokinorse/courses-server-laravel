@@ -36724,7 +36724,7 @@ function initChat(chatId, destination_type, message_type, answerModal) {
   function refreshChat(callback) {
     if (!$chatWrapper.length) return;
     $.ajax({
-      url: "/messages/".concat(destination_type, "/").concat(currentUnit.id, "/").concat(message_type),
+      url: "/messages/".concat(destination_type, "/").concat(chat_target_id, "/").concat(message_type),
       method: "get"
     }).done(function (res) {
       var chatmessages = $chatWrapper.find(".chat-messages");
@@ -37391,11 +37391,14 @@ var _require = __webpack_require__(/*! ../components/modal */ "./resources/js/co
     initModal = _require.initModal;
 
 var currentStep = 0;
-var test_id = null;
 var results = {};
-var testModal = initModal({
-  name: "lessontest"
-});
+/* var testModal = initModal({
+    name: "lessontest"
+}) */
+
+testModal = {
+  dom: $("#test-wrapper")[0]
+};
 
 function totalSteps() {
   return window.test_questions.length;
@@ -37494,9 +37497,9 @@ function renderSuccess(res) {
 }
 
 function done() {
-  if (!window.currentProgram || !window.currentUnit || !test_id) return;
+  if (!window.currentProgram || !window.currentLesson) return;
   $.ajax({
-    url: "/processTest/".concat(window.currentProgram.id, "/").concat(window.currentUnit.id, "/").concat(test_id),
+    url: "/processTest/".concat(window.currentProgram.id, "/").concat(window.currentLesson.id),
     data: {
       testresult: results
     }
@@ -37548,33 +37551,28 @@ function testTesting() {
     16: "22",
     17: "18",
     18: "24"
-  };
-  test_id = 1;
-  /* TEST */
+    /* TEST */
+    //testModal.open();
 
-  testModal.open();
+  };
   done();
 } //testTesting();
 
 
 function initTest() {
   results = {};
-  currentStep = 0;
-  testModal.close();
-  testModal.open();
+  currentStep = 0; //testModal.close();
+  //testModal.open();
+
   renderTestStep();
 }
 
-$(document).on("click", ".open_test, .test-refresh", function () {
-  test_id = $(this).data('testid') || test_id;
-  initTest();
-});
-$(document).on("click", ".modal-lessontest .test-next", nextStep);
-$(document).on("click", ".modal-lessontest .test-prev", prevStep);
-$(document).on("click", ".modal-lessontest .test-done", done);
-$(document).on("click", ".modal-lessontest .test-refresh", initTest);
-$(document).on("click", ".modal-lessontest .test-goto", function () {
-  window.location = "/".concat(currentProgram.slug, "/");
+$(document).on("click", "#test-wrapper .test-next", nextStep);
+$(document).on("click", "#test-wrapper .test-prev", prevStep);
+$(document).on("click", "#test-wrapper .test-done", done);
+$(document).on("click", "#test-wrapper .test-refresh", initTest);
+$(document).on("click", "#test-wrapper .test-goto", function () {
+  window.location = nextLessonUrl;
 });
 $(document).on("change", ".answer-radio", function (e) {
   var currentQuestion = getCurrentStep();
@@ -37584,6 +37582,7 @@ $(document).on("change", ".answer-radio", function (e) {
 $(document).on("click", ".test-radio-group p", function () {
   $(this).find("input").prop('checked', true).trigger('change');
 });
+if (currentLesson && currentLesson.lesson_type == 'test' && typeof test_questions != 'undefined') initTest();
 
 /***/ }),
 

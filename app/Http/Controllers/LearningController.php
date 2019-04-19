@@ -4,74 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Test;
 use App\TestResult;
-use App\Unit;
-use App\UserProgress;
+
 use Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Course;
+use App\Lesson;
+use App\Program;
 
 use Illuminate\Http\Request;
+
+
 class LearningController extends Controller
 {
 
-    public function showLesson($program_slug, $lesson_slug = null)
+    public function showLesson($program_slug, $course_slug = null, $lesson_slug = null)
     {
-        $program = Unit::where("slug", $program_slug)->where("unit_type", 0)->first();
+        $program = Program::where("slug", $program_slug)->first(); 
+        
         if (!$program) {
             abort(404);
         }
-        
-        $user = Auth::user();
-        
-        if (!$lesson_slug) {
-            if ($user) $lesson = $user->getCurrentLesson($program->id);
-            if (!isset($lesson)) $lesson = $lessons->first();
-            if (!isset($lesson)) abort(404);
-            return redirect($program->slug . "/" . $lesson->slug);
-        } 
-        
-        
-        
-        $menu = $program->getCachedHierarchy();
-        //$menu = $program->getHierarchy();
-        
-        $lessons = $program->getCachedLessons();
-        //$lessons = $program->getLessons();
 
-        $lesson = null;
-        
-        $lesson = Unit::where("slug", $lesson_slug)->where("unit_type", 3)->first();
-        
-        if (!$lesson) {
+        if (!$course_slug) {
+            return redirect($program->getResumeUrl());
+        }
+
+        $course = Course::where("slug", $course_slug)->first();
+        if (!$course || !$program) {
             abort(404);
         }
-        
-        $progress = collect([]);
-        if ($user) {
-            $progress = $user->progress()->withPivot("status")->where('program_id', $program->id)->orderBy("id")->get();
+
+        $user = Auth::user();
+
+        if (!$lesson_slug) {
+            $lesson = $course->getCurrentLesson();
+            if (!isset($lesson)) abort(404);
+            if (!$lesson->slug) abort(404);
+            return redirect($program_slug . "/" . $course->slug . "/" . $lesson->slug);
         }
-        
-        
+
+        $sorted_lessons = $course->sortedLessons();
+
+        $current_lesson = Lesson::where("slug", $lesson_slug)->first();
+
+        if (!$current_lesson) {
+            abort(404);
+        }
+
+        $lesson_ids = $sorted_lessons->map(function($lesson) {
+            return $lesson->id;
+        });
+
+        $progress = collect([]);
+        if ($user) $progress = $user->lessonsProgress()->whereIn('lesson_id', $lesson_ids)->get();
+
         $percentProgress = 0;
         $doneCount = $progress->filter(function ($p) {
-            return $p->pivot->status > 0;
+            return $p->status > 0;
         })->count();
-        
-        if ($doneCount > 0 && $lessons->count() > 0) {
-            $percentProgress = $doneCount / $lessons->count() * 100;
+
+        $pureLessonsCount = $course->pureLessons()->count();
+        if ($doneCount > 0 && $pureLessonsCount > 0) {
+            $percentProgress = $doneCount / $pureLessonsCount * 100;
         }
-        
-        $breadcrumbs = $lesson->getBreadcrumbs($program->id);
 
 
-        return view('program.main', compact(
+        return view('learning.main', compact(
+            'course',
+            'current_lesson',
             'program',
-            'lesson',
-            'menu',
             'progress',
-            'lessons',
-            'percentProgress',
-            'breadcrumbs'
+            'sorted_lessons',
+            'percentProgress'
+            //'breadcrumbs'
         ));
     }
 
@@ -81,48 +87,56 @@ class LearningController extends Controller
         return view('jslp.main');
     }
 
-    public function passUnit($program_id, $unit_id)
-    {   
-        
-        $program = Unit::where("id", $program_id)->first();
-        $unit = Unit::where("id", $unit_id)->first();
+    public function unlockNextLesson($program_id, $lesson_id)
+    {
+
+        $program = Program::find($program_id);
+
         $user = Auth::user();
-        if (!$unit || !$user || !$program) abort(404);
 
-        DB::beginTransaction();
-
-        $progress = UserProgress::where("user_id", $user->id)->where('program_id', $program->id)->where("unit_id", $unit->id)->first();
-        $progress->status = 1;
-        $progress->save();
+        if (!$user || !$program) abort(404);
 
 
-        $nextLesson = $program->nextLesson($unit_id);
-        if ($nextLesson) {
-            $openedUnitProgress = new UserProgress();
-            $openedUnitProgress->status = 0;
-            $openedUnitProgress->program_id = $program->id;
-            $openedUnitProgress->unit_id = $nextLesson->id;
-            $openedUnitProgress->user_id = $user->id;
-            $openedUnitProgress->save();
+        //PASS VALIDATION HERE
+
+        $unlocked_lesson = null;
+        DB::transaction(function () use ($program, $lesson_id, &$unlocked_lesson) {
+            $unlocked_lesson = $program->unlockNextLesson($lesson_id);
+        });
+
+        if ($unlocked_lesson) {
+            return redirect($program->getResumeUrl());
         }
-        
-        DB::commit();
 
-        return redirect($program->slug);
+        $modal = [
+            "header" => "Я горжусь тобой!",
+            "content" => 
+                "Поздравляю, ты сделал это!
+                <br/>
+                Программа " . $program->name. " была успешно пройдена.
+                <br/>
+                В личном кабинете ты всегда можешь получить все пройденные тобой материалы.
+            ",
+        ];
+
+        return redirect('cabinet')->with("message_modal", json_encode($modal));
     }
 
 
-    public function processTest($program_id, $unit_id, $test_id, Request $req) {
 
-        $test = Test::where('id', $test_id)->first();
+
+    public function processTest($program_id, $lesson_id, Request $req)
+    {
+
+        $test = Lesson::find($lesson_id);
         $user = Auth::user();
-        
+
         if (!$req->testresult || !$test || !$user) abort(404);
-        
+
         $check = $test->checkTestResults($req->testresult);
 
         $testResult = new TestResult();
-        $testResult->test_id = $test_id;
+        $testResult->lesson_id = $lesson_id;
         $testResult->user_id = $user->id;
         $testResult->json_answers = json_encode($req->testresult);
         $testResult->mistakes = $check->mistakes;
@@ -130,15 +144,15 @@ class LearningController extends Controller
         $testResult->save();
 
         if ($check->is_passed) {
-            $this->passUnit($program_id, $unit_id);
+            $program = Program::find($program_id);
+            $program->unlockNextLesson($lesson_id);
             return response()->json($check);
-        } 
+        }
 
-        return response()->json((object) [
-            "is_passed" => false, 
-            "mistakes" => $check->mistakes, 
+        return response()->json((object)[
+            "is_passed" => false,
+            "mistakes" => $check->mistakes,
             "total_questions" => $check->answers->count()
         ]);
     }
-    
 }

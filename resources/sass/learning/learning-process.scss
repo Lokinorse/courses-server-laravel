@@ -1,4 +1,4 @@
-@import '../components/tests';
+@import "../components/tests";
 
 .navbar-laravel {
     background-color: #fff;
@@ -50,7 +50,7 @@
             font-size: 15px;
         }
         .youtube-video {
-            width:100%;
+            width: 100%;
         }
         video {
             max-width: 100%;
@@ -65,7 +65,7 @@
             border-top: 1px solid #e9ecef;
             padding: 7px 15px;
             margin: 0px;
-            display:flex;
+            display: flex;
             justify-content: flex-end;
         }
 
@@ -115,9 +115,32 @@
     }
 
     .program-menu {
-        padding: 10px;
+/*         padding: 10px;
         background: #f9f9f973;
-        border: 1px solid #e0e0e0;
+        border: 1px solid #e0e0e0; */
+        .lesson-icon {
+            color: #a8a8a8;
+        }
+        .lesson-divider {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .divider-line {
+                border-bottom: 1px solid #e2e2e2;
+                position: absolute;
+                width: 100%;
+            }
+            span {
+                background: #f8fafc;
+                position: relative;
+                z-index: 1;
+                padding: 8px 10px;
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #b2b3b4;
+            }
+        }
         .fa {
             min-width: 22px;
         }
@@ -134,6 +157,7 @@
         & > .unit-block:last-child {
             margin-bottom: 0px;
         }
+
         .unit-block {
             margin-bottom: 10px;
             overflow: hidden;
@@ -144,28 +168,41 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                flex-direction: column;
                 flex: 1;
                 width: 100%;
-                padding: 6px 10px;
                 color: #000;
                 transition: 0.2s ease all;
+                .lesson-title {
+                    display: flex;
+                    padding: 6px 10px;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex: 1;
+                    width: 100%;
+                }
+                .lesson-short-description {
+                    padding: 6px 10px;
+                    background: #e1e2e2;
+                    width: 100%;
+                }
+
                 .unit-badge {
                     text-align: right;
                     opacity: 0.3;
                 }
                 &.active {
-                    background: #c5c5c54a;
-                }
-                .fa-chevron-right {
-                    &:before {
-                        content: "\f078";
-                    }
-                }
-                &.collapsed {
-                    .fa-chevron-right {
-                        &:before {
-                            content: "\f054";
+                    background: #2e7cff;
+                    color: white;
+                    .lesson-title {
+                    
+                        .lesson-icon {
+                            color:white;
                         }
+                    }
+                    .lesson-short-description {
+                        border-left: 2px solid #2e7cff;
+                        color: black;
                     }
                 }
             }

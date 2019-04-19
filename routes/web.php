@@ -21,19 +21,31 @@ Route::group(['prefix' => 'admin'], function () {
 
 
     /* UNITS */
-    Route::get('units/create_unit/{root_id}/{unit_type}/{mode}', ['uses' => '\App\Http\Controllers\Voyager\UnitController@create_unit']);
-    Route::get('units/unit_contents/{unit_id}', ['uses' => '\App\Http\Controllers\Voyager\UnitController@get_unit_contents']);
-    Route::post('units/reorder/{unit_id}', ['uses' => '\App\Http\Controllers\Voyager\UnitController@reorder_unit_contents']);
+
+    Route::get('programs/create_course/{program_id}', ['uses' => '\App\Http\Controllers\Voyager\ProgramController@create_course']);
+    Route::get('programs/program_contents/{program_id}', ['uses' => '\App\Http\Controllers\Voyager\ProgramController@get_program_contents']);
+    Route::post('programs/reorder/{program_id}', ['uses' => '\App\Http\Controllers\Voyager\ProgramController@reorder_courses']);
+
+
+
+
+    Route::get('courses/create_lesson/{course_id}/{lesson_type}', ['uses' => '\App\Http\Controllers\Voyager\CourseController@create_lesson']);
+    Route::get('courses/course_contents/{course_id}', ['uses' => '\App\Http\Controllers\Voyager\CourseController@get_course_contents']);
+    Route::post('courses/reorder/{course_id}', ['uses' => '\App\Http\Controllers\Voyager\CourseController@reorder_lessons']);
+
+
+
+
 
     /* TESTS */
-    Route::get('tests/create_question/{test_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@create_question']);
-    Route::get('tests/create_answer/{question_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@create_answer']);
+    Route::get('lessons/create_question/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@create_question']);
+    Route::get('lessons/create_answer/{question_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@create_answer']);
 
-    Route::post('tests/edit_question/{question_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@edit_question']);
-    Route::post('tests/edit_answer/{answer_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@edit_answer']);
+    Route::post('lessons/edit_question/{question_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@edit_question']);
+    Route::post('lessons/edit_answer/{answer_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@edit_answer']);
     /* ========= */
-    Route::get('tests/get_test_items/{test_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@get_test_items']);
-    Route::post('tests/reorder/{test_id}', ['uses' => '\App\Http\Controllers\Voyager\TestController@reorder_test_items']);
+    Route::get('lessons/get_test_items/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@get_test_items']);
+    Route::post('lessons/reorderTest/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@reorder_test_items']);
     
 });
 
@@ -57,10 +69,11 @@ Route::get('/purchase/{unit_id}', 'PurchaseController@index');
 Route::get('/promo/{promo_id}/{vk_user_id}', 'PromoController@index');
 
 
-Route::get('/processTest/{program_id}/{unit_id}/{test_id}', 'LearningController@processTest');
-Route::get('/pass_unit/{program_id}/{unit_id}', 'LearningController@passUnit');
+Route::get('/processTest/{program_id}/{lesson_id}', 'LearningController@processTest');
+Route::get('/pass_lesson/{program_id}/{lesson_id}', 'LearningController@unlockNextLesson');
 
-Route::get('{program_slug}/{lesson_slug}', 'LearningController@showLesson');
+Route::get('{program_slug}/{course_slug}/{lesson_slug}', 'LearningController@showLesson');
+Route::get('{program_slug}/{course_slug}', 'LearningController@showLesson');
 Route::get('{program_slug}', 'LearningController@showLesson');
 
 

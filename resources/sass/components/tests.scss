@@ -1,4 +1,5 @@
-.modal-lessontest {
+#test-wrapper {
+    padding: 0px 15px;
     .step-label {
         font-size: 14px;
         margin-bottom: 10px;
@@ -31,8 +32,15 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding-top: 10px;
         h3 {
             margin: 10px 0px;
         }
+    }
+    .modal-footer {
+        border: none;
+    }
+    .modal-content {
+        padding-bottom: 10px;
     }
 }

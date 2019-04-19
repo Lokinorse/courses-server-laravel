@@ -2,15 +2,11 @@
 
 @section('content')
 
-<script>
-    var currentUnit = {!!json_encode($lesson) !!}
-    var currentProgram = {!!json_encode($program) !!}
-</script>
 
 <div class="container cabinet-room">
     <div class="row">
         <div class="col-md-12">
-        <h1 class="program-name">{{ $program->name}}</h1>
+        <h1 class="program-name">{{ $course->name}}</h1>
         </div>
         @if (Auth::user())
             <div class="col-md-12">
@@ -30,13 +26,13 @@
         <div class="col-md-4">
             <div class="program-section-header">Содержание</div>
             <div class="program-menu">
-                @include("program.lesson-menu", compact('menu', 'program', 'progress', 'lesson', 'breadcrumbs'))
+                @include("learning.lessons-menu", compact('sorted_lessons', 'progress', 'current_lesson', 'course'))
             </div>
         </div>
         
         <div class="col-md-8">
-            <h2 class="program-section-header">Урок: {{$lesson->name}}</h2>
-            @include("program.lesson-content", compact('lesson', 'progress', 'program'))
+            <h2 class="program-section-header">Урок: {{$current_lesson->name}}</h2>
+            @include("learning.lesson-content", compact('current_lesson', 'progress', 'course', 'program'))
         </div>
     </div>
 </div>

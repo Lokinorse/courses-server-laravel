@@ -15,10 +15,11 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 
-use App\Unit;
-use App\UnitRelation;
+use App\Course;
+use App\Lesson;
+use App\CourseLesson;
 
-class UnitController extends VoyagerBaseController
+class CourseController extends VoyagerBaseController
 {
     use BreadRelationshipParser;
 
@@ -37,99 +38,62 @@ class UnitController extends VoyagerBaseController
 
 
 
-    public function create_unit(Request $request) {
-        $parent_id = $request->root_id;
-        $unit_type = $request->unit_type;
-        $silent = $request->mode;
-        $slug = "units";
-        // GET THE DataType based on the slug
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+    public function create_lesson(Request $request)
+    {
+        $course_id = $request->course_id;
+        $lesson_type = $request->lesson_type;
+        DB::beginTransaction();
+        try {
+            if ($course_id) {
+                $course = Course::where("id", $course_id)->first();
+                if ($course) {
+                    $lesson = new Lesson();
+                    $lesson->name = "Новый урок " . $lesson_type;
+                    $lesson->description = "";
+                    $lesson->slug = "";
+                    $lesson->lesson_type = $lesson_type;
+                    $lesson->save();
 
-        // Check permission
-        $this->authorize('add', app($dataType->model_name));
-
-        if (!collect([0,1,2,3])->contains((int)$unit_type)) return false;
-        
-        switch ($unit_type) {
-            case 1:
-                $unit_type_text = "Курс";
-                break;
-            case 2:
-                $unit_type_text = "Глава";
-                break;
-            case 3:
-                $unit_type_text = "Урок";
-                break;
-            default:
-                $unit_type_text = "Программа";
-                break;
-        }
-
-        $request->replace([
-            "name" => "Новый ".$unit_type_text,
-            "unit_type" => $unit_type,
-            "slug" => ""
-        ]);
-
-        // Validate fields with ajax
-        //$val = $this->validateBread($request->all(), $dataType->addRows)->validate();
-        $savedUnit = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
-
-
-        event(new BreadDataAdded($dataType, $savedUnit));
-
-        if ($parent_id) {
-            $parent_unit = Unit::where("id", $parent_id)->first();
-            if ($parent_unit) {
-                $relation = new UnitRelation();
-                $relation->timestamps = false;
-                $relation->parent_id = $parent_unit->id;
-                $relation->child_id = $savedUnit->id;
-                $relation->order = 0;
-                $relation->save();
+                    $relation = new CourseLesson();
+                    $relation->timestamps = false;
+                    $relation->course_id = $course->id;
+                    $relation->lesson_id = $lesson->id;
+                    $relation->order = 0;
+                    $relation->save();
+                }
             }
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return false;
+        }
+        DB::commit();
+
+        return "done";
+    }
+
+    public function get_course_contents(Request $request) {
+        $course = Course::where("id", $request->course_id)->first();
+        if (!$course) {
+            return "";
+        }
+        return $course->renderChildren(null);
+    }
+
+    public function reorder_lessons(Request $request) {
+        $course = Course::where("id", $request->course_id)->first();
+        if (!$course) return "error";
+        
+        $order = $request->order;
+        if (!$order) {
+            return "error";
         }
 
-        
-        if ($silent == "1") {
+        if ($course->reorder($order)) {
             return "done";
         }
 
-        return redirect()
-        ->route("voyager.{$dataType->slug}.index")
-        ->with([
-                'message'    => __('voyager::generic.successfully_added_new')." {$dataType->display_name_singular}",
-                'alert-type' => 'success',
-            ]);
-
-    }
-
-    public function get_unit_contents(Request $request) {
-        // GET THE SLUG, ex. 'posts', 'pages', etc.
-        $slug = "units";
-
-        // GET THE DataType based on the slug
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-
-        $this->authorize('browse', app($dataType->model_name));
-
-
-        $unit_id = $request->unit_id;
-
-
-        $unit = Unit::where("id", $request->unit_id)->first();
-        if (!$unit) return "";
-        
-        return $unit->renderChildren(null);
-    }
-
-    public function reorder_unit_contents(Request $request) {
-        $unit = Unit::where("id", $request->unit_id)->first();
-        $order = $request->order;
-        if (!$unit) return "error";
-        if (!$order) return "error";
-        if($unit->reorder($order)) return "done";
-        return "error";        
+        return "error";
     }
 
     public function index(Request $request)
@@ -191,9 +155,7 @@ class UnitController extends VoyagerBaseController
                 $search_value = ($search->filter == 'equals') ? $search->value : '%'.$search->value.'%';
                 $query->where($search->key, $search_filter, $search_value);
             }
-
-            $query->where("unit_type", 0);
-            
+           
 
             if ($orderBy && in_array($orderBy, $dataType->fields())) {
                 $querySortOrder = (!empty($sortOrder)) ? $sortOrder : 'desc';
