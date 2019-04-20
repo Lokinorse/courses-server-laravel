@@ -6889,7 +6889,7 @@ canvas {
 
 .costs-section .costs-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   max-width: 1060px;
   padding: 0px 10px;
@@ -6904,6 +6904,10 @@ canvas {
   border-radius: 4px;
   position: relative;
   transition: 0.3s all ease;
+}
+
+.costs-section .costs-wrapper .costs-item-wrapper b {
+  padding: 0px 26px;
 }
 
 .costs-section .costs-wrapper .costs-item-wrapper:hover {
@@ -7001,6 +7005,18 @@ canvas {
   cursor: pointer;
   display: flex;
   justify-content: center;
+}
+
+.costs-section .costs-wrapper .costs-item-wrapper:nth-child(1) {
+  border: 2px solid #e67334;
+}
+
+.costs-section .costs-wrapper .costs-item-wrapper:nth-child(1) .cta-btn {
+  background: #e67334;
+}
+
+.costs-section .costs-wrapper .costs-item-wrapper:nth-child(1) .round-corner-badge {
+  background: #e67334;
 }
 
 .costs-section .costs-wrapper .costs-item-wrapper:nth-child(2) {

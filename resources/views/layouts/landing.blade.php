@@ -33,42 +33,8 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 {{--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
  --}}
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    
-        ym(51609848, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/51609848" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 
 
-     <script type="text/javascript">
-        var plans = {
-            "tarif-ya-sam": {
-                name: "Я сам",
-                oldprice: "",
-                price: "845",
-            },
-            "tarif-komfortniy": {
-                name: "Комфортный",
-                oldprice: "5 100",
-                price: "2 400",
-            },
-            "tarif-premium": {
-                name: "Премиум",
-                oldprice: "25 000",
-                price: "12 500",
-            }
-        }
-    </script> 
 
     <!-- Styles -->
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
@@ -92,7 +58,7 @@
 
 
 
-
+    @include('parts.metrics')
 
 
 </body>

@@ -1,11 +1,11 @@
 <section class="lp-section matrix-section" id="matrix">
 
-	<canvas id="canvas">ОСВОЙ ПРОФЕССИЮ «WEB-РАЗРАБОТЧИК»</canvas>
+	<canvas id="canvas">ОСВОЙ ПРОФЕССИЮ «JAVASCRIPT-РАЗРАБОТЧИК»</canvas>
 
 
 	<div class="lp-utp-action-wrapper">
-		<img class="js-icon" src="{{ asset('img/jslp/js.png') }}" alt="Профессия: WEB-РАЗРАБОТЧИК" />
-		<h1>ОСВОЙ ПРОФЕССИЮ <br/> «WEB-РАЗРАБОТЧИК»</h1>
+		<img class="js-icon" src="{{ asset('img/jslp/js.png') }}" alt="Профессия: JAVASCRIPT-РАЗРАБОТЧИК" />
+		<h1>ОСВОЙ ПРОФЕССИЮ <br/> JAVASCRIPT-РАЗРАБОТЧИК»</h1>
 		<a class="lp-cta-button conversion" data-conversion="more" href="/#advantages"><img src="{{ asset('img/jslp/double-down.png') }}"/> Подробнее</a>
 	</div>
 	<script type="text/javascript">

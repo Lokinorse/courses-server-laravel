@@ -16890,6 +16890,7 @@ a.text-dark:focus {
 .cabinet-program-courses .courses-list-wrapper .course-item .course-thumb img {
   width: 100%;
   max-height: 300px;
+  border-radius: 100px;
 }
 
 .cabinet-program-courses .courses-list-wrapper .course-item .course-thumb .badge {

@@ -23,7 +23,7 @@
     }
     .costs-wrapper {
     	display: flex;
-    	justify-content:space-between;
+		justify-content: center;
     	width:100%;
     	max-width: 1060px;
     	padding:0px 10px;
@@ -36,7 +36,10 @@
     	    border-radius: 4px;
     	    position:relative;
     	    transition: 0.3s all ease;
-	    	//transform: scale(1);
+			//transform: scale(1);
+			b {
+				padding:0px 26px;
+			}
     	    &:hover {
     	    	transform: scale(1.05);
     	    }
@@ -120,6 +123,9 @@
     	    	cursor: pointer;
 				display: flex;
 				justify-content: center;
+			}
+    	    &:nth-child(1) {
+		    	@include colorize-costs-item(#e67334)
     	    }
     	    &:nth-child(2) {
 		    	@include colorize-costs-item(#e67334)

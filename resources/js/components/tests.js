@@ -231,4 +231,4 @@ $(document).on("click", ".test-radio-group p", function() {
 })
 
 
-if (currentLesson && currentLesson.lesson_type == 'test' && (typeof test_questions != 'undefined')) initTest();
+if ((typeof currentLesson != 'undefined') && currentLesson.lesson_type == 'test' && (typeof test_questions != 'undefined')) initTest();

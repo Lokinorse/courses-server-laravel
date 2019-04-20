@@ -127,8 +127,6 @@
             align-items: center;
             border-radius: 10px;
 
-
-
             .course-thumb {
                 position: relative;
                 display: flex;
@@ -136,12 +134,13 @@
                 align-items: center;
                 height: 170px;
                 width: 100%;
-                top:0px;
+                top: 0px;
                 transition: all 0.5s ease;
                 img {
-                    width:100%;
-                    max-height:300px;
-                }  
+                    width: 100%;
+                    max-height: 300px;
+                    border-radius: 100px;
+                }
                 .badge {
                     position: absolute;
                     height: 40px;
@@ -155,16 +154,15 @@
                     color: white;
                     background: #323330d9;
                 }
-                
+
                 .index-badge {
                     top: 13px;
                     left: 12px;
                     background: #323330;
                 }
-    
+
                 .done-badge {
                     color: #00f100;
-
                 }
                 .play-badge {
                     font-size: 11px;
@@ -191,7 +189,6 @@
 
                 .course-thumb {
                     top: -5px;
-
                 }
             }
         }

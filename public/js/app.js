@@ -37582,7 +37582,7 @@ $(document).on("change", ".answer-radio", function (e) {
 $(document).on("click", ".test-radio-group p", function () {
   $(this).find("input").prop('checked', true).trigger('change');
 });
-if (currentLesson && currentLesson.lesson_type == 'test' && typeof test_questions != 'undefined') initTest();
+if (typeof currentLesson != 'undefined' && currentLesson.lesson_type == 'test' && typeof test_questions != 'undefined') initTest();
 
 /***/ }),
 

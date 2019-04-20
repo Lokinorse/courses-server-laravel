@@ -44,6 +44,6 @@
             @yield('content')
         </main>
     </div>
-
+    @include('parts.metrics')
 </body>
 </html>

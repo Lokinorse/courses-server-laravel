@@ -8,6 +8,7 @@
 	@include("landing.resume")
 	@include("landing.teacher")
 	@include("landing.starter", ["position" => 1])
+	@include("landing.costs")
 	@include("landing.faq")
 	@include("landing.starter", ["position" => 2])
 	@include("landing.footer")

@@ -16,14 +16,14 @@
 					<div class="brain-item-icon"><i class="fa fa-suitcase"></i></div>
 					<div class="brain-content">
 						<div class="brain-item-header">Иммигрируй в другую страну</div>
-						<div class="brain-item-description">По данным BBC программисты и люди из ИТ-сферы успешно мигрируют во множество развитых стран</div>
+						<div class="brain-item-description">По данным BBC, программисты и люди из ИТ-сферы успешно мигрируют во множество развитых стран</div>
 					</div>
 				</div>
 				<div class="brain-item">
 					<div class="brain-item-icon"><i class="fa fa-umbrella-beach"></i></div>
 					<div class="brain-content">
 						<div class="brain-item-header">Фриланси и путешествуй</div>
-						<div class="brain-item-description">Единственное, к чему сильно привязан любой web-разработчик - интернет. Поэтому и работать он может везде, где он есть</div>
+						<div class="brain-item-description">Единственное, к чему сильно привязан любой JS-разработчик - интернет. Поэтому и работать он может везде, где он есть</div>
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 					<div class="brain-item-icon"><i class="fa fa-money-bill-wave"></i></div>
 					<div class="brain-content">
 						<div class="brain-item-header">Получай хорошую зарплату</div>
-						<div class="brain-item-description">По исследованиям superjob.ru, Javascript-программисты получают от 40 до 250 тыс. руб. </div>
+						<div class="brain-item-description">По исследованиям сервиса <a href="https://vc.ru/flood/32337-zarplaty-it-specialistov-na-konec-2017-goda" target="blank">Мой Круг</a>, Javascript-программисты получают от 60 до 200 тыс. руб. </div>
 					</div>
 				</div>
 			</div>

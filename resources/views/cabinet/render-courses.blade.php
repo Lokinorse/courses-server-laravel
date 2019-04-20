@@ -4,8 +4,12 @@
     <b>Курсы в программе</b>
     <div class="courses-list-wrapper">
 
+        @php 
+            $course_index = 1;
+        @endphp
         @foreach ($program->sortedCourses() as $index => $course)
                 @php
+        
                     $current_course_state = $user_courses_progress->first(function($state) use ($course) {
                         return $state->course_id == $course->id; 
                     });
@@ -23,7 +27,7 @@
 
                 <div class="course-thumb">
                     <div class="badge index-badge">
-                        {{$index+1}}
+                        {{$course_index++}}
                     </div>
     
                     @switch($state)
