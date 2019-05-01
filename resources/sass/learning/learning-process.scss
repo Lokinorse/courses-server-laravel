@@ -6,6 +6,50 @@
 }
 
 .cabinet-room {
+    .courses-nav {
+        padding: 0px 15px;
+        .course-item {
+            width: 10%;
+            .course-name {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 100%;
+                position: relative;
+                font-size: 12px !important;
+                &:after {
+                    content: "";
+                    position: absolute;
+                    right: 0px;
+                    top: 0;
+                    width: 14px;
+                    height: 100%;
+                    background: linear-gradient(to right, rgba(255, 204, 0, 0), #f8fafc 100%);
+                }
+            }
+            .course-thumb {
+                height: 100px;
+                .badge {
+                    height: 25px !important;
+                    width: 25px !important;
+                    font-size: 12px !important;
+                }
+                .index-badge {
+                    top: 15px;
+                    left: -1px;
+                    background: #323330;
+                }
+            }
+            &:hover {
+                .course-name {
+                    &:after {
+                        background: linear-gradient(to right, rgba(255, 204, 0, 0), #e5e6e8 100%);
+                    }
+                }
+            }
+        }
+    }
+
     .program-name {
         text-transform: uppercase;
         font-size: 22px;
@@ -48,6 +92,9 @@
             display: inline-block;
             width: 100%;
             font-size: 15px;
+            img {
+                max-width:100%;
+            }
         }
         .youtube-video {
             width: 100%;
@@ -115,7 +162,7 @@
     }
 
     .program-menu {
-/*         padding: 10px;
+        /*         padding: 10px;
         background: #f9f9f973;
         border: 1px solid #e0e0e0; */
         .lesson-icon {
@@ -195,9 +242,8 @@
                     background: #2e7cff;
                     color: white;
                     .lesson-title {
-                    
                         .lesson-icon {
-                            color:white;
+                            color: white;
                         }
                     }
                     .lesson-short-description {

@@ -65,11 +65,20 @@ class User extends \TCG\Voyager\Models\User
 
     public function isProgramPurchased($program_id)
     {
+        $all_program_plans = Plan::where('target_id', $program_id)->where('target_type', 'program')->get();
+
+        if ($all_program_plans->count() == 0) return false;
+
+        $plan_ids = $all_program_plans->map(function($plan) {return $plan->id;});
+
+
+
         $programPurchased = $this->transactions()
+            ->whereIn('target_id', $plan_ids)
+            ->where("target_type", "plan")
             ->where('status', 1)
-            ->where("target_id", $program_id)
-            ->where("target_type", "program")
             ->first();
+
         return !!$programPurchased;
     }
 

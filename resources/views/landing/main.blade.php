@@ -2,16 +2,15 @@
 
 @section('content')
 	@include("landing.matrix")
-	@include("landing.advantages")
 	@include("landing.program")
-	@include("landing.starter", ["position" => 0])
+	@include("landing.advantages")
+	@include("landing.how-to-learn")
 	@include("landing.resume")
 	@include("landing.teacher")
-	@include("landing.starter", ["position" => 1])
-	@include("landing.costs")
+	@include("landing.tarifs")
 	@include("landing.faq")
 	@include("landing.starter", ["position" => 2])
-	@include("landing.footer")
+	
 
     @include("landing.modals.vk-login")
 @endsection

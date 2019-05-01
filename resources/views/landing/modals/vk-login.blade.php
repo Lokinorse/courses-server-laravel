@@ -9,7 +9,7 @@
 
     @slot('modal_content')
 
-            <a class="main-button" href="{{url('auth/vkontakte')}}">
+            <a href="{{url('auth/vkontakte')}}">
                 <img src="{{asset("img/vk_logo.png")}}"/>
             </a>
             Чтобы начать обучение, необходимо войти на платформу с помощью вконтакте.

@@ -174,8 +174,12 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        App\Providers\GoogleDriveServiceProvider::class,
         //VK LOGIN
         \SocialiteProviders\Manager\ServiceProvider::class, // add
+
+        Stevebauman\Purify\PurifyServiceProvider::class,
     ],
 
     /*
@@ -227,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Purify' => \Stevebauman\Purify\Facades\Purify::class
     ],
 
 ];

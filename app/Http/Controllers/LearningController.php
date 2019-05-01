@@ -68,7 +68,10 @@ class LearningController extends Controller
         if ($doneCount > 0 && $pureLessonsCount > 0) {
             $percentProgress = $doneCount / $pureLessonsCount * 100;
         }
-
+        $user_courses_progress = null;
+        if (auth()->user()) {
+            $user_courses_progress = auth()->user()->coursesProgress()->get();
+        }
 
         return view('learning.main', compact(
             'course',
@@ -76,8 +79,8 @@ class LearningController extends Controller
             'program',
             'progress',
             'sorted_lessons',
-            'percentProgress'
-            //'breadcrumbs'
+            'percentProgress',
+            'user_courses_progress'
         ));
     }
 

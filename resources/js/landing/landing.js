@@ -1,14 +1,13 @@
-const { initModal } = require('../components/modal');
-const {smoothScroll} = require('../utils/scroll');
+window.selectedPlan = "tarif-ya-sam";
 
+require("../components/retarg");
+const { initModal } = require("../components/modal");
+const { smoothScroll } = require("../utils/scroll");
 
-require('../menu/hamburger');
-require('./faq');
-
+require("../menu/hamburger");
+require("./faq");
 
 $(document).on("click", "a", function(e) {
-
-
     var aid = $(this).attr("href");
     if (aid.indexOf("/#") != -1) {
         aid = aid.replace("/", "");
@@ -16,22 +15,23 @@ $(document).on("click", "a", function(e) {
             e.preventDefault();
             smoothScroll($(window), $(aid).offset().top - 55, 300);
         }
-    } 
-})
+    }
+});
 
 initModal({
-    name:"vk-login", 
+    name: "vk-login",
     onBeforeOpen: function(model) {
         if (window.loggedUser) {
-            window.location = "/cabinet"
+            window.location = "/cabinet";
             return false;
         }
-        return true
+        return true;
     },
     onOpen: function(model) {
-        $(model.dom).find(".next-step").on("click", function() {
-            model.processing();
-        })
-
+        $(model.dom)
+            .find(".next-step")
+            .on("click", function() {
+                model.processing();
+            });
     }
-})
+});

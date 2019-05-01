@@ -8,12 +8,14 @@
             <h1>Личный кабинет</h1>
             <div class="balance-inner-wrapper">
 
-                @if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
+{{--                 @if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
                     <div class="giftcard" data-modaltrigger="promocode">
                         <i class="fa fa-gift"></i> Получить 20 000 на счет
                     </div>
-                @endif
-
+                @endif --}}
+                <div class="giftcard" data-modaltrigger="makepayment" data-conversion="oplata">
+                    <i class="fa fa-ruble-sign"></i> Пополнить
+                </div>
                 <div class="balance-count">
                     <span class="balance-label">Твой баланс: </span> {{Auth::user()->balance}} рублей
                 </div>
@@ -40,10 +42,11 @@
     </div>
 </div>
 
-@if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
+{{-- @if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
     @include("cabinet.modals.promocode")
-@endif
+@endif --}}
 
+@include("cabinet.modals.make-payment")
 
 @if (session()->get('message_modal'))
     @include("cabinet.modals.infomodal")

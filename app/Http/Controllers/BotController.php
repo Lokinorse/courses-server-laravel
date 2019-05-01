@@ -61,19 +61,9 @@ class BotController extends Controller
 
 
     public function promomessage($message, $user_id) {
-        //dd(strpos($message, "поехали"));
-/*         if (
-            strpos($message, "начать") === false 
-            && strpos($message, "поехали") === false 
-            && strpos($message, "го") === false 
-            && strpos($message, "готов") === false
-            && strpos($message, "привет") === false
-            && strpos($message, "вперед") === false
-            && strpos($message, "погнали") === false
-        ) return false; */
+        return false;
 
-
-        $user = User::where('provider_user_id', $user_id)->first();
+/*         $user = User::where('provider_user_id', $user_id)->first();
         if (!$user) return false;
         if ($user->isPromoUsed(env("CURRENT_PROMO_ID"))) return false;
 
@@ -83,7 +73,7 @@ class BotController extends Controller
 
         $vk = new VkCommunityApi();
         $vk->vkApi_messagesSend($user_id,  $promoMessage, array());
-        return true;
+        return true; */
     } 
 
 }

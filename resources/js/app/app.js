@@ -3,9 +3,12 @@ require('../components/prism')
 require('../bootstrap');
 require('../components/tests');
 var {initChat} = require('../components/chat.js');
+require('video.js');
 
 const { initModal } = require('../components/modal');
 const {initTabs} = require('../components/tabs');
+
+require('../components/retarg');
 
 $(document).on("click", ".nav-chapter-list .nav-link", function (e) {
     e.preventDefault();

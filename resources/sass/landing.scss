@@ -1,5 +1,6 @@
 @import 'variables';
 
+
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
@@ -9,6 +10,9 @@
 /* components */
 @import './components/nav';
 @import './components/modal';
+@import './components/buttons';
+@import './components/footer';
+
 
 /* PARTS */
 
@@ -19,6 +23,6 @@
 @import './landing/costs';
 @import './landing/resume';
 @import './landing/faq';
-@import './landing/footer';
 @import './landing/starter';
 @import './landing/vk-login-modal';
+@import './landing/hot-to-learn';

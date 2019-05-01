@@ -100,11 +100,11 @@ class Course extends Model
         $lessons = $this->pureLessons();
 
         $user = Auth::user();
+        if (!$user) return $lessons->first();
                 
         $last_lesson_progress = $this->userProgress()->where('status', 0)->orderBy('id')->orderBy('created_at')->first();
         
-
-        if (!$user || !$last_lesson_progress) return $lessons->first();
+        if (!$last_lesson_progress) return $lessons->first();
 
 
         $current_course = Lesson::where("id", $last_lesson_progress->lesson_id)->first();

@@ -10,6 +10,9 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use App\Plan;
+
+
 class PurchaseController extends Controller
 {
     public function __construct()
@@ -17,21 +20,24 @@ class PurchaseController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($program_id)
+    public function index($target_type, $target_id)
     {
 
-        $program = Program::find($program_id);
+        $plan = Plan::find($target_id);
+        if (!$plan) return abort(404);
+        
+        $program = Program::find($plan->target_id);
+
         $user = Auth::user();
-        if (!$user || !$program || $user->isProgramPurchased($program_id) ) {
+        if (!$user || !$program || $user->isProgramPurchased($program->id) ) {
             abort(404);
         }
-        //dd("TEST");
 
-        if ($user->balance <  $program->cost) {
+        if ($user->balance <  $plan->cost) {
             $modal = [
                 "header" => "Недостаточно денег",
                 "content" => "
-                    Сейчас на счету у тебя " . $user->balance ." рублей. <br/> Для разблокировки курса требуется ". $program->cost . " рублей.
+                    Сейчас на счету у тебя " . $user->balance ." рублей. <br/> Для разблокировки курса требуется ". $plan->discounted_cost_string . " рублей.
                 "
             ];
             return redirect("cabinet")->with("message_modal", json_encode($modal));
@@ -43,10 +49,10 @@ class PurchaseController extends Controller
             $transaction->user_id = $user->id;
             $transaction->promo_id = null;
             $transaction->description = "Разблокировка учебного юнита";
-            $transaction->value = $program->cost * -1;
+            $transaction->value = $plan->cost * -1;
             $transaction->status = 1;
-            $transaction->target_id = $program->id;
-            $transaction->target_type = 'program';
+            $transaction->target_id = $plan->id;
+            $transaction->target_type = $target_type;
             $transaction->is_real = 1;
             $transaction->save();
             
@@ -64,6 +70,7 @@ class PurchaseController extends Controller
 
 
         DB::commit();
+
 
 
 

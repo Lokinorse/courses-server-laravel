@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "varilo",
+  "private_key_id": "deacf3f64d5e500fa101f49e17a2382ddca21bc8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClm3s3CgzFxSCY\nnIcKwJMoWqU2PZpLntzVaT2mNVcsfxGSexSC61c5gH4Uiw3Kf+zmrtWEBznmZtb6\nT6JgxPhpvsiIKvQ72UMQGFsFUwXo7xeBNw+/FTymAold1YFlp7K9Q4uFyeeuTNg7\nQv91WJqlPbq6iL0jPRzs5bifB/d8FiavEInRg+HkjgB8CuxE+egnS4wSgozIi0gq\nM8ShxNT46j8xlJzr4NlcEF6+6eHqkizOYOu1vGbL1y47+QaMLPHSMclMOI08arKR\ni/O2QWyEzy/hnh9RX1DLrfCkXBdRjhErSRSoompi13kseuqoZGk+cgsRHaS5gZ16\nwjQ+Rb/XAgMBAAECggEAQUu8mUbtIk1HPOT6mdK0MwUKfwhq/cX1bG/CTvZZGMJB\nO3Ar9jK0gYeYLqFlHqKx1YK5zQTMX3vM54TekSkYiRkgGBBXnAFd38q6mK7TdbRP\noDMFkmHdN9doMgcsrdghMV6gdG/XWXITD8qqzqnQz7Y3GbUwXeSKsx0gXhPWEKZI\nVd24SF3TH23vK5Z7UCAs0642u5wK5Cpl1Ht0mAKUp438TqbTZMfdAX7N9PKGx6HZ\nMd0/0NkNY49UdIqVnsuJAc5kktYX0y8nJRobxXMhM2JmN180zeUtyvZsXZmctlOF\n/DF6zhyiENMzoqkNCv4fn7ZI37sXbr6zoIbzAVnbAQKBgQDfHoh2aC9F3ug2gpjZ\n8qBec4H5NJKh5hmrk6WpFLQodIBDLaDI+Nv0PL9aeRjQ/sIdHqLUECT4gGjpAHRI\nGgE5yJ2w8XV+VYRVMjTltvFOIaNm2AYna/ejzFBVJyzUWaEqLQp7IZtxmzN2Ovew\nYtgFotMzBNqmCSXoOvRFr9Lq7wKBgQC+AzxTEuFBia3jFXJR+pPmtjbYW3PlLQ0s\nXw//xtoFBq+xOuz91yrrr+w1Ds67EICjOechflnJULG3zLoP/Nvouj+LQ9SMMc7N\nZk1gbc7dLHK0VXfT8THS4YX0sUbHK3Cp99R8DEOFuVJ9u88oovYDQLvEVSOJxEUs\n71VEjBoZmQKBgCIO8x3AAZdU03Wesd5zHu/MCgcUc12rVjfOrfcFZgrW3c1jZavH\n8StzKnKREay1dsQjLQ/Z9wrH7zvCCf4HmjBL42ZjNWA3hZ/Lri9yoZsfn2XPjADw\nhjjGs2yMMlen5uYdQgBRvPy2iEB/99dA/2C83ihnkUjPFK5CcY9Bq5yZAoGACj/E\nbjqzecSCY6BRhUh919D2Tl9IdhEjB8Ss6UABnInKykWCaQLFJudbV1VQI1j1h1hl\nNjJJh4lZvK9HTft2pSv+p3VmLpW1MPEWtV/W66ktGrsNdpoo9NYDUrqJNc8LCa/7\nfyFuNvVTFMMfnnKD0JMaTbHF8/VpQc47DDJ+aekCgYEArf69DGWHlq/aM4ecAYTU\nQ67Z3kNaSPGDr9bl2I3iIdxY7X5Y20wOQvbyTDvvvVAF+8ymrpCm6X9Qdm3hMXlD\ngDIlJLRzFKqpPI7+NdZ3Gi7zVv9ivBe2IFzwC47jUv3QGMtxoBzP+/PCODPKzGJB\nCXNrYKRBqe1FbbcrghD2tGU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "varilo-storage@varilo.iam.gserviceaccount.com",
+  "client_id": "118257512781590911397",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/varilo-storage%40varilo.iam.gserviceaccount.com"
+}

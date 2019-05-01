@@ -248,5 +248,6 @@ return [
        'allow_delete'        => true,
        'allow_create_folder' => true,
        'allow_rename'        => true,
+       'base_path' => '/test/{pk}/{date:Y}/{date:m}/'
    ],
 ];

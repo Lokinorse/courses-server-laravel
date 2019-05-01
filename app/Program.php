@@ -33,6 +33,11 @@ class Program extends Model
         });
     }
 
+    public function plans()
+    {
+        return $this->hasMany('App\Plan', 'target_id')->where('target_type', 'program');
+    }
+
     private function flushHierarchy()
     {
         return ProgramCourse::where('program_id', $this->id)->delete();
@@ -66,9 +71,9 @@ class Program extends Model
 
         $user = Auth::user();
 
+        if (!$user) return $courses->first();
         $user_courses_progress = $user->coursesProgress()->where('status', 0)->get();
-        if (!$user || $user_courses_progress->count() == 0) return $courses->first();
-
+        if ($user_courses_progress->count() == 0) return $courses->first();
 
         $current_course_progress = $user_courses_progress->last();
 

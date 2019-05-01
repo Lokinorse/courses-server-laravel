@@ -180,6 +180,35 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/components/retarg.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/retarg.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+VK.Retargeting.Init('VK-RTRG-317062-3gRde');
+
+var convert = window.convert = function (conversionName) {
+  console.log(conversionName);
+
+  if (conversionName.startsWith("tarif")) {
+    window.selectedPlan = conversionName;
+  }
+
+  if (window.location.href.startsWith("http://courses")) return;
+  if (!window.location.href.startsWith("https://varilo.ru")) return;
+  ym(51609848, 'reachGoal', conversionName);
+  VK.Retargeting.Event(conversionName);
+};
+
+$(document).on("click", "[data-conversion]", function (e) {
+  var conversionName = $(this).data("conversion");
+  window.convert(conversionName);
+});
+
+/***/ }),
+
 /***/ "./resources/js/landing/faq.js":
 /*!*************************************!*\
   !*** ./resources/js/landing/faq.js ***!
@@ -205,6 +234,10 @@ $(document).on("click", ".faq-item", function () {
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
+
+window.selectedPlan = "tarif-ya-sam";
+
+__webpack_require__(/*! ../components/retarg */ "./resources/js/components/retarg.js");
 
 var _require = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
     initModal = _require.initModal;

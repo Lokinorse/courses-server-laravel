@@ -9,8 +9,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-@import './learning/learning-process';
 @import './cabinet/cabinet';
+@import './learning/learning-process';
+@import './community/main';
 
 
 /* components */
@@ -21,7 +22,8 @@
 @import './components/circle-progress';
 @import './components/chat';
 @import './components/tabs';
-
+@import './components/videojs.scss';
+@import './components/footer';
 
 //PRISM 
 @import './components/prism';
@@ -34,8 +36,15 @@
     left: 0;
     z-index: 1030;
 }
-
+html {
+    height:100%;
+}
+body {
+    height:100%;
+    overflow: auto;
+}
 
 #app {
-	padding-top:70px;
+    padding-top:70px;
+    min-height: calc(100% - 55px);
 }

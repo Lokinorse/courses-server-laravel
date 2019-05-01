@@ -7,9 +7,9 @@
 		<div class="person-resume-wrapper">
 			<div class="person-resume-box">
 				<div class="resume-content">
-					<div class="person-image">
+					<a class="person-image" target="_blank" data-conversion="stranica-uchitela" href="https://vk.com/neerone">
 						<img src="{{ asset('img/jslp/anton.png') }}" alt="Преподаватель Javscript - Антон Платонов" />
-					</div>
+					</a>
 
 					<div class="person-description">
 						<div class="person-name">Антон Платонов</div>
@@ -46,7 +46,7 @@
 							Серверные фреймворки: Express.js, Laravel
 							<br/>
 							<br/>
-							Связаться со мной: <a href="https://vk.com/neerone">профиль вконтакте</a>
+							Связаться со мной: <a target="_blank" data-conversion="stranica-uchitela" href="https://vk.com/neerone">профиль вконтакте</a>
 
 						</div>
 					</div>

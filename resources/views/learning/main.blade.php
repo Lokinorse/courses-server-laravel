@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 
 
 <div class="container cabinet-room">
+    <div class="row courses-nav">
+        @php
+            $current_course = $program->getCurrentCourse();
+        @endphp
+        @include('cabinet.render-courses', compact('program', 'user_courses_progress', 'current_course' ))
+    </div>
     <div class="row">
         <div class="col-md-12">
         <h1 class="program-name">{{ $course->name}}</h1>

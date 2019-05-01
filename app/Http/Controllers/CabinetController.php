@@ -16,6 +16,7 @@ class CabinetController extends Controller
 	public function index(Request $request)
 	{
 		$programs = Program::all();
+
 		$user_courses_progress = auth()->user()->coursesProgress()->get();
 
 		return view('cabinet.main', compact('programs', 'user_courses_progress'));

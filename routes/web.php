@@ -46,6 +46,16 @@ Route::group(['prefix' => 'admin'], function () {
     /* ========= */
     Route::get('lessons/get_test_items/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@get_test_items']);
     Route::post('lessons/reorderTest/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@reorder_test_items']);
+
+
+    Route::get('fakier/form', ['uses' => '\App\Http\Controllers\FakierController@form'])->name("fakier_form");
+    Route::post('fakier/save_and_run', ['uses' => '\App\Http\Controllers\FakierController@save_and_run'])->name("fakier_save");
+    Route::get('fakier/get_messages/{page}', ['uses' => '\App\Http\Controllers\FakierController@get_messages'])->name("fakier_parse");
+
+    Route::post('fakier/save_parse_users', ['uses' => '\App\Http\Controllers\FakierController@save_parse_users'])->name("fakier_save_parse_users");
+    Route::get('fakier/parse_users', ['uses' => '\App\Http\Controllers\FakierController@parse_users'])->name("fakier_parse_users");
+    Route::get('fakier/change_users', ['uses' => '\App\Http\Controllers\FakierController@change_users'])->name("fakier_change_users");
+    Route::post('fakier/offset_date', ['uses' => '\App\Http\Controllers\FakierController@offset'])->name("fakier_change_offset");
     
 });
 
@@ -59,13 +69,21 @@ Route::prefix('cabinet')->group(function () {
 	Route::get('/', 'CabinetController@index')->name("cabinet");
 });
 
+Route::prefix('community')->group(function () {
+	Route::get('/', 'CommunityController@index')->name("community");
+	Route::get('/question/{question_id}', 'CommunityController@question')->name("community_question");
+	Route::get('/flood/', 'CommunityController@flood')->name("community_flood");
+	Route::get('/reviews/', 'CommunityController@reviews')->name("community_reviews");
+	Route::get('/questions/', 'CommunityController@questions')->name("community_questions");
+});
+
 
 Route::get('/messages/{destination_type}/{target_id}/{message_type}', 'ChatController@index');
 Route::get('/sendMessage/{destination_type}/{target_id}/{message_type}/{parent_id}', 'ChatController@sendMessage');
 Route::get('/sendMessage/{destination_type}/{target_id}/{message_type}', 'ChatController@sendMessage');
 
 
-Route::get('/purchase/{unit_id}', 'PurchaseController@index');
+Route::get('/purchase/{target_type}/{target_id}', 'PurchaseController@index');
 Route::get('/promo/{promo_id}/{vk_user_id}', 'PromoController@index');
 
 

@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="{{ asset('img/favicon/manifest.json') }}">
 
-
+    @include('parts.metrics')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -42,7 +42,23 @@
 
     <script>
         var loggedUser = {!!json_encode(Auth::user())!!}
- 
+        var plans = {
+            "tarif-ya-sam": {
+                name: "Я сам",
+                oldprice: "",
+                price: "845",
+            },
+            "tarif-komfortniy": {
+                name: "Комфортный",
+                oldprice: "5 100",
+                price: "2 400",
+            },
+            "tarif-premium": {
+                name: "Премиум",
+                oldprice: "25 000",
+                price: "12 500",
+            }
+        }
     </script>
 
 </head>
@@ -50,7 +66,7 @@
     <div id="app">
         @include("parts.header")
         @yield('content')
-
+        @include("parts.footer")
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/zepto.min.js') }}"></script>
@@ -58,8 +74,11 @@
 
 
 
-    @include('parts.metrics')
-
+    <!-- VK Widget -->
+<div id="vk_community_messages"></div>
+<script type="text/javascript">
+VK.Widgets.CommunityMessages("vk_community_messages", 129168187, {disableExpandChatSound: "1",disableNewMessagesSound: "1",tooltipButtonText: "Есть вопрос?"});
+</script>
 
 </body>
 </html>

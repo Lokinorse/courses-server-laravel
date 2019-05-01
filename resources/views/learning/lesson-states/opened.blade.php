@@ -1,7 +1,13 @@
 @php 
-/*     $videos = json_decode($lesson->videos);
+
     $videoURL = null;
-    if (isset($videos[0])) $videoURL = url("storage/".json_decode($lesson->videos)[0]); */
+    if (isset($current_lesson->video)) {
+        $video_object = json_decode($current_lesson->video);
+        if (isset($video_object[0])) {
+            $link = $video_object[0]->download_link;
+            $videoURL = Storage::url($link);
+        }
+    }
 
     $content = $current_lesson->description;
     if (trim($content) == "") $content = null;
@@ -76,11 +82,11 @@
 
 
 
-@if ($current_lesson->youtube_video_id) 
+@if ($videoURL) 
 <div class="lesson-pane">
         <h5>Видео</h5>
         <div class="lesson-pane-content">    
-            <iframe class="youtube-video" height="415" src="https://www.youtube-nocookie.com/embed/{!! trim($current_lesson->youtube_video_id) !!}?rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <video src="{{$videoURL}}" controls></video>
         </div>
     </div>
 @endif

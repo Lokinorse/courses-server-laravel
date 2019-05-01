@@ -1,0 +1,22 @@
+.glider-section {
+    img {
+        max-width: 100%;
+        box-shadow: 0px 2px 4px -1px #00000052;
+    }
+    .lp-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        .glider-wrapper {
+            //max-width: 500px;
+            .glide {
+                .glide__arrows {
+                    display: flex;
+                    justify-content: space-between;
+
+                }
+            }
+        }
+    }
+}

@@ -31,6 +31,11 @@
                         </div>
                     @endif
                     <div class="navbar-list-item">
+                        <a class="nav-link" href="{{ route('community') }}">
+                            Сообщество
+                        </a>
+                    </div>
+                    <div class="navbar-list-item">
                         <a class="nav-link" href="{{ route('cabinet') }}">
                             <img src={{Auth::user()->avatar}}/>
                             В кабинет

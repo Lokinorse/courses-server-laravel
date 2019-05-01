@@ -9,17 +9,20 @@
         @endphp
         @foreach ($program->sortedCourses() as $index => $course)
                 @php
-        
-                    $current_course_state = $user_courses_progress->first(function($state) use ($course) {
-                        return $state->course_id == $course->id; 
-                    });
-                    
+                    $current_class = "";
                     $state = ($course->unlocked) ? "unlocked" : "locked";
-                    if ($current_course_state) {
-                        $state = ($current_course_state->status) ? "done" : "process";
+                    if ($user_courses_progress) {   
+                        $current_course_state = $user_courses_progress->first(function($state) use ($course) {
+                            return $state->course_id == $course->id; 
+                        });
+                        
+                        if ($current_course_state) {
+                            $state = ($current_course_state->status) ? "done" : "process";
+                        }
+                        $current_course_id = (isset($current_course->id)) ? $current_course->id : 0;
+                        $current_class = ($course->id == $current_course_id) ? "current" : "";
                     }
-                    $current_course_id = (isset($current_course->id)) ? $current_course->id : 0;
-                    $current_class = ($course->id == $current_course_id) ? "current" : "";
+                    
                 @endphp
             <a href="{{url($program->slug . '/' . $course->slug)}}" class="course-item {{$current_class}}">
                     
@@ -47,7 +50,7 @@
                     @endswitch
 
 
-                    <img src="{{url("storage/".$course->thumb)}}"/>
+                    <img src="{{Storage::url($course->thumb)}}"/>
                 </div>
                 <div class="course-name">{{$course->name}}</div>
             </a>

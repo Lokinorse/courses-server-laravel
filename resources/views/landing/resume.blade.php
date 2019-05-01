@@ -15,7 +15,7 @@
 					</div>
 
 					<div class="person-description">
-						<div class="person-name">Твоё Имя</div>
+						<div class="person-name">Иван Иванов</div>
 						<div class="person-badge">Javascript-разработчик</div>
 						<div class="person-text">
 							Опыт работы: менее 1 года
