@@ -105,6 +105,17 @@ class FakierController extends Controller
         return $user;
     }
 
+    private function find_or_use_dummy($user_data)
+    {
+        $user = User::where('udemy_id', $user_data->id)->first();
+        if ($user) return $user;
+        $user = User::where('is_used', 0)->first();
+        $user->udemy_id = $user_data->id;
+        $user->is_used = 1;
+        $user->save();
+        return $user;
+    } 
+
     private function create_udemy_object($object_data)
     {
         if (!$object_data) return null;
@@ -272,6 +283,57 @@ class FakierController extends Controller
         return redirect('admin/fakier/parse_users');
     }
 
+    public function flipAvatars($filteredJsonUsers) {
+
+        $normal = $filteredJsonUsers;
+        $reversed = $filteredJsonUsers->reverse();
+        //$reversed = $filteredJsonUsers;
+
+        $counter = 0;
+        return $normal->map(function ($json_user, $key) use ($reversed, &$counter) {
+            $u = new User();
+            $avatar = $reversed->slice($counter, 1)->last()->photo_50;
+            $u->first_name = $json_user->first_name;
+            $u->last_name = $json_user->last_name;
+            $u->bdate = $json_user->bdate;
+            $u->avatar = $avatar;
+            $u->name = $u->first_name . " " . $u->last_name;
+            $u->nickname = '';
+            $counter++;
+            return $u;
+        });
+
+    }
+
+
+    public function make_dummies()
+    {
+        $parsed_users = collect($this->getUserListFromFile());
+
+        $over18users = $parsed_users->filter(function ($user) {
+            if (!isset($user->bdate)) return false;
+            $splittedDate = explode(".", $user->bdate);
+            if (isset($splittedDate[2])) {
+                if ((int)$splittedDate[2] > 2002) return false;
+                if ((int)$splittedDate[2] < 1991) return false;
+                return true;
+            }
+            return false;
+        })->unique('id');
+
+        $users = $this->flipAvatars($over18users);
+        DB::beginTransaction();
+        $users->each(function($u) {
+            $u->faked = 1;
+            $u->is_used = 0;
+            $u->save();
+        });
+        DB::commit();
+
+        return redirect('admin/fakier/form');
+    }  
+
+
     public function change_users()
     {
         $parsed_users = collect($this->getUserListFromFile());
@@ -341,5 +403,80 @@ class FakierController extends Controller
         return redirect('admin/fakier/form');
     }
 
+    private function parse_answers($parent_message, $page = 1) {
 
+        $udemy_id = $parent_message->udemy_id;
+        $settings = $this->getSettingsFromFile();
+        $url = 'https://www.udemy.com/api-2.0/courses/625204/discussions/'.$udemy_id.'/replies/?fields[course_discussion_reply]=@all&fields[user]=@min,image_50x50,initials,url&page='.$page;
+        $options = array('http' => array(
+            'method'  => 'GET',
+            'header' => 'Authorization: Bearer ' . $settings->bearer
+        ));
+        $context  = stream_context_create($options);
+        $response = file_get_contents($url, false, $context);
+        if (!$response) return $this->make_error("Хероывй респонс..");
+        $response = json_decode($response);
+        if (isset($response->next)) $this->parse_answers($parent_message, $page+1);
+        $results = collect($response->results);
+ 
+
+        $results->each(function($parsed_msg) use ($parent_message) {
+            $stored_message = Message::where("udemy_id", $parsed_msg->id)->first();
+            if (!isset($stored_message)) {
+
+                $user = $this->find_or_use_dummy($parsed_msg->user);
+
+                $user_id = ($user->id == 85) ? 1 : $user->id;
+
+
+                $stored_message = new Message();
+                $stored_message->parent_id = $parent_message->id;
+                $stored_message->user_id = $user_id;
+                $stored_message->approved = 1;
+                $stored_message->udemy_id = $parsed_msg->id;
+                $stored_message->udemy_text = $this->changeCharset($parsed_msg->body);
+                $stored_message->text = "[ПЕРЕВЕДЕНО] " . $this->translateText($stored_message->udemy_text);
+                //$stored_message->title = $russian_title;
+                $stored_message->destination_type = 'question';
+                $stored_message->message_type = 'answer';
+                $stored_message->udemy_created_at = new Carbon($parsed_msg->created);
+
+                $days_offset = (new Carbon($parent_message->created_at))->diffInDays($parent_message->udemy_created_at);
+                $created_date = (new Carbon($parsed_msg->created))->addDays($days_offset);
+
+                $stored_message->created_at = $created_date;
+                $stored_message->updated_at = $created_date;
+                $stored_message->target_id = 1;
+                $stored_message->save();
+            }
+        });
+
+    }
+
+    private function autoTranslate($message) {
+        $russian_title = $this->translateText($message->udemy_title);
+        $russian_text = $this->translateText($message->udemy_text);
+        $message->text = $russian_text;
+        $message->title = $russian_title;
+        return $message;
+    }
+
+    public function get_question_data($question_id) {
+        $message = Message::find($question_id);
+        if (!$message) return abort(404);
+        
+        
+
+
+        DB::beginTransaction();
+
+        $this->parse_answers($message);
+
+        $message = $this->autoTranslate($message);
+        $message->save();
+        DB::commit();
+        
+        return redirect()->route("community_question", ["question_id" => $message->id]);
+
+    }
 }

@@ -5,14 +5,73 @@
     }
 }
 
+.admin-panel {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #00000014;
+    border-radius: 5px;
+}
+a.community-message {
+    cursor: pointer;
+}
+
+.CodeMirror {
+    height:auto !important;
+}
+
+.js-select-lesson {
+    min-width:200px;
+}
+
+.question-title-input {
+    font-size: 22px;
+    font-weight: bolder;
+    padding: 2px 10px;
+    background: white;
+    border-radius: 3px;
+    border: 1px solid grey;
+}
+
 .community-message {
     background: white;
     margin-bottom: 10px;
     padding: 10px;
     box-shadow: 0px 3px 3px -2px #0000002b;
-    cursor: pointer;
+
     display: block;
     color: black;
+    &.preview {
+        display:flex;
+        .preview-content {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+        }
+        .answers-counter-area {
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-left: 2px solid #f8fafc;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bolder;
+            color: #3c3c3c;
+        }
+    }
+    .related-lesson {
+        border-radius: 3px;
+        padding: 0px 5px;
+        background: #f8fafc;
+        display: inline-block;
+        margin-top: -4px;
+    }
+    img {
+        max-width:100%;
+    }
+    &.message-unchecked {
+        outline: 1px solid #ff8b8b;
+    }
     &:hover {
         text-decoration: none;
         color: black;
@@ -48,5 +107,33 @@
     .message-text-preview {
         margin-top: 12px;
         margin-bottom: 2px;
+        font-size: 15px;
+        img {
+            max-width:100%;
+        }
+    }
+
+    .message-actions-wrapper {
+        display:flex;
+        justify-content: space-between;
+        .action-group {
+            display: flex;
+            button {
+                background: none;
+                padding: 10px;
+                min-width: 40px;
+                color: grey;
+                font-weight: bolder;
+                font-size: 12px;
+                border: none;
+                &.editing {
+                    background: #54d765;
+                    color: white;
+                }
+                &:hover {
+                    background: #efefef;
+                }
+            }
+        }
     }
 }

@@ -25,7 +25,10 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="{{ asset('img/favicon/manifest.json') }}">
+
+
     <!-- Scripts -->
+    <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -34,7 +37,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+    <link rel=stylesheet href="https://prosemirror.net/css/editor.css">
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
         (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -62,5 +65,9 @@
     </div>
     @include("parts.footer")
     @include('parts.metrics')
+    
+    @if(Auth::user() && Auth::user()->hasRole('admin')) 
+        @yield('custom-admin-script')
+    @endif
 </body>
 </html>

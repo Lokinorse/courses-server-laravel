@@ -54,8 +54,9 @@
         <button type="submit" class="main-button">Сохранить</button>
     </form>   
 
-    <a href="{{url('/admin/fakier/parse_users')}}" target="_blank" class="main-button">Грабить юзеров!</a>
+    <a href="{{url('/admin/fakier/parse_users')}}" target="_blank" class="main-button">Грабить юзеров в файл!</a>
     <a href="{{url('/admin/fakier/change_users')}}" target="_blank" class="main-button">Изменить юзеров!</a>
+    <a href="{{url('/admin/fakier/make_dummies')}}" target="_blank" class="main-button">Создать пустышек</a>
     <hr/>    <hr/>
     <form method="POST" action="{{url('/admin/fakier/offset_date')}}">
         @csrf  

@@ -5,30 +5,82 @@
 @php 
 $author = $question->user()->first();
 $text = $question->getBody();
-$avatar = $author->avatar;
 @endphp 
 
 <div class="container cabinet-room">
 
-
+    {{-- @include("community.admin.question-panel", ["msg" => $question]) --}}
+    
+    <a href="{{ route('community') }}" class="main-button">← К ВОПРОСАМ</a>
     <div class="community-message">
         <div class="message-heading"> 
-            <div class="message-heading-ava">
-                <img src="{{$avatar}}"/>
-            </div>
+            @include('community.parts.user-ava', ["user" => $author])
             <div class="message-heading-text">
                 <div class="author-time">
                     <span class="message-heading-author">{{$author->name}}</span>
                     <span class="message-heading-time">{{$question->humanDiff()}}</span>
+                    @php 
+                        $lesson = $question->lesson(); 
+                    @endphp 
+                    @if ($lesson)
+                        <object class="related-lesson">
+                            К уроку
+                            <a href="{{$lesson->getUrl()}}">{{$lesson->name}}</a>
+                        </object>
+                    @endif
                 </div>
-                <h1>{{$question->getTitle()}}</h1>
+                @component('components.admin-only')
+                    {{$question->getEnglishTitle()}}
+                @endcomponent
+                <h1 data-questiontitle="{{$question->id}}">{{$question->getTitle()}}</h1>
             </div>
         </div>
+        @component('components.admin-only')
+            {!!$question->getEnglishBody()!!}
+        @endcomponent
         @if ($text) 
-        <p class="message-text-preview">
+        <div class="message-text-preview" data-editorid="{{$question->id}}">
             {!!$text!!}
-        </p>
+        </div>
+        <div class="message-text-editor"></div>
+
+
         @endif 
+        @include('community.actions.edit-message', ["msg" => $question])
+    </div>
+
+    <h3>Ответы</h3>
+    <div class="community-answers">
+        @php
+            //dd($question->childs());   
+        @endphp
+        @foreach ($question->answers()->get() as $answer) 
+            @php 
+            $author = $answer->user()->first();
+            $avatar = $author->avatar;
+            @endphp 
+            
+            <div class="community-message">
+                <div class="message-heading"> 
+                    @include('community.parts.user-ava', ["user" => $author])
+                    <div class="message-heading-text">
+                        <div class="author-time">
+                            <span class="message-heading-author">{{$author->name}}</span>
+                            <span class="message-heading-time">{{$answer->humanDiff()}}</span>
+                        </div>
+                    </div>
+                </div>
+                @component('components.admin-only')
+                    {!!$answer->getEnglishBody()!!}
+                @endcomponent
+                <div class="message-text-preview" data-editorid="{{$answer->id}}">
+                    {!!$answer->getBody()!!}
+                </div>
+                @include('community.actions.edit-message', ["msg" => $answer])
+            </div>
+            
+        @endforeach
+
     </div>
     
 
@@ -39,4 +91,20 @@ $avatar = $author->avatar;
 
 @endsection
 
+
+@section('custom-admin-script')
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<link href="{{asset('/plugins/chosen/chosen.min.css')}}" rel="stylesheet" />
+<script src="{{asset('/plugins/chosen/chosen.jquery.min.js')}}"></script>
+
+
+<script>
+    $(".js-select-lesson").chosen({no_results_text: "Oops, nothing found!"}); 
+</script>
+@include('community.parts.admin-scripts')
+
+
+@endsection 
 

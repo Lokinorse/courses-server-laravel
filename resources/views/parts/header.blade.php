@@ -20,6 +20,11 @@
 
                 @guest
                     <div class="navbar-list-item">
+                        <a class="nav-link" href="{{ route('community') }}">
+                            Сообщество
+                        </a>
+                    </div>
+                    <div class="navbar-list-item">
                         <a class="nav-link" href="{{ url('auth/vkontakte') }}">Войти через VK</a>
                     </div>
                 @else

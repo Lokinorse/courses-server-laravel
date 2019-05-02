@@ -26,8 +26,16 @@
     },
     "dependencies": {
         "@glidejs/glide": "^3.3.0",
+        "codemirror": "^5.46.0",
         "laravel-echo": "^1.5.3",
+        "prosemirror-example-setup": "^1.0.1",
+        "prosemirror-model": "^1.7.0",
+        "prosemirror-schema-basic": "^1.0.1",
+        "prosemirror-schema-list": "^1.0.3",
+        "prosemirror-state": "^1.2.2",
+        "prosemirror-view": "^1.8.9",
         "pusher-js": "^4.4.0",
+        "tinymce": "^5.0.4",
         "video.js": "^7.5.4"
     }
 }

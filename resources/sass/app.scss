@@ -29,6 +29,13 @@
 @import './components/prism';
 
 
+.admin-only {
+    background: #ff00000f;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+
 .fixed-top {
     position: fixed;
     top: 0;

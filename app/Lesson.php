@@ -7,6 +7,12 @@ use App\UserLessonsProgress;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\CourseLesson;
+
+use App\Course;
+use App\ProgramCourse;
+use App\Program;
+
 class Lesson extends Model
 {
     public function rootFaq()
@@ -119,6 +125,19 @@ class Lesson extends Model
         return new \Illuminate\Support\HtmlString(
             \Illuminate\Support\Facades\View::make("vendor.voyager.lessons.questions", ['questions' => $questions])->render()
         );
+    }
+
+    public function getUrl() {
+        $courselesson = CourseLesson::where('lesson_id', $this->id)->first();
+        if (!$courselesson) return "";
+        $course = Course::find($courselesson->course_id);
+        if (!$course) return "";
+        $programcourse = ProgramCourse::where('course_id', $course->id)->first();
+        if (!$programcourse) return "";
+        $program = Program::find($programcourse->program_id);
+        //dd($program);
+
+        return url($program->slug . "/" . $course->slug . '/' . $this->slug);
     }
 
 

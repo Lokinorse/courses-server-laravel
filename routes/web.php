@@ -51,10 +51,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('fakier/form', ['uses' => '\App\Http\Controllers\FakierController@form'])->name("fakier_form");
     Route::post('fakier/save_and_run', ['uses' => '\App\Http\Controllers\FakierController@save_and_run'])->name("fakier_save");
     Route::get('fakier/get_messages/{page}', ['uses' => '\App\Http\Controllers\FakierController@get_messages'])->name("fakier_parse");
+    Route::get('fakier/get_question_data/{question_id}', ['uses' => '\App\Http\Controllers\FakierController@get_question_data'])->name("fakier_get_question_data");
+    
+
+
 
     Route::post('fakier/save_parse_users', ['uses' => '\App\Http\Controllers\FakierController@save_parse_users'])->name("fakier_save_parse_users");
     Route::get('fakier/parse_users', ['uses' => '\App\Http\Controllers\FakierController@parse_users'])->name("fakier_parse_users");
     Route::get('fakier/change_users', ['uses' => '\App\Http\Controllers\FakierController@change_users'])->name("fakier_change_users");
+    Route::get('fakier/make_dummies', ['uses' => '\App\Http\Controllers\FakierController@make_dummies'])->name("fakier_make_dummies");
+    
+    
     Route::post('fakier/offset_date', ['uses' => '\App\Http\Controllers\FakierController@offset'])->name("fakier_change_offset");
     
 });
@@ -74,8 +81,25 @@ Route::prefix('community')->group(function () {
 	Route::get('/question/{question_id}', 'CommunityController@question')->name("community_question");
 	Route::get('/flood/', 'CommunityController@flood')->name("community_flood");
 	Route::get('/reviews/', 'CommunityController@reviews')->name("community_reviews");
-	Route::get('/questions/', 'CommunityController@questions')->name("community_questions");
+    Route::get('/questions/', 'CommunityController@questions')->name("community_questions");
+    Route::prefix('tech')->group(function () {
+        Route::post('/upload_image/{owner_type}', 'CommunityController@upload_image')->name("community_upload");
+        Route::post('/save_message/{message_id}', 'CommunityController@save_message')->name("community_save_message");
+        
+        Route::post('/change_message_destination/{message_id}', 'CommunityController@change_message_destination')->name("community_change_message_destination");
+
+        Route::post('/approve_message/{message_id}', 'CommunityController@approve_message')->name("community_approve_message");
+        Route::post('/delete_message/{message_id}', 'CommunityController@delete_message')->name("community_delete_message");
+        Route::post('/report_message/{message_id}', 'CommunityController@report_message')->name("community_report_message");
+
+        
+        Route::post('/skin_user/{user_id}', 'CommunityController@skin_user')->name("community_skin_user");
+    });
 });
+
+
+
+Route::get('/jsonsearch/{entity_name}', 'JsonController@search');
 
 
 Route::get('/messages/{destination_type}/{target_id}/{message_type}', 'ChatController@index');

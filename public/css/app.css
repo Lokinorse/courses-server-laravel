@@ -17001,14 +17001,79 @@ a.text-dark:focus {
   margin-top: 32px;
 }
 
+.admin-panel {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #00000014;
+  border-radius: 5px;
+}
+
+a.community-message {
+  cursor: pointer;
+}
+
+.CodeMirror {
+  height: auto !important;
+}
+
+.js-select-lesson {
+  min-width: 200px;
+}
+
+.question-title-input {
+  font-size: 22px;
+  font-weight: bolder;
+  padding: 2px 10px;
+  background: white;
+  border-radius: 3px;
+  border: 1px solid grey;
+}
+
 .community-message {
   background: white;
   margin-bottom: 10px;
   padding: 10px;
   box-shadow: 0px 3px 3px -2px #0000002b;
-  cursor: pointer;
   display: block;
   color: black;
+}
+
+.community-message.preview {
+  display: flex;
+}
+
+.community-message.preview .preview-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.community-message.preview .answers-counter-area {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px solid #f8fafc;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bolder;
+  color: #3c3c3c;
+}
+
+.community-message .related-lesson {
+  border-radius: 3px;
+  padding: 0px 5px;
+  background: #f8fafc;
+  display: inline-block;
+  margin-top: -4px;
+}
+
+.community-message img {
+  max-width: 100%;
+}
+
+.community-message.message-unchecked {
+  outline: 1px solid #ff8b8b;
 }
 
 .community-message:hover {
@@ -17054,6 +17119,39 @@ a.text-dark:focus {
 .community-message .message-text-preview {
   margin-top: 12px;
   margin-bottom: 2px;
+  font-size: 15px;
+}
+
+.community-message .message-text-preview img {
+  max-width: 100%;
+}
+
+.community-message .message-actions-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.community-message .message-actions-wrapper .action-group {
+  display: flex;
+}
+
+.community-message .message-actions-wrapper .action-group button {
+  background: none;
+  padding: 10px;
+  min-width: 40px;
+  color: grey;
+  font-weight: bolder;
+  font-size: 12px;
+  border: none;
+}
+
+.community-message .message-actions-wrapper .action-group button.editing {
+  background: #54d765;
+  color: white;
+}
+
+.community-message .message-actions-wrapper .action-group button:hover {
+  background: #efefef;
 }
 
 /* components */
@@ -17311,6 +17409,19 @@ a.text-dark:focus {
   font-size: 15px;
   margin-left: 15px;
   cursor: pointer;
+  display: inline-block;
+}
+
+.main-button.button-green {
+  background: #31d046;
+}
+
+.main-button.button-orange {
+  background: orangered;
+}
+
+.main-button.button-red {
+  background: red;
 }
 
 .main-button:disabled {
@@ -17320,7 +17431,7 @@ a.text-dark:focus {
 
 .main-button:hover {
   color: white;
-  background: #0864ff;
+  opacity: 0.7;
   text-decoration: none;
 }
 
@@ -19844,6 +19955,12 @@ pre[class*=language-] {
 
 .token.entity {
   cursor: help;
+}
+
+.admin-only {
+  background: #ff00000f;
+  padding: 5px 10px;
+  font-size: 12px;
 }
 
 .fixed-top {
