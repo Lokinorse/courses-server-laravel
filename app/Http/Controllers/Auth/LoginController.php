@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Socialite;
 use TCG\Voyager\Models\Role;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -59,6 +60,7 @@ class LoginController extends Controller
         Auth::login($authUser, true);
 
         $autenticationPath = $req->session()->get("authentication_init_path");
+        //dd($autenticationPath);
         if ($autenticationPath) {
             $req->session()->put('authentication_init_path', null);
             return redirect("/".$autenticationPath);
@@ -81,6 +83,7 @@ class LoginController extends Controller
             $authUser->email = $data->email;
             $authUser->first_name = $user["first_name"];
             $authUser->last_name = $user["last_name"];
+            $authUser->email_verified_at = new Carbon();
             $authUser->save();
             return $authUser;
         }
@@ -91,6 +94,7 @@ class LoginController extends Controller
             'provider_user_id' => $data->id,
             'provider_user_token' => $data->token,
             'nickname' => $data->nickname,
+            'email_verified_at' => new Carbon(),
             'name' => $data->name,
             'avatar' => $data->avatar,
             'email' => $data->email,

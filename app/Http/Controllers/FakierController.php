@@ -13,6 +13,8 @@ use App\Message;
 use App\User;
 use App\UdemyObject;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 class FakierController extends Controller
 {
@@ -464,10 +466,7 @@ class FakierController extends Controller
     public function get_question_data($question_id) {
         $message = Message::find($question_id);
         if (!$message) return abort(404);
-        
-        
-
-
+    
         DB::beginTransaction();
 
         $this->parse_answers($message);
@@ -479,4 +478,31 @@ class FakierController extends Controller
         return redirect()->route("community_question", ["question_id" => $message->id]);
 
     }
+
+    public function some_test_process() {
+
+        $users = User::all();
+        $users->each(function($u) {
+            if ((float)rand()/(float)getrandmax() < 0.3) {
+                $u->avatar = null;
+                $u->save();
+            }
+        });
+
+
+/*         $messages = Message::where("title", "!=", "")->orWhere('udemy_title', '!=', "")->get();
+        
+        $messages->each(function($m) {
+            $title = $m->title; 
+            if (!trim($title)) $title = $m->udemy_title;
+
+            $m->slug = Str::slug($title, '-');
+            $m->save();
+        }); */
+        
+        return 'done';
+
+    }
+
+
 }

@@ -9,16 +9,20 @@
 
     @slot('modal_content')
 
-            <a href="{{url('auth/vkontakte')}}">
+            <a href="{{ route('oauth', ['provider'=>'vkontakte']) }}">
                 <img src="{{asset("img/vk_logo.png")}}"/>
             </a>
-            Чтобы начать обучение, необходимо войти на платформу с помощью вконтакте.
+            Чтобы начать обучение, необходимо войти на платформу.
 
     @endslot
 
     @slot('modal_footer')
         <div class="actions-group pull-left">
-            <a class="modal-actions main-button" href="{{url('auth/vkontakte')}}">Войти с помощью Вконтакте</a>
+            <a class="modal-actions main-button" href="{{route('login')}}">Войти</a>
+            <a class="animated-button" href="{{ route('oauth', ['provider'=>'vkontakte']) }}">
+                <img src="{{asset('img/vk_logo.png')}}"/>
+                Войти с помощью Вконтакте
+            </a>
         </div>
     @endslot
 

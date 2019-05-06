@@ -35,6 +35,31 @@ class Message extends Model
 
     }
 
+    public function getUrl() {
+
+
+		if ($this->message_type == "answer") {
+			$parent = Message::find($this->parent_id);
+			if ($parent) {
+                return route("community_question", ["question_slug" => $parent->slug]);
+            } else {
+                return route("community");
+            }
+        }
+
+        if (trim($this->slug) != "") {
+            if ($this->deleted_at) {
+                return route("community"); 
+            }
+
+
+
+            return route("community_question", ["question_slug" => $this->slug]);
+        } else {
+            return route("community");
+        }
+    }
+
     public function lesson() {
         if (!$this->destionation_type != "lesson") return null;
         return Lesson::where('id', $this->target_id)->first();
@@ -62,15 +87,17 @@ class Message extends Model
         ]);
     }
 
-    static function getMessages($offset = 10) {
+    static function getMessages($offset = 0) {
         if(Auth::user() && Auth::user()->hasRole('admin'))  {
             return Message::where('created_at', "<=", (new Carbon())->addDays($offset));
         }
         return Message::where('created_at', "<=", new Carbon())->where('approved', 1);
     }
 
-
-
+    public function getSlug() {
+        if (trim($this->slug) != "") return $this->slug;
+        return $this->id;
+    }
 
     public function getEnglishTitle() {
         return trim($this->udemy_title);

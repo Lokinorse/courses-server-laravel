@@ -7,7 +7,7 @@ $.ajaxSetup({
 
 var editors = {};
 function createEditor(messageId) {
-
+    if ($("[data-editorid='"+messageId+"']").length == 0) return;
     tinymce.init({
         menubar: false,
         selector: "[data-editorid='"+messageId+"']",
@@ -62,12 +62,15 @@ function createEditor(messageId) {
 
 }
 
-function stopSave(button, editor, messageId) {
+window.tinymce = tinymce;
+window.createEditor = createEditor;
+
+function stopSave({button, editor, messageId, redirectUrl}) {
     $(button).removeClass("disabled");
     $(button).removeClass("editing");
     $(button).text("ИЗМЕНИТЬ");
 
-    window.location = window.location;
+    window.location = redirectUrl;
 
 }
 
@@ -77,16 +80,13 @@ function startSave(button, editor, messageId) {
     $(button).text("СОХРАНЯЕМ...");
 
     var content = editor.getContent();
-    var title = $(button).parents(".community-message")
-
-    console.log(getCurrentTitle(messageId));
+    
     $.ajax({
         url: "/community/tech/save_message/"+messageId,
         method: "POST",
         data: {content: content, title: getCurrentTitle(messageId)},
-        success: function(data) {
-            if (data != "done") return;
-            stopSave(button, editor, messageId);
+        success: function(redirectUrl) {
+            stopSave({button, editor, messageId, redirectUrl});
         }
     })
 }
@@ -135,11 +135,13 @@ $(document).on("click", ".delete-message", function() {
     $.ajax({
         url: "/community/tech/delete_message/"+messageId,
         method: "POST",
-        success: function(data) {
-            window.location = window.location;
+        success: function(new_url) {
+            console.log(new_url);
+            window.location = new_url;
         }
     })
 });
+
 
 $(document).on("click", ".report-message", function() {
     var messageId = $(this).data("messageid");

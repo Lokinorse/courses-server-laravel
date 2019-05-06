@@ -10,11 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider')->name("oauth");
 Route::get('callback/{provider}', 'ApiCallbackController@handleProviderCallback');
+Route::post('yandex/mcallback', 'ApiCallbackController@yandexMoneyProviderCallback');
+
+
+
+
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
@@ -48,21 +54,25 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('lessons/reorderTest/{lesson_id}', ['uses' => '\App\Http\Controllers\Voyager\LessonController@reorder_test_items']);
 
 
-    Route::get('fakier/form', ['uses' => '\App\Http\Controllers\FakierController@form'])->name("fakier_form");
-    Route::post('fakier/save_and_run', ['uses' => '\App\Http\Controllers\FakierController@save_and_run'])->name("fakier_save");
-    Route::get('fakier/get_messages/{page}', ['uses' => '\App\Http\Controllers\FakierController@get_messages'])->name("fakier_parse");
-    Route::get('fakier/get_question_data/{question_id}', ['uses' => '\App\Http\Controllers\FakierController@get_question_data'])->name("fakier_get_question_data");
-    
 
+    Route::prefix('fakier')->group(function () {
 
+        Route::get('form', ['uses' => '\App\Http\Controllers\FakierController@form'])->name("fakier_form");
+        Route::post('save_and_run', ['uses' => '\App\Http\Controllers\FakierController@save_and_run'])->name("fakier_save");
+        Route::get('get_messages/{page}', ['uses' => '\App\Http\Controllers\FakierController@get_messages'])->name("fakier_parse");
+        Route::get('get_question_data/{question_id}', ['uses' => '\App\Http\Controllers\FakierController@get_question_data'])->name("fakier_get_question_data");
+        
+    
+        Route::post('save_parse_users', ['uses' => '\App\Http\Controllers\FakierController@save_parse_users'])->name("fakier_save_parse_users");
+        Route::get('parse_users', ['uses' => '\App\Http\Controllers\FakierController@parse_users'])->name("fakier_parse_users");
+        Route::get('change_users', ['uses' => '\App\Http\Controllers\FakierController@change_users'])->name("fakier_change_users");
+        Route::get('make_dummies', ['uses' => '\App\Http\Controllers\FakierController@make_dummies'])->name("fakier_make_dummies");
+    
+        Route::post('offset_date', ['uses' => '\App\Http\Controllers\FakierController@offset'])->name("fakier_change_offset");
 
-    Route::post('fakier/save_parse_users', ['uses' => '\App\Http\Controllers\FakierController@save_parse_users'])->name("fakier_save_parse_users");
-    Route::get('fakier/parse_users', ['uses' => '\App\Http\Controllers\FakierController@parse_users'])->name("fakier_parse_users");
-    Route::get('fakier/change_users', ['uses' => '\App\Http\Controllers\FakierController@change_users'])->name("fakier_change_users");
-    Route::get('fakier/make_dummies', ['uses' => '\App\Http\Controllers\FakierController@make_dummies'])->name("fakier_make_dummies");
-    
-    
-    Route::post('fakier/offset_date', ['uses' => '\App\Http\Controllers\FakierController@offset'])->name("fakier_change_offset");
+        Route::get('some_test_process', ['uses' => '\App\Http\Controllers\FakierController@some_test_process']);
+
+    });
     
 });
 
@@ -73,15 +83,35 @@ Route::get('/jslp', 'LandingController@index');
 
 //Route::post('/transaction', 'ApiController@transactionSave');
 Route::prefix('cabinet')->group(function () {
-	Route::get('/', 'CabinetController@index')->name("cabinet");
+    Route::get('/', 'CabinetController@index')->name("cabinet");
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/', 'CabinetController@settings')->name("cabinet_profile");
+        Route::get('/settings', 'CabinetController@settings')->name("cabinet_settings");
+        Route::get('/transactions', 'CabinetController@transactions')->name("cabinet_transactions");
+        Route::get('/pay', 'CabinetController@pay')->name("cabinet_pay");
+    });
+    //Route::get('/profile', 'CabinetController@profile')->middleware('verified')->name("cabinet_profile");
+
+
+
+
+    Route::post('/profile_save', 'CabinetController@profile_save')->middleware('verified')->name("cabinet_profile_save");
+    Route::post('/profile_password_change', 'CabinetController@profile_password_change')->middleware('verified')->name("cabinet_profile_password_change");
+    Route::post('/cabinet_change_avatar', 'CabinetController@cabinet_change_avatar')->middleware('verified')->name("cabinet_change_avatar");
+    
 });
 
 Route::prefix('community')->group(function () {
 	Route::get('/', 'CommunityController@index')->name("community");
-	Route::get('/question/{question_id}', 'CommunityController@question')->name("community_question");
+    Route::get('/question/new', 'CommunityController@new_question')->name("community_new_question");
+    
+	Route::get('/question/{question_slug}', 'CommunityController@question')->name("community_question");
 	Route::get('/flood/', 'CommunityController@flood')->name("community_flood");
 	Route::get('/reviews/', 'CommunityController@reviews')->name("community_reviews");
     Route::get('/questions/', 'CommunityController@questions')->name("community_questions");
+
+    
     Route::prefix('tech')->group(function () {
         Route::post('/upload_image/{owner_type}', 'CommunityController@upload_image')->name("community_upload");
         Route::post('/save_message/{message_id}', 'CommunityController@save_message')->name("community_save_message");

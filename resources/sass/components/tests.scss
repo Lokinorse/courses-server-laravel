@@ -39,6 +39,9 @@
     }
     .modal-footer {
         border: none;
+        .main-button {
+            margin-left:15px;
+        }
     }
     .modal-content {
         padding-bottom: 10px;

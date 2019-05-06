@@ -33,7 +33,11 @@
             @if (Auth::user())
                 <a class="main-button" href="{{$program->getResumeUrl()}}">Перейти к текущему уроку</a>
             @else 
-                <a class="main-button" href="{{route('oauth', ["vkontakte"])}}">Авторизоваться</a>
+                <a href="{{route('login')}}" class="main-button">Войти</a>
+                <a class="animated-button" href="{{ route('oauth', ['provider'=>'vkontakte']) }}">
+                    <img src="{{asset('img/vk_logo.png')}}"/>
+                    Войти с помощью Вконтакте
+                </a>
             @endif
         </div>
     </div>
@@ -109,5 +113,3 @@
 
 @include("learning.modals.testmodal")
 
-
-@include("learning.communication", ['current_lesson' => $current_lesson])

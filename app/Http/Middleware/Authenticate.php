@@ -15,9 +15,11 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         $request->session()->put('authentication_init_path', $request->path());
+        
 
         if (! $request->expectsJson()) {
-            return route("oauth", ["vkontakte"]);
+            return route("login");
+            //return route("oauth", ["vkontakte"]);
         }
     }
 }

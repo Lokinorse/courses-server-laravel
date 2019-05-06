@@ -2,13 +2,16 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 
 use App\UserCoursesProgress;
 use App\UserLessonsProgress;
 
 
-class User extends \TCG\Voyager\Models\User
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -23,6 +26,7 @@ class User extends \TCG\Voyager\Models\User
         'provider_user_token',
         'nickname',
         'name',
+        'password',
         'avatar',
         'email',
         'first_name',
@@ -87,6 +91,15 @@ class User extends \TCG\Voyager\Models\User
         return $this->transactions()->where("status", 1)->get()->sum('value');
     }
 
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+    public function getFallbackAva()
+    {
+        if ($this->avatar == "users/default.png") return asset("img/users/user-placeholder.png"); 
+        return $this->avatar;
+    }
     /*     public function getCurrentLesson($program_id)
     {
         $program = Unit::where("id", $program_id)->first();
@@ -110,4 +123,10 @@ class User extends \TCG\Voyager\Models\User
     {
         return UserLessonsProgress::where("user_id", $this->id);
     }
+
+    public function hasCommunityAccess() {
+        return !!$this->transactions()->where("status", 1)->where("target_type", "plan")->where('is_real', 1)->first();
+    }
+
+
 }

@@ -8,16 +8,15 @@
             <h1>Личный кабинет</h1>
             <div class="balance-inner-wrapper">
 
-{{--                 @if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
-                    <div class="giftcard" data-modaltrigger="promocode">
-                        <i class="fa fa-gift"></i> Получить 20 000 на счет
-                    </div>
-                @endif --}}
-                <div class="giftcard" data-modaltrigger="makepayment" data-conversion="oplata">
+
+                <a class="giftcard" href="{{route('cabinet_pay')}}" data-conversion="oplata">
                     <i class="fa fa-ruble-sign"></i> Пополнить
-                </div>
+                </a>
                 <div class="balance-count">
                     <span class="balance-label">Твой баланс: </span> {{Auth::user()->balance}} рублей
+                </div>
+                <div class="balance-count">
+                    <a href="{{route('cabinet_settings')}}" class="main-button"><i class="fa fa-cog"></i> Мои настройки</a>
                 </div>
             </div>
             
@@ -42,11 +41,17 @@
     </div>
 </div>
 
-{{-- @if (!Auth::user()->isPromoUsed(env("CURRENT_PROMO_ID"))) 
-    @include("cabinet.modals.promocode")
-@endif --}}
+<div class="container cabinet-room">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Вопросы</h2>
+        </div>
+    </div>
+</div>
 
-@include("cabinet.modals.make-payment")
+@include('community.questions-preview', ["messages" => $messages, "title" => "Вопросы по программе"])
+
+{{-- @include("cabinet.modals.make-payment") --}}
 
 @if (session()->get('message_modal'))
     @include("cabinet.modals.infomodal")

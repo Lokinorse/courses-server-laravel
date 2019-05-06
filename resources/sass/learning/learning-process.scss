@@ -114,6 +114,9 @@
             margin: 0px;
             display: flex;
             justify-content: flex-end;
+            a, button {
+                margin-left:10px;
+            }
         }
 
         .payout-form-wrapper {

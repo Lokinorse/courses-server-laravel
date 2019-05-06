@@ -5,7 +5,7 @@ $text = $msg->getBodyPreview();
 $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
 @endphp 
 
-<a class="community-message {{$needCheckClass}} preview" href="{{route("community_question", ["question_id" => $msg->id])}}">
+<a class="community-message {{$needCheckClass}} preview" href="{{route("community_question", ["question_slug" => $msg->getSlug()])}}">
     <div class="preview-content">
         <div class="message-heading"> 
             @include('community.parts.user-ava', ["user" => $author])
@@ -14,14 +14,17 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
                     <span class="message-heading-author">{{$author->name}}</span>
                     <span class="message-heading-time">{{$msg->humanDiff()}}</span>
 
-                    @php 
-                        $lesson = $msg->lesson(); 
-                    @endphp 
-                    @if ($lesson)
-                        <object class="related-lesson">
-                            К уроку
-                        <a href="{{$lesson->getUrl()}}">{{$lesson->name}}</a>
-                        </object>
+                    @if ($show_destination)
+                        @php 
+                            $lesson = $msg->lesson(); 
+                            @endphp 
+                        @if ($lesson)
+
+                            <object class="related-lesson">
+                                К уроку
+                                <a href="{{$lesson->getUrl()}}">{{$lesson->name}}</a>
+                            </object>
+                        @endif
                     @endif
 
 

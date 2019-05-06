@@ -13,23 +13,10 @@
     .actions-group {
         display: flex;
         flex: 1;
+
         &.pull-left {
             justify-content: flex-end;
         }
-        /*
-        button,
-         a {
-            padding: 10px;
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            &.next-step {
-                background: #0081c6;
-            }
-        } */
     }
 
     .modal-inner-content {
@@ -65,6 +52,9 @@
             border-top: 1px solid whitesmoke;
             display: flex;
             justify-content: space-between;
+            a,button {
+                margin-left:15px;
+            }
         }
     }
 }

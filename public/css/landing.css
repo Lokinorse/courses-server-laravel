@@ -5931,20 +5931,6 @@ readers do not read off random characters that represent icons */
 .modal-wrapper .actions-group {
   display: flex;
   flex: 1;
-  /*
-  button,
-   a {
-      padding: 10px;
-      border: none;
-      padding: 10px 20px;
-      color: white;
-      font-size: 16px;
-      text-decoration: none;
-      cursor: pointer;
-      &.next-step {
-          background: #0081c6;
-      }
-  } */
 }
 
 .modal-wrapper .actions-group.pull-left {
@@ -5990,6 +5976,17 @@ readers do not read off random characters that represent icons */
   justify-content: space-between;
 }
 
+.modal-wrapper .modal-inner-content .modal-footer a,
+.modal-wrapper .modal-inner-content .modal-footer button {
+  margin-left: 15px;
+}
+
+.main-input {
+  border: 1px solid #add6ff;
+  border-radius: 2px;
+  padding: 5px 10px;
+}
+
 .main-button {
   padding: 7px 25px;
   text-decoration: none;
@@ -5998,13 +5995,21 @@ readers do not read off random characters that represent icons */
   border: none;
   border-radius: 3px;
   font-size: 15px;
-  margin-left: 15px;
   cursor: pointer;
-  display: inline-block;
+  align-items: center;
+  display: inline-flex;
+}
+
+.main-button .fa {
+  margin-right: 10px;
 }
 
 .main-button.button-green {
   background: #31d046;
+}
+
+.main-button.button-grey {
+  background: grey;
 }
 
 .main-button.button-orange {
@@ -6024,6 +6029,58 @@ readers do not read off random characters that represent icons */
   color: white;
   opacity: 0.7;
   text-decoration: none;
+}
+
+.animated-button {
+  margin-right: 11px;
+  border: 1px solid #2e7cff;
+  border-radius: 4px;
+  color: #2e7cff;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0 0 0 0 #2e7cff;
+  transition: all 0.1s ease;
+  -webkit-transform: scale(1) translateY(0px);
+          transform: scale(1) translateY(0px);
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: center;
+  -webkit-animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+          animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@-webkit-keyframes pulse {
+  to {
+    box-shadow: 0 0 0 5px rgba(255, 76, 30, 0);
+  }
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 5px rgba(255, 76, 30, 0);
+  }
+}
+
+.animated-button img {
+  width: 22px;
+  margin-right: 13px;
+}
+
+.animated-button:hover {
+  text-decoration: none;
+  -webkit-animation: none;
+          animation: none;
+  color: #2e7cff;
+  -webkit-transform: scale(1.1) translateY(-5px);
+          transform: scale(1.1) translateY(-5px);
+  box-shadow: 0px 2px 10px rgba(46, 124, 255, 0.23);
+}
+
+.animated-button i {
+  margin-right: 10px;
 }
 
 /* RADIO */
@@ -6728,12 +6785,6 @@ canvas {
           transform: scale(1) translateY(0px);
   -webkit-animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
           animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
-}
-
-@-webkit-keyframes pulse {
-  to {
-    box-shadow: 0 0 0 5px rgba(255, 76, 30, 0);
-  }
 }
 
 @keyframes pulse {

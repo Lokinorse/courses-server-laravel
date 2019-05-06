@@ -10,6 +10,8 @@ use App\Message;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 
 class CommunityController extends Controller
@@ -17,14 +19,32 @@ class CommunityController extends Controller
 
 	public function index(Request $request)
 	{
-		$messages = Message::getMessages()->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(15);
+		$request->flash();
+		$days_next = $request->daysnext;
+		if (!$days_next) $days_next = 0;
+
+		if ($request->search) {
+			$messages = Message::getMessages($days_next)->where("title", 'like', "%".$request->search."%")->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(15);
+		} else {
+			$messages = Message::getMessages($days_next)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(15);
+		}
 		return view('community.main', compact('messages'));
 	}
 
-	public function question($question_id)
-	{
 
-		$question = Message::getMessages()->where('id',$question_id)->where("parent_id", 0)->first();
+	public function new_question(Request $request) {
+		
+		return view('community.new-question');
+	}
+
+
+
+	public function question($question_slug)
+	{
+		//dd($question_slug);
+		$question = Message::getMessages()->where('slug', $question_slug)->where("parent_id", 0)->first();
+		if (Is_Numeric($question_slug) && !$question)  $question = Message::getMessages()->where('id', $question_slug)->where("parent_id", 0)->first();
+		//dd(Message::getMessages()->where('slug', $question_slug)->get());
 		if (!$question) return abort(404);
 
 		return view('community.question', compact('question'));
@@ -48,28 +68,56 @@ class CommunityController extends Controller
 
 
 	public function save_message($message_id, Request $request) {
+		//dd("test");
+
 		$content =  $request->content;
 		$title =  $request->title;
 
-		$message = Message::find($message_id);
 		$user = Auth::user();
+
+		if ($message_id == "new") {
+			$message = new Message();
+			$message->user_id = $user->id;
+			$message->destination_type = $request->destination_type; 
+			$message->target_id = $request->target_id; 
+
+			$parent_id = $request->parent_id;
+			if (!isset($parent_id)) $parent_id = 0;
+			$message->parent_id = $parent_id; 
+			$message->message_type = $request->message_type; 
+			$message->approved = 1; 
+		} else {
+			$message = Message::find($message_id);
+		}
+
 		if (!$message || !$user) return abort(404);
 		if (!$message->hasChangePermission()) return abort(403); 
 		
 		$message->text = $content;
 		$message->title = $title;
+		if (trim($title) != "") {
+			$message->slug = Str::slug($title, '-');
+		}
 		$message->save();
-		return "done";
 
+		if (isset($request->redirect)) {
+			return redirect($message->getUrl());
+		}
+		return $message->getUrl();
+		
 	}
-
+	
+	
 
 
 	public function delete_message($message_id) {
 		$message = Message::find($message_id);
+		if (!$message) return $message->getUrl();
 		if (!$message->hasChangePermission()) return abort(403); 
+		
 		$message->delete();
-		return "done";
+
+		return $message->getUrl();
 
 	}
 
@@ -104,7 +152,7 @@ class CommunityController extends Controller
 		}
 
 		$message->save();
-		return redirect()->route('community_question', ["question_id" => $message_id]);
+		return redirect()->route('community_question', ["question_slug" => $message->slug]);
 
 	}
 
@@ -116,6 +164,7 @@ class CommunityController extends Controller
 	}
 
 	public function skin_user($user_id) {
+		
 		if (!Auth::user()->hasRole('admin')) return abort(404);
 
 		$user = User::find($user_id);

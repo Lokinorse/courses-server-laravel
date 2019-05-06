@@ -21,7 +21,7 @@
 
     <div class="message-wrapper">
         <div class="avatar-thumb">
-            <img src="{{$user->avatar}}"/>
+            <img src="{{$user->getFallbackAva()}}"/>
         </div>
         <div class="message-content">
             <div class="message-badge">

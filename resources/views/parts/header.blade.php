@@ -25,7 +25,10 @@
                         </a>
                     </div>
                     <div class="navbar-list-item">
-                        <a class="nav-link" href="{{ url('auth/vkontakte') }}">Войти через VK</a>
+                        <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
+                    </div>
+                    <div class="navbar-list-item">
+                        <a class="nav-link" href="{{ route('login') }}">Войти</a>
                     </div>
                 @else
                     @if(Auth::user()->hasRole('admin')) 
@@ -42,7 +45,7 @@
                     </div>
                     <div class="navbar-list-item">
                         <a class="nav-link" href="{{ route('cabinet') }}">
-                            <img src={{Auth::user()->avatar}}/>
+                            <img src="{{Auth::user()->getFallbackAva()}}"/>
                             В кабинет
                         </a>
                     </div>

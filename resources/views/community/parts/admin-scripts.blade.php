@@ -1,4 +1,9 @@
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $(document).on("mousedown", ".message-heading-ava", function(e) {
         e.preventDefault();
@@ -35,5 +40,7 @@
         $('.js-select-lesson').val('').trigger('chosen:updated');
     });
 
+
+    createEditor("new")
 
 </script>

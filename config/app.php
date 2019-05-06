@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,8 +178,9 @@ return [
         App\Providers\GoogleDriveServiceProvider::class,
         //VK LOGIN
         \SocialiteProviders\Manager\ServiceProvider::class, // add
-
         Stevebauman\Purify\PurifyServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -231,7 +232,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Purify' => \Stevebauman\Purify\Facades\Purify::class
+        'Purify' => \Stevebauman\Purify\Facades\Purify::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

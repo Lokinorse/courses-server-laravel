@@ -24,7 +24,7 @@
     <div class="message-wrapper {{$questionClass}}">
         
         <div class="avatar-thumb">
-            <img src="{{$user->avatar}}"/>
+            <img src="{{$user->getFallbackAva()}}"/>
         </div>
         <div class="message-content">
             @if (!$hasParent) 

@@ -23,4 +23,13 @@ class ApiCallbackController extends Controller
         $loginController = new LoginController();
         return $loginController->loginProviderCallback($req, $provider);
     }
+
+
+    public function yandexMoneyProviderCallback(Request $req)
+    {
+        return "done";
+        return $loginController->loginProviderCallback($req, $provider);
+    }
+
+    
 }
