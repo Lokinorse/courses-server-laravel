@@ -15,6 +15,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider')->name("oauth");
 Route::get('callback/{provider}', 'ApiCallbackController@handleProviderCallback');
+
+Route::get('yandex/mcallback', 'ApiCallbackController@yandexMoneyProviderCallback');
 Route::post('yandex/mcallback', 'ApiCallbackController@yandexMoneyProviderCallback');
 
 

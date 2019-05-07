@@ -4,22 +4,16 @@
 @section('content')
 
 <div class="container cabinet-room">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="program-name">Мой профиль</h1>
-        </div>
-    </div>
+    @include('cabinet.profile.header')
     <div class="row program-content-wrapper justify-content-center">
 
         <div class="col-md-4">
-            <div class="program-section-header">Меню</div>
             <div class="program-menu">
                 @include("cabinet.profile.menu", ["current_profile_area" => "settings"])
             </div>
         </div>
 
         <div class="col-md-8">
-            <h2 class="program-section-header">Настройки</h2>
             <div class="row">
 
                 <div class="col-md-12 cabinet-user-header">
@@ -36,7 +30,7 @@
                 </ul>
             </div>
             @endif
-
+            <br />
             <div class="row">
                 <div class="col-md-12">
                     <h3>Аватар</h3>

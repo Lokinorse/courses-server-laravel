@@ -482,13 +482,18 @@ class FakierController extends Controller
     public function some_test_process() {
 
         $users = User::all();
-        $users->each(function($u) {
+/*         $users->each(function($u) {
             if ((float)rand()/(float)getrandmax() < 0.3) {
                 $u->avatar = null;
                 $u->save();
             }
-        });
+        }); */
 
+        $users->each(function($u) {
+                $u->email_verified_at = new Carbon();
+                $u->save();
+            
+        });
 
 /*         $messages = Message::where("title", "!=", "")->orWhere('udemy_title', '!=', "")->get();
         

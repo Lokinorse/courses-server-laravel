@@ -2,7 +2,7 @@
     <a class="unit {{($current_profile_area == "pay") ? "active" : ""}}" href="{{route('cabinet_pay')}}">
         <div class="lesson-title">
             <span>
-                <span class="lesson-icon fa fa-money-bill-wave" aria-hidden="true"></span> Пополнение
+                <span class="lesson-icon fa fa-money-bill-wave" aria-hidden="true"></span> Пополнение баланса
             </span>
         </div>
     </a>

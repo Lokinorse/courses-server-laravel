@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
 
-use Illuminate\Support\Facades\Mail;
+use App\Transaction;
+use Carbon\Carbon;
 
-use Illuminate\Contracts\Mail\Mailable;
 class CabinetController extends Controller
 {
 	public function __construct()
@@ -58,12 +58,37 @@ class CabinetController extends Controller
 
 	public function transactions()
 	{
-		return view('cabinet.profile.transactions');
+		$user = Auth::user();
+		if (!$user) return abort(404);
+		$transactions = $user->transactions()->orderBy('id', 'desc')->where('status', 1)->get();
+		return view('cabinet.profile.transactions', ['transactions' => $transactions]);
 	}	
 
 	public function pay()
 	{
-		return view('cabinet.profile.pay');
+		$user = Auth::user();
+		if (!$user) return abort(404);
+
+		$current_transaction = $user->transactions()->where('status', 0)->where('is_real', 1)->first();
+		if (!$current_transaction) {
+			$current_transaction = new Transaction();
+			$current_transaction->user_id = $user->id;
+			$current_transaction->status = 0;
+			$current_transaction->is_real = 1;
+			$current_transaction->description = "Пополнение баланса";
+			$current_transaction->value = 0;
+			$current_transaction->promo_id = null;
+		}
+		$current_transaction->created_at = new Carbon();
+		$current_transaction->updated_at = new Carbon();
+		$current_transaction->save();
+
+		//notification_type&operation_id&amount&currency&datetime&sender&codepro&notification_secret&label
+
+
+
+
+		return view('cabinet.profile.pay', ['current_transaction' => $current_transaction]);
 	}
 
 

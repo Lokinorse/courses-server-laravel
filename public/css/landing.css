@@ -6031,6 +6031,23 @@ readers do not read off random characters that represent icons */
   text-decoration: none;
 }
 
+.payment-button {
+  background: transparent;
+  border: 0px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 2px solid #2e7cff;
+  font-weight: 600;
+  color: #424242;
+  border-radius: 10px;
+}
+
+.payment-button img {
+  max-width: 200px;
+}
+
 .animated-button {
   margin-right: 11px;
   border: 1px solid #2e7cff;
