@@ -1,13 +1,13 @@
+require('../bootstrap');
 require('../components/prism')
 
-require('../bootstrap');
 require('../components/tests');
-var {initChat} = require('../components/chat.js');
+//var {initChat} = require('../components/chat.js');
 //require('video.js');
 
 const { initModal } = require('../components/modal');
-const {initTabs} = require('../components/tabs');
-
+//const {initTabs} = require('../components/tabs');
+require("../menu/hamburger");
 require('../components/retarg');
 require('../community/message-actions');
 
@@ -43,10 +43,10 @@ var answerModal = initModal({
     openOnInit: false
 })
 
-initChat('unit-chat', 'unit', 'comment', answerModal)
-initChat('unit-faq', 'unit', 'faq', answerModal)
-
-initTabs('.communication-tabs');
+//initChat('unit-chat', 'unit', 'comment', answerModal)
+//initChat('unit-faq', 'unit', 'faq', answerModal)
+//
+//initTabs('.communication-tabs');
 
 
 

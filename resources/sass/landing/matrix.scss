@@ -1,10 +1,8 @@
 /* MATRIX */
 canvas {
-    background: #323b71;
+	background: #172057;
     width: 100%;
 }
-
-
 
 
 
@@ -50,7 +48,7 @@ canvas {
 }
 
 .lp-utp-action-wrapper {
-	position: absolute;
+    position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -58,9 +56,9 @@ canvas {
     display: flex;
     flex-direction: column;
     padding: 0px 20px;
-	justify-content: center;
+    justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.09);
 
     h1 {
 	    color: white;
@@ -84,6 +82,9 @@ canvas {
 		}
 	}
 	@media (max-width: 600px) {
+	    h1 {
+			font-size: 28px;
+	    }
 		.lp-cta-button {
 		    padding: 15px;
 		    font-size: 19px;
@@ -100,6 +101,102 @@ canvas {
 	    h1 {
 	        font-size: 26px;
 	    }
+
+	}
+}
+
+
+.stats-animation {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    max-width: 852px;
+    margin: 15px 0px;
+	.stat-item {
+		color: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width:30%;
+		.stat-item-icon-wrapper {
+			border: 2px solid white;
+			border-radius: 100px;
+			width: 100px;
+			max-width: 100px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+			margin-bottom: 12px;
+			svg {
+				color:white;
+				width:100%;
+			}
+
+		}
+		.stat-info {
+			font-size: 14px;
+			display: flex;
+			flex-direction: column;
+			text-transform: uppercase;
+			align-items: center;
+			b {
+				font-size: 30px;
+			}
+			span {
+				margin-top: 10px;
+			}
+		}
+		@media (max-width: 550px) {
+			justify-content: flex-start;
+			align-items: flex-start;
+			.stat-item-icon-wrapper {
+				border:none;
+				justify-content: flex-start;
+				padding:0px;
+				height: 41px;
+				svg {
+					max-width:40px;
+				}
+			}
+			.stat-info {
+				align-items: flex-start;
+				b {
+					font-size: 23px;
+					white-space: nowrap;
+				}
+			}
+	
+		}
+	}
+}
+
+
+.scroll-down {
+    color: white;
+    margin-top: 47px;
+    position: absolute;
+    bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+	@keyframes scroll {
+		0% {
+			transform: translateY(0);
+		}
+		30% {
+			transform: translateY(60px);
+		}
+	}
+	
+	svg #wheel {
+		animation: scroll ease 2s infinite;
+	}
+	@media (max-width: 550px) {
+		display:none;
 
 	}
 }

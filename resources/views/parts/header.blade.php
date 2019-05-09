@@ -46,7 +46,7 @@
                     <div class="navbar-list-item">
                         <a class="nav-link" href="{{ route('cabinet') }}">
                             <img src="{{Auth::user()->getFallbackAva()}}"/>
-                            В кабинет
+                            Кабинет
                         </a>
                     </div>
                     <div class="navbar-list-item">

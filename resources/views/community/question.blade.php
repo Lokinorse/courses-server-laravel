@@ -33,20 +33,20 @@ $text = $question->getBody();
                 @component('components.admin-only')
                     {{$question->getEnglishTitle()}}
                 @endcomponent
-                <h1 data-questiontitle="{{$question->id}}">{{$question->getTitle()}}</h1>
             </div>
         </div>
         @component('components.admin-only')
-            {!!$question->getEnglishBody()!!}
+        {!!$question->getEnglishBody()!!}
         @endcomponent
+        <h1 data-questiontitle="{{$question->id}}">{{$question->getTitle()}}</h1>
+
         @if ($text) 
         <div class="message-text-preview" data-editorid="{{$question->id}}">
             {!!$text!!}
         </div>
         <div class="message-text-editor"></div>
-
-
         @endif 
+
         @include('community.actions.edit-message', ["msg" => $question])
     </div>
 

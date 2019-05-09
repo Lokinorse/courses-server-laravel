@@ -8,6 +8,11 @@
 .cabinet-room {
     .courses-nav {
         padding: 0px 15px;
+
+        @media (max-width: 1024px) {
+            display:none;
+        }
+
         .course-item {
             width: 10%;
             .course-name {
@@ -117,6 +122,16 @@
             a, button {
                 margin-left:10px;
             }
+
+            @media (max-width: 550px) {
+                flex-direction: column;
+                a, button {
+                    width:100%;
+                    margin-top:10px;
+                    margin-left:0px;
+                }
+            }
+
         }
 
         .payout-form-wrapper {

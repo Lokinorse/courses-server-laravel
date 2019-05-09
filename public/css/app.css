@@ -16493,6 +16493,28 @@ a.text-dark:focus {
   margin-right: 10px;
 }
 
+@media (max-width: 990px) {
+  .cabinet-user-header {
+    flex-direction: column;
+  }
+
+  .cabinet-user-header h1 {
+    font-size: 28px;
+  }
+
+  .cabinet-user-header .balance-inner-wrapper {
+    flex-direction: column;
+  }
+
+  .cabinet-user-header .balance-inner-wrapper .giftcard {
+    margin: 10px 0px;
+  }
+
+  .cabinet-user-header .balance-inner-wrapper .balance-count {
+    margin-left: 0px;
+  }
+}
+
 .cabinet-programs {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -16505,6 +16527,12 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+@media (max-width: 768px) {
+  .cabinet-programs .cabinet-program-wrapper {
+    flex-direction: column;
+  }
+}
+
 .cabinet-programs .cabinet-program-wrapper .cabinet-program-thumb {
   position: relative;
   width: 40%;
@@ -16513,6 +16541,13 @@ a.text-dark:focus {
   background-position: center center;
   background-repeat: no-repeat;
   min-height: 260px;
+}
+
+@media (max-width: 768px) {
+  .cabinet-programs .cabinet-program-wrapper .cabinet-program-thumb {
+    width: 100%;
+    min-height: 300px;
+  }
 }
 
 .cabinet-programs .cabinet-program-wrapper .cabinet-program-content {
@@ -16570,6 +16605,18 @@ a.text-dark:focus {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+
+@media (max-width: 425px) {
+  .cabinet-program-courses .courses-list-wrapper .course-item {
+    width: 50%;
+    min-height: auto;
+    padding: 4px;
+  }
+
+  .cabinet-program-courses .courses-list-wrapper .course-item .course-name {
+    white-space: nowrap;
+  }
 }
 
 .cabinet-program-courses .courses-list-wrapper .course-item .course-thumb {
@@ -16706,6 +16753,12 @@ a.text-dark:focus {
   padding: 0px 15px;
 }
 
+@media (max-width: 1024px) {
+  .cabinet-room .courses-nav {
+    display: none;
+  }
+}
+
 .cabinet-room .courses-nav .course-item {
   width: 10%;
 }
@@ -16828,6 +16881,19 @@ a.text-dark:focus {
 .cabinet-room .lesson-pane .lesson-pane-footer a,
 .cabinet-room .lesson-pane .lesson-pane-footer button {
   margin-left: 10px;
+}
+
+@media (max-width: 550px) {
+  .cabinet-room .lesson-pane .lesson-pane-footer {
+    flex-direction: column;
+  }
+
+  .cabinet-room .lesson-pane .lesson-pane-footer a,
+  .cabinet-room .lesson-pane .lesson-pane-footer button {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0px;
+  }
 }
 
 .cabinet-room .lesson-pane .payout-form-wrapper {
@@ -17054,13 +17120,25 @@ a.community-message {
   background: white;
   margin-bottom: 10px;
   padding: 10px;
-  box-shadow: 0px 3px 3px -2px #0000002b;
   display: block;
   color: black;
+  border: 2px solid #d6d6d6;
+}
+
+@media (max-width: 530px) {
+  .community-message h1 {
+    font-size: 26px;
+  }
 }
 
 .community-message.preview {
   display: flex;
+}
+
+@media (max-width: 530px) {
+  .community-message.preview {
+    flex-direction: column;
+  }
 }
 
 .community-message.preview .preview-content {
@@ -17081,12 +17159,22 @@ a.community-message {
   color: #3c3c3c;
 }
 
+@media (max-width: 530px) {
+  .community-message.preview .answers-counter-area {
+    border-left: 0px;
+    width: auto;
+    justify-content: flex-start;
+    margin-top: 8px;
+  }
+}
+
 .community-message .related-lesson {
   border-radius: 3px;
-  padding: 0px 5px;
-  background: #f8fafc;
+  /* padding: 0px 5px; */
+  /* background: #f8fafc; */
   display: inline-block;
-  margin-top: -4px;
+  /* margin-top: -4px; */
+  line-height: 1;
 }
 
 .community-message img {
@@ -17126,9 +17214,22 @@ a.community-message {
   line-height: 1;
 }
 
+@media (max-width: 425px) {
+  .community-message .message-heading .message-heading-text .author-time .message-heading-author {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .community-message .message-heading .message-heading-text .author-time .message-heading-time {
   color: grey;
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .community-message .message-heading .message-heading-text .author-time {
+    flex-direction: column;
+  }
 }
 
 .community-message .message-heading .message-heading-text h4 {
@@ -17145,6 +17246,7 @@ a.community-message {
   margin-top: 12px;
   margin-bottom: 2px;
   font-size: 15px;
+  overflow: hidden;
 }
 
 .community-message .message-text-preview img {
@@ -17256,6 +17358,29 @@ a.community-message {
   margin-top: 10px;
 }
 
+@media (max-width: 768px) {
+  .new-question-wrapper {
+    flex-direction: column;
+  }
+
+  .new-question-wrapper .main-button,
+  .new-question-wrapper .animated-button {
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  .new-question-wrapper .search-form {
+    flex-direction: column;
+  }
+
+  .new-question-wrapper a.ask {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
 /* components */
 
 /*
@@ -17341,6 +17466,7 @@ a.community-message {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
@@ -17356,20 +17482,35 @@ a.community-message {
 .varilo-nav .nav-content .navbar-list {
   display: flex;
   list-style: none;
+  height: 100%;
 }
 
 .varilo-nav .nav-content .navbar-list .navbar-list-item {
   color: black;
+  height: 100%;
 }
 
 .varilo-nav .nav-content .navbar-list .navbar-list-item .nav-link {
+  border: 3px solid transparent;
+  border-left: 0px;
+  border-right: 0px;
   text-decoration: none;
   color: #242424;
   display: block;
   padding: 0 1rem;
   display: flex;
+  transition: all 0.2s ease;
   font-size: 0.9rem;
   align-items: center;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.varilo-nav .nav-content .navbar-list .navbar-list-item .nav-link:hover {
+  border-bottom: 3px solid #4971ff;
 }
 
 .varilo-nav .nav-content .navbar-list .navbar-list-item .nav-link img {
@@ -17496,6 +17637,7 @@ a.community-message {
   border: 1px solid #add6ff;
   border-radius: 2px;
   padding: 5px 10px;
+  max-width: 100%;
 }
 
 .main-button {
@@ -17540,6 +17682,13 @@ a.community-message {
   color: white;
   opacity: 0.7;
   text-decoration: none;
+}
+
+@media (max-width: 550px) {
+  .main-button {
+    width: 100%;
+    margin: 0px;
+  }
 }
 
 .payment-button {

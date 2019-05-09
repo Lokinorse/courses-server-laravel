@@ -11,8 +11,10 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
             @include('community.parts.user-ava', ["user" => $author])
             <div class="message-heading-text">
                 <div class="author-time">
-                    <span class="message-heading-author">{{$author->name}}</span>
-                    <span class="message-heading-time">{{$msg->humanDiff()}}</span>
+                    <span class="message-heading-author">
+                        {{$author->name}}
+                        <span class="message-heading-time">{{$msg->humanDiff()}}</span>
+                    </span>
 
                     @if ($show_destination)
                         @php 
@@ -30,11 +32,11 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
 
                 </div>
 
-                <h4>{{$msg->getTitle()}}</h4>
             </div>
         </div>
         @if ($text) 
         <div class="message-text-preview">
+                <h4>{{$msg->getTitle()}}</h4>
             {{$text}}
         </div>
         @endif 

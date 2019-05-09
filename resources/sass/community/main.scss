@@ -36,12 +36,20 @@ a.community-message {
     background: white;
     margin-bottom: 10px;
     padding: 10px;
-    box-shadow: 0px 3px 3px -2px #0000002b;
-
     display: block;
     color: black;
+    border: 2px solid #d6d6d6;
+    @media (max-width: 530px) {
+        h1 {
+            font-size:26px;
+        }
+    }
     &.preview {
         display:flex;
+        @media (max-width: 530px) {
+            flex-direction: column;
+        }
+
         .preview-content {
             display: flex;
             flex: 1;
@@ -57,14 +65,21 @@ a.community-message {
             font-size: 12px;
             font-weight: bolder;
             color: #3c3c3c;
+            @media (max-width: 530px) {
+                border-left: 0px;
+                width:auto;
+                justify-content: flex-start;
+                margin-top: 8px;
+            }
         }
     }
     .related-lesson {
         border-radius: 3px;
-        padding: 0px 5px;
-        background: #f8fafc;
+        /* padding: 0px 5px; */
+        /* background: #f8fafc; */
         display: inline-block;
-        margin-top: -4px;
+        /* margin-top: -4px; */
+        line-height: 1;
     }
     img {
         max-width:100%;
@@ -91,11 +106,19 @@ a.community-message {
                 }
                 .message-heading-author {
                     line-height: 1;
+                    @media (max-width: 425px) {
+                        display: flex;
+                        flex-direction: column;
+                    }
                 }
                 .message-heading-time {
                     color: grey;
                     line-height: 1;
                 }
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                }
+
             }
             h4 {
                 line-height: 1;
@@ -111,6 +134,7 @@ a.community-message {
         margin-top: 12px;
         margin-bottom: 2px;
         font-size: 15px;
+        overflow: hidden;
         img {
             max-width:100%;
         }
@@ -152,6 +176,9 @@ a.community-message {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 30px;
+
+
+
     i {
         flex:1;
     }
@@ -203,5 +230,23 @@ a.community-message {
         .main-button {
             margin-top:10px;
         }
+    }
+
+    @media (max-width: 768px) {
+        .main-button,.animated-button {
+            margin-left:0px;
+            margin-top:10px;
+            margin-right:0px;
+            width:100%;
+        }
+        flex-direction: column;
+        .search-form {
+            flex-direction: column;
+        }
+        a.ask {
+            width:100%;
+            margin:0px;
+        }
+
     }
 }

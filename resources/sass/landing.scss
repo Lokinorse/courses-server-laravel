@@ -1,6 +1,7 @@
 @import 'variables';
 
 
+
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
@@ -13,12 +14,13 @@
 @import './components/buttons';
 @import './components/footer';
 
-
+@import './community/main.scss';
 /* PARTS */
 
 @import './landing/init';
 @import './landing/matrix';
 @import './landing/advantages';
+@import './landing/community';
 @import './landing/program';
 @import './landing/costs';
 @import './landing/resume';

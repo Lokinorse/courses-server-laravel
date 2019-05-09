@@ -65,6 +65,7 @@
 			display: flex;
 			justify-content: space-between;
 			width: 100%;
+			height: 100%;
 
 			@media (max-width: 768px) {
 				display: none;
@@ -77,16 +78,30 @@
 		.navbar-list {
 			display: flex;
 			list-style: none;
+			height: 100%;
 			.navbar-list-item {
 				color:black;
+				height: 100%;
 				.nav-link {
+					border: 3px solid transparent;
+					border-left: 0px;
+					border-right: 0px;
 					text-decoration: none;
 					color: #242424;
 					display: block;
 					padding: 0 1rem;
 					display: flex;
+					transition: all 0.2s ease;
 					font-size: 0.9rem;
 					align-items: center;
+					margin-bottom: 3px;
+					margin-top: 3px;
+					font-weight: 600;
+					text-transform: uppercase;
+					font-size: 13px;
+					&:hover {
+						border-bottom: 3px solid #4971ff;
+					}
 					img {
 						border-radius: 50%;
 						height: 32px;

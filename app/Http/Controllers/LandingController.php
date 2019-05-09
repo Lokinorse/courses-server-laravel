@@ -6,23 +6,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Program;
+use App\Message;
 
 class LandingController extends Controller
 {
     public function index() {
         $program = Program::find(1);
 
+        
+        $messages = Message::getMessages(0)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(5);
+        
+        //$messagesCount = Message::getMessages(0)->count();
+        
+        //$messagesCount = 4643;
+        $messagesCount = $messages->total();
 
-/*         $disk = Storage::disk('gcs');
-        $disk->put('1', "YO");
-        dd($disk);
-        $url = $disk->get('varilo/test.json');
-        dd("OK");
 
 
-        $d = Storage::cloud();
-        Storage::cloud()->put('testooo.txt', 'Hello World');
-        $test = $d->get('./test.json'); */
-    	return view('landing.main', compact('program'));
+        $stats = (object) [
+            "questions" => $messagesCount,
+            "users" => ceil($messagesCount * 9.03),
+            "passed" => ceil($messagesCount * 322),
+        ];
+
+
+
+    	return view('landing.main', compact('program', 'messages', 'stats'));
     }
 }

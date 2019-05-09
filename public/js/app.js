@@ -36602,21 +36602,19 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../components/prism */ "./resources/js/components/prism.js");
-
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ../components/tests */ "./resources/js/components/tests.js");
+__webpack_require__(/*! ../components/prism */ "./resources/js/components/prism.js");
 
-var _require = __webpack_require__(/*! ../components/chat.js */ "./resources/js/components/chat.js"),
-    initChat = _require.initChat; //require('video.js');
+__webpack_require__(/*! ../components/tests */ "./resources/js/components/tests.js"); //var {initChat} = require('../components/chat.js');
+//require('video.js');
 
 
-var _require2 = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
-    initModal = _require2.initModal;
+var _require = __webpack_require__(/*! ../components/modal */ "./resources/js/components/modal.js"),
+    initModal = _require.initModal; //const {initTabs} = require('../components/tabs');
 
-var _require3 = __webpack_require__(/*! ../components/tabs */ "./resources/js/components/tabs.js"),
-    initTabs = _require3.initTabs;
+
+__webpack_require__(/*! ../menu/hamburger */ "./resources/js/menu/hamburger.js");
 
 __webpack_require__(/*! ../components/retarg */ "./resources/js/components/retarg.js");
 
@@ -36642,10 +36640,10 @@ var infoModal = initModal({
 var answerModal = initModal({
   name: "answermodal",
   openOnInit: false
-});
-initChat('unit-chat', 'unit', 'comment', answerModal);
-initChat('unit-faq', 'unit', 'faq', answerModal);
-initTabs('.communication-tabs');
+}); //initChat('unit-chat', 'unit', 'comment', answerModal)
+//initChat('unit-faq', 'unit', 'faq', answerModal)
+//
+//initTabs('.communication-tabs');
 
 /***/ }),
 
@@ -36726,6 +36724,7 @@ $.ajaxSetup({
 var editors = {};
 
 function createEditor(messageId) {
+  console.log("TEST");
   if ($("[data-editorid='" + messageId + "']").length == 0) return;
   tinymce.init({
     menubar: false,
@@ -36789,6 +36788,7 @@ function createEditor(messageId) {
   });
 }
 
+createEditor("new");
 window.tinymce = tinymce;
 window.createEditor = createEditor;
 
@@ -36884,87 +36884,6 @@ $(document).on("click", ".report-message", function () {
     }
   });
 });
-
-/***/ }),
-
-/***/ "./resources/js/components/chat.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/chat.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var debug = true;
-
-function initChat(chatId, destination_type, message_type, answerModal) {
-  var loop = null;
-  var $chatWrapper = $("#" + chatId);
-  if (!$chatWrapper.length) return;
-  var input = $("#" + chatId + " .message-input");
-
-  function refreshChat(callback) {
-    if (!$chatWrapper.length) return;
-    $.ajax({
-      url: "/messages/".concat(destination_type, "/").concat(chat_target_id, "/").concat(message_type),
-      method: "get"
-    }).done(function (res) {
-      var chatmessages = $chatWrapper.find(".chat-messages");
-      $chatWrapper.find(".chat-messages").html(res);
-      callback();
-    });
-  }
-
-  function refreshLoop() {
-    if (!chatId || !destination_type || !chat_target_id) return;
-    refreshChat(function () {
-      if (debug) return;
-      loop = setTimeout(refreshLoop, 5000);
-    });
-  }
-
-  function sendMessage(message, parentId) {
-    if (loop) clearTimeout(loop);
-    input.val("");
-    parentId = parentId ? "/" + parentId : "";
-    $.ajax({
-      url: "/sendMessage/".concat(destination_type, "/").concat(chat_target_id, "/").concat(message_type).concat(parentId),
-      method: "get",
-      data: {
-        message: message
-      }
-    }).done(function (res) {
-      refreshLoop();
-    });
-  }
-
-  $(document).on("keydown", "#" + chatId + " .message-input", function (e) {
-    if (e.keyCode == 13) {
-      var message = e.target.value;
-      sendMessage(message);
-    }
-  });
-  $(document).on("click", "#" + chatId + " .send-chat-message", function (e) {
-    var message = input.val();
-    sendMessage(message);
-  });
-  $(document).on('click', "#" + chatId + " .make_reply", function () {
-    answerModal.open();
-    var parentId = $(this).data('messageid');
-    var message_type = $(this).data('messagetype');
-    $(answerModal.dom).find(".answer-area").val("");
-    $(answerModal.dom).find(".main-button").on("click", function () {
-      var text = $(answerModal.dom).find(".answer-area").val();
-      sendMessage(text, parentId);
-      answerModal.close();
-      $(answerModal.dom).find(".answer-area").val("");
-    });
-  });
-  refreshLoop();
-}
-
-module.exports = {
-  initChat: initChat
-};
 
 /***/ }),
 
@@ -37567,29 +37486,6 @@ $(document).on("click", "[data-conversion]", function (e) {
 
 /***/ }),
 
-/***/ "./resources/js/components/tabs.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/tabs.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function initTabs(selector) {
-  $(document).on("click", selector + " .tab-pill", function () {
-    $(this).parent().find('.tab-pill').removeClass("active");
-    $(this).addClass("active");
-    var currentTabId = $(this).prop('id');
-    $(selector + " .tab-content").removeClass("active");
-    $(selector + " .tab-content[data-tabtarget='".concat(currentTabId, "']")).addClass('active');
-  });
-}
-
-module.exports = {
-  initTabs: initTabs
-};
-
-/***/ }),
-
 /***/ "./resources/js/components/tests.js":
 /*!******************************************!*\
   !*** ./resources/js/components/tests.js ***!
@@ -37793,6 +37689,22 @@ $(document).on("click", ".test-radio-group p", function () {
   $(this).find("input").prop('checked', true).trigger('change');
 });
 if (typeof currentLesson != 'undefined' && currentLesson.lesson_type == 'test' && typeof test_questions != 'undefined') initTest();
+
+/***/ }),
+
+/***/ "./resources/js/menu/hamburger.js":
+/*!****************************************!*\
+  !*** ./resources/js/menu/hamburger.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on("click", ".mobile-hamb", function () {
+  $(".nav-content").toggleClass("opened");
+});
+$(document).on("click", ".varilo-nav .nav-link", function () {
+  $(".nav-content").removeClass("opened");
+});
 
 /***/ }),
 

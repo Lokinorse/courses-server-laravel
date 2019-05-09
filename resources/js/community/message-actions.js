@@ -7,6 +7,7 @@ $.ajaxSetup({
 
 var editors = {};
 function createEditor(messageId) {
+    console.log("TEST")
     if ($("[data-editorid='"+messageId+"']").length == 0) return;
     tinymce.init({
         menubar: false,
@@ -61,7 +62,7 @@ function createEditor(messageId) {
     });
 
 }
-
+createEditor("new");
 window.tinymce = tinymce;
 window.createEditor = createEditor;
 

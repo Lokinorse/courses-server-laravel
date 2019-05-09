@@ -20,7 +20,7 @@
         <div class="col-md-8">
             <h2 class="program-section-header">Транзакции</h2>
             @if ($transactions->count() > 0) 
-                <table class="table">
+                <table class="table-responsive table-striped">
                     <thead>
                         <tr>
                             <th>Дата</th>

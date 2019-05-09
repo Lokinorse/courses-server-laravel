@@ -5,10 +5,58 @@
 
 	<div class="lp-utp-action-wrapper">
 		<img class="js-icon" src="{{ asset('img/jslp/js.png') }}" alt="Профессия: JAVASCRIPT-РАЗРАБОТЧИК" />
-		<h1>ОСВОЙ ПРОФЕССИЮ <br/> JAVASCRIPT-РАЗРАБОТЧИК»</h1>
-		<a class="lp-cta-button conversion" data-conversion="more" href="/#advantages"><img src="{{ asset('img/jslp/double-down.png') }}"/> Подробнее</a>
+		<h1>ОСВОЙ ПРОФЕССИЮ <br/> «JAVASCRIPT-РАЗРАБОТЧИК»</h1>
+
+		<div class="stats-animation">
+			<div class="stat-item">
+					<div class='stat-item-icon-wrapper'>
+						@include('landing.icons.video')
+					</div>
+					<div class="stat-info">
+						<b class="count" data-inc-value="{{$stats->passed}}" data-inc-duration="1000" data-inc-delay="0">0</b>
+						<span>Уроков пройдено</span> 
+					</div>
+			</div>
+			<div class="stat-item">
+				<div class='stat-item-icon-wrapper'>
+					@include('landing.icons.users')
+				</div>
+				<div class="stat-info">
+					<b class="count" data-inc-value="{{$stats->users}}" data-inc-duration="1500" data-inc-delay="0">0</b>
+					<span>Учеников обучаются</span> 
+				</div>
+			</div>
+			<div class="stat-item">
+					<div class='stat-item-icon-wrapper'>
+						@include('landing.icons.comments')
+					</div>
+					<div class="stat-info">
+						<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">0</b>
+						<span>Вопроса задано</span> 
+					</div>
+			</div>
+
+
+		</div>
+
+		<a class="scroll-down" href="/#program">
+
+				<svg width="40px" height="100%" viewBox="0 0 247 390" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+					<path id="wheel" d="M123.359,79.775l0,72.843" style="fill:none;stroke:#fff;stroke-width:20px;"/>
+					<path id="mouse" d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z" style="fill:none;stroke:#fff;stroke-width:20px;"/>
+				</svg>
+				<p>вниз</p>
+		</a>
+
 	</div>
-	<script type="text/javascript">
+
+		<script type="text/javascript">
+
+
+		!function(a,b,c){"use strict";function m(a){if(k(m),h.length&&n.running)for(var b=h.splice(0),c=0,d=null,e=b.length;e>c;c++)d=b[c],d.cancel||d.fn(a),delete i[d.guid]}for(var d=0,e={raf:"requestAnimationFrame",caf:"cancelAnimationFrame",af:"AnimationFrame"},f=["ms","moz","webkit","o"],g=0;g<f.length&&!a[e.raf];++g)a[e.raf]=a[f[g]+"Request"+e.af],a[e.caf]=a[f[g]+"Cancel"+e.af]||a[f[g]+"CancelRequest"+e.af];a[e.raf]||(a[e.raf]=function(b){var c=(new Date).getTime(),e=Math.max(0,16-(c-d)),f=a.setTimeout(function(){b(c+e)},e);return d=c+e,f}),a[e.caf]||(a[e.caf]=function(b){a.clearTimeout(b)});var h=[],i={},j=0,k=a[e.raf];a[e.caf],m();var n=function(a){return j++,i[j]=a,h.push({guid:j,cancel:!1,fn:a}),j};n.running=!0,n.cancel=function(a){return i[a]?(i[a].cancel=!0,!0):!1},n.fps=function(a,b){function e(b){var f=b-(c||0);n(e),c&&d>f||(c=b,a(b))}var c=0,d=1e3/b;e()},c&&(a[c]=n.cancel),b||(b="raf"),a[b]=n}(window,"requestAnimationFrame","cancelAnimationFrame");
+		
+
+
 
 		function randomInteger(min, max) {
 			var rand = min - 0.5 + Math.random() * (max - min + 1)
@@ -35,12 +83,15 @@
 		var height = s.innerHeight;
 
 
-		var columns = 56;
+		var columns = 65;
 		if (width < 1025) {
 			columns = 45;
 		}
 		if (width < 769) {
-			columns = 40;
+			columns = 35;
+		}
+		if (width < 425) {
+			columns = 20;
 		}
 
 
@@ -81,9 +132,9 @@
 				context.shadowOffsetX = 0;
 				context.shadowOffsetY = 0;
 				//context.shadowBlur = 5;
-				context.fillStyle='rgba(27, 36, 97,.2)';
+				context.fillStyle='rgba(27, 36, 97,.17)';
 				context.fillRect(0,0,width,height);
-				context.fillStyle='#6473cd';
+				context.fillStyle='#4946e6';
 				context.font        = "normal "+font_size+"px Lucida Console";
 
 				letters.map(function(y_pos, index){
@@ -94,12 +145,15 @@
 				});
 
 			};
-			setInterval(draw, 60);
+			//setInterval(draw, 60);
+			setTimeout(function() {
+				requestAnimationFrame.fps(draw, 20)
+			}, 1000)
 		}
-		
 
-		start(canvas);
+		start();
+		
 	
-	</script>
+	</script>  
 
 </section>

@@ -1,18 +1,22 @@
 @extends('layouts.landing')
 
 @section('content')
-	@include("landing.matrix")
+	@include("landing.matrix", ["stats" => $stats])
 	@include("landing.program")
 	@include("landing.advantages")
-	@include("landing.how-to-learn")
-	@include("landing.resume")
-	@include("landing.teacher")
 	@include("landing.tarifs")
+	@include("landing.community")
+	@include("landing.how-to-learn")
+	@include("landing.teacher")
+	@include("landing.resume")
 	@include("landing.faq")
 	@include("landing.starter", ["position" => 2])
 	
 
     @include("landing.modals.vk-login")
+
+  
+
 @endsection
 
 @section('landing-nav')
@@ -34,4 +38,5 @@
             
         </div>
     </div>
+
 @endsection

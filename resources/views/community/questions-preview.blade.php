@@ -1,14 +1,14 @@
 <div class="container cabinet-room">
-
-        <div class="new-question-wrapper">
-            <form method="get" class="search-form" action="{{route("community")}}">
-                <input placeholder="Искать вопрос" name="search" value="{{ old('search') }}"/> 
-                    <button class="main-button button-grey">Искать</button>
-            </form>
-            <span>или</span> 
-            <a href="{{route('community_new_question')}}" class="main-button ask">Задать свой</a>
-        </div>
-    
+        @if(!isset($hide_search))
+            <div class="new-question-wrapper">
+                <form method="get" class="search-form" action="{{route("community")}}">
+                        <input placeholder="Искать вопрос" name="search" value="{{ old('search') }}"/> 
+                        <button class="main-button button-grey">Искать</button>
+                    </form>
+                    <span>или</span> 
+                    <a href="{{route('community_new_question')}}" class="main-button ask">Задать свой</a>
+            </div>
+        @endif
     
         <div class="row">
             <div class="col-md-12">
@@ -22,8 +22,11 @@
             @include('community.message-preview', ["msg" => $msg, "show_destination" => true])
             @endforeach
         </div>
-        
-        <div class="community-preview-pagination">
+        @if(isset($ajax)) 
+            <button class="load-more" data-page="1" id="load-more">Загрузить еще</button>
+        @else 
+        <div class="community-preview-pagination flex-wrap" >
             {{ $messages->links() }}
         </div>
+        @endif
 </div>
