@@ -16449,6 +16449,7 @@ a.text-dark:focus {
 
 .cabinet-user-header .balance-inner-wrapper .giftcard {
   margin-right: 11px;
+  margin-left: 11px;
   border: 1px solid #ff4c1e;
   border-radius: 4px;
   color: #ff4c1e;
@@ -16559,6 +16560,7 @@ a.text-dark:focus {
 }
 
 .cabinet-programs .cabinet-program-wrapper .cabinet-program-content .cabinet-program-footer .cabinet-program-cta {
+  width: 33%;
   background: white;
   border: 2px solid #0053e0;
   padding: 5px 22px;
@@ -16569,6 +16571,12 @@ a.text-dark:focus {
   margin-top: 10px;
   align-items: center;
   text-decoration: none;
+}
+
+@media (max-width: 550px) {
+  .cabinet-programs .cabinet-program-wrapper .cabinet-program-content .cabinet-program-footer .cabinet-program-cta {
+    width: 100%;
+  }
 }
 
 .cabinet-programs .cabinet-program-wrapper .cabinet-program-content .cabinet-program-footer .cabinet-program-cta .fa {
@@ -17114,6 +17122,8 @@ a.community-message {
   background: white;
   border-radius: 3px;
   border: 1px solid grey;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .community-message {

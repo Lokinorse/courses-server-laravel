@@ -42,7 +42,6 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
         @endif 
     </div>
     <div class="answers-counter-area">
-
-        Ответов: {{$msg->answers_count}}
+        {{$msg->answers_count}} {{Lang::choice('ответ|ответа|ответов', $msg->answers_count, [], 'ru')}}
     </div>
 </a>

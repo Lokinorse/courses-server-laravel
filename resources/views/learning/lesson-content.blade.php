@@ -65,7 +65,7 @@
     
         <div class="row">
             <div class="col-md-12">
-            <h1 class="program-name">К уроку - {{ $messages->total() }} вопросов</h1>
+            <h1 class="program-name">К уроку - {{ $messages->total() }} {{Lang::choice('вопрос|вопроса|вопросов', $messages->total(), [], 'ru')}}</h1>
             </div>
         </div>
     

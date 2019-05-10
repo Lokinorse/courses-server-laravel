@@ -33,7 +33,9 @@ class PurchaseController extends Controller
             abort(404);
         }
 
-        if ($user->balance <  $plan->cost) {
+        $real_cost = $plan->discounted_cost;
+
+        if ($user->balance <  $real_cost) {
             $modal = [
                 "header" => "Недостаточно денег",
                 "content" => "
@@ -49,7 +51,7 @@ class PurchaseController extends Controller
             $transaction->user_id = $user->id;
             $transaction->promo_id = null;
             $transaction->description = "Разблокировка учебного юнита";
-            $transaction->value = $plan->cost * -1;
+            $transaction->value = $real_cost * -1;
             $transaction->status = 1;
             $transaction->target_id = $plan->id;
             $transaction->target_type = $target_type;

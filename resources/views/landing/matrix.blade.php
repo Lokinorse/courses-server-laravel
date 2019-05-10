@@ -9,13 +9,13 @@
 
 		<div class="stats-animation">
 			<div class="stat-item">
-					<div class='stat-item-icon-wrapper'>
-						@include('landing.icons.video')
-					</div>
-					<div class="stat-info">
-						<b class="count" data-inc-value="{{$stats->passed}}" data-inc-duration="1000" data-inc-delay="0">0</b>
-						<span>Уроков пройдено</span> 
-					</div>
+				<div class='stat-item-icon-wrapper'>
+					@include('landing.icons.video')
+				</div>
+				<div class="stat-info">
+					<b class="count" data-inc-value="{{$stats->passed}}" data-inc-duration="1000" data-inc-delay="0">0</b>
+					<span>{{Lang::choice('Урок пройден|Урока пройдено|Уроков пройдено', $stats->passed, [], 'ru')}}</span> 
+				</div>
 			</div>
 			<div class="stat-item">
 				<div class='stat-item-icon-wrapper'>
@@ -23,17 +23,17 @@
 				</div>
 				<div class="stat-info">
 					<b class="count" data-inc-value="{{$stats->users}}" data-inc-duration="1500" data-inc-delay="0">0</b>
-					<span>Учеников обучаются</span> 
+					<span>{{Lang::choice('Ученик обучается|Ученика обучается|Учеников обучается', $stats->users, [], 'ru')}}</span> 
 				</div>
 			</div>
 			<div class="stat-item">
-					<div class='stat-item-icon-wrapper'>
-						@include('landing.icons.comments')
-					</div>
-					<div class="stat-info">
-						<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">0</b>
-						<span>Вопроса задано</span> 
-					</div>
+				<div class='stat-item-icon-wrapper'>
+					@include('landing.icons.comments')
+				</div>
+				<div class="stat-info">
+					<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">0</b>
+					<span>{{Lang::choice('Вопрос задан|Вопроса задано|Вопросов задано', $stats->questions, [], 'ru')}}</span> 
+				</div>
 			</div>
 
 

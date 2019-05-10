@@ -54,11 +54,8 @@ $text = $question->getBody();
         $answers = $question->answers()->get();
     @endphp
     @if ($answers->count()>0) 
-        <h3>Ответы</h3>
+        <h3>{{$answers->count()}} {{Lang::choice('ответ|ответа|ответов', $answers->count(), [], 'ru')}}</h3>
         <div class="community-answers">
-            @php
-                //dd($question->childs());   
-            @endphp
             @foreach ($answers as $answer) 
                 @php 
                 $author = $answer->user()->first();

@@ -38,6 +38,7 @@
         }
         .giftcard {
             margin-right: 11px;
+            margin-left: 11px;
 
             border: 1px solid #ff4c1e;
             border-radius: 4px;
@@ -121,6 +122,7 @@
                 margin-top: 10px;
                 //border-top: 1px solid #e2e2e2;
                 .cabinet-program-cta {
+                    width:33%;
                     background: white;
                     border: 2px solid #0053e0;
                     padding: 5px 22px;
@@ -131,6 +133,9 @@
                     margin-top: 10px;
                     align-items: center;
                     text-decoration: none;
+                    @media (max-width: 550px) {
+                        width: 100%;
+                    }
                     .fa {
                         font-size: 24px;
                         margin-right: 20px;

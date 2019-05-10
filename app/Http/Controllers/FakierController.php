@@ -490,9 +490,8 @@ class FakierController extends Controller
         }); */
 
         $users->each(function($u) {
-                $u->email_verified_at = new Carbon();
+            $u->name = $u->first_name . " " . $u->lase_name;
                 $u->save();
-            
         });
 
 /*         $messages = Message::where("title", "!=", "")->orWhere('udemy_title', '!=', "")->get();

@@ -6271,6 +6271,8 @@ a.community-message {
   background: white;
   border-radius: 3px;
   border: 1px solid grey;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .community-message {
