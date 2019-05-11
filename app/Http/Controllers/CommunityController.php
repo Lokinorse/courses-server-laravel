@@ -24,9 +24,9 @@ class CommunityController extends Controller
 		if (!$days_next) $days_next = 0;
 
 		if ($request->search) {
-			$messages = Message::getMessages($days_next)->where("title", 'like', "%".$request->search."%")->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(15);
+			$messages = Message::getMessages($days_next)->where("title", 'like', "%".$request->search."%")->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(10);
 		} else {
-			$messages = Message::getMessages($days_next)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(15);
+			$messages = Message::getMessages($days_next)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(10);
 		}
 		return view('community.main', compact('messages'));
 	}
@@ -42,7 +42,7 @@ class CommunityController extends Controller
 	public function question($question_slug)
 	{
 		//dd($question_slug);
-		$question = Message::getMessages()->where('slug', $question_slug)->where("parent_id", 0)->first();
+		$question = Message::getMessages(100)->where('slug', $question_slug)->where("parent_id", 0)->first();
 		if (Is_Numeric($question_slug) && !$question)  $question = Message::getMessages()->where('id', $question_slug)->where("parent_id", 0)->first();
 		//dd(Message::getMessages()->where('slug', $question_slug)->get());
 		if (!$question) return abort(404);

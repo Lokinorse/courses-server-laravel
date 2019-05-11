@@ -480,29 +480,23 @@ class FakierController extends Controller
     }
 
     public function some_test_process() {
+        
+        $messages = Message::where("parent_id", "!=", 0)->get();
+        
+/*         DB::beginTransaction();
 
-        $users = User::all();
-/*         $users->each(function($u) {
-            if ((float)rand()/(float)getrandmax() < 0.3) {
-                $u->avatar = null;
-                $u->save();
-            }
-        }); */
-
-        $users->each(function($u) {
-            $u->name = $u->first_name . " " . $u->lase_name;
-                $u->save();
-        });
-
-/*         $messages = Message::where("title", "!=", "")->orWhere('udemy_title', '!=', "")->get();
+        
         
         $messages->each(function($m) {
-            $title = $m->title; 
-            if (!trim($title)) $title = $m->udemy_title;
-
-            $m->slug = Str::slug($title, '-');
-            $m->save();
-        }); */
+            if ($m->parent_id != 0) {
+                $parent_message = Message::where('id', $m->parent_id)->first();
+                if (!$parent_message) {
+                    $m->delete();
+                }
+            }
+        }); 
+        DB::commit(); */
+        
         
         return 'done';
 

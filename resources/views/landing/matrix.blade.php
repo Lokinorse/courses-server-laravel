@@ -32,7 +32,7 @@
 				</div>
 				<div class="stat-info">
 					<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">0</b>
-					<span>{{Lang::choice('Вопрос задан|Вопроса задано|Вопросов задано', $stats->questions, [], 'ru')}}</span> 
+					<span>{{Lang::choice('Вопрос и ответ|Вопроса и ответа|Вопросов и ответов', $stats->questions, [], 'ru')}}</span> 
 				</div>
 			</div>
 
