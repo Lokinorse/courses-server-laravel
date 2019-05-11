@@ -26,12 +26,13 @@ class Program extends Model
 
     public function sortedCourses()
     {
-        return $this->orderedCourses()->get()->sortByDesc(function ($item, $key) {
+        return $this->orderedCourses->sortByDesc(function ($item, $key) {
             return $item->id;
         })->sortBy(function ($item, $key) {
             return $item->pivot->order;
         });
     }
+
 
     public function plans()
     {

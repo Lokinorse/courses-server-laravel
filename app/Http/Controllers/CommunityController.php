@@ -24,10 +24,21 @@ class CommunityController extends Controller
 		if (!$days_next) $days_next = 0;
 
 		if ($request->search) {
-			$messages = Message::getMessages($days_next)->where("title", 'like', "%".$request->search."%")->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(10);
+			$messages = Message::getMessages($days_next)
+			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
+			->where("title", 'like', "%".$request->search."%")
+			->where("parent_id", 0)
+			->orderBy('created_at', 'desc')->paginate(10);
 		} else {
-			$messages = Message::getMessages($days_next)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(10);
+			$messages = Message::getMessages($days_next)
+			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
+			->where("parent_id", 0)
+			->orderBy('created_at', 'desc')
+			->paginate(10);
 		}
+
+
+
 		return view('community.main', compact('messages'));
 	}
 

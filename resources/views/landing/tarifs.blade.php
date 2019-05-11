@@ -5,7 +5,7 @@
 
 
 		<div class="costs-wrapper">
-			@foreach ($program->plans()->get() as $plan)
+			@foreach ($program->plans as $plan)
 				
 				<div class="costs-item-wrapper">
 					@if ($plan->discount) 

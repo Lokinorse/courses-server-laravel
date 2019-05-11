@@ -14,7 +14,7 @@ use App\User;
 use App\UdemyObject;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-
+use Auth;
 
 class FakierController extends Controller
 {
@@ -481,7 +481,12 @@ class FakierController extends Controller
 
     public function some_test_process() {
         
-        $messages = Message::where("parent_id", "!=", 0)->get();
+        $user = User::find(24369);
+        //dd($user);
+        //$user->login();
+        Auth::login($user, true);
+
+        //$messages = Message::where("parent_id", "!=", 0)->get();
         
 /*         DB::beginTransaction();
 

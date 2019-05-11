@@ -1,5 +1,5 @@
 @php 
-$author = $msg->user()->first();
+$author = $msg->user;
 $text = $msg->getBodyPreview();
 
 $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
@@ -17,14 +17,12 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
                     </span>
 
                     @if ($show_destination)
-                        @php 
-                            $lesson = $msg->lesson(); 
-                            @endphp 
-                        @if ($lesson)
+
+                        @if ($msg->lesson)
 
                             <object class="related-lesson">
                                 К уроку
-                                <a href="{{$lesson->getUrl()}}">{{$lesson->name}}</a>
+                                <a href="{{$msg->lesson->getUrl()}}">{{$msg->lesson->name}}</a>
                             </object>
                         @endif
                     @endif

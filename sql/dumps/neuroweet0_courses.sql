@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Хост: 10.0.0.164:3308
--- Время создания: Апр 23 2019 г., 23:31
+-- Время создания: Май 11 2019 г., 04:30
 -- Версия сервера: 10.1.37-MariaDB
 -- Версия PHP: 5.3.3
 
@@ -47,9 +47,9 @@ INSERT INTO `courses` (`id`, `name`, `description`, `created_at`, `updated_at`, 
 (8, 'Основы HTML', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-17 20:27:00', '2019-04-19 15:52:30', 'osnovi-html', '1/YFYgD5cz9p.png', NULL, 1),
 (11, 'Введение', 'Давай знакомиться!', '2019-04-17 22:13:04', '2019-04-20 21:51:07', 'vvedenie', '1/qGJTxY6Tt7.jpg', NULL, 1),
 (12, 'Основы CSS', 'Ознакомление с синтаксисом CSS, самыми основными его свойствами и назначением в верстке', '2019-04-19 10:34:41', '2019-04-19 10:34:50', 'osnovi-css', '1/f0mWRWHim2.png', NULL, 1),
-(13, 'Bootstrap', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-20 16:24:25', '2019-04-20 21:40:31', 'bootstrap', '1/y5c2EPT6gQ.png', NULL, 1),
-(14, 'JavaScript', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-20 17:02:08', '2019-04-20 21:40:58', 'javascript', '1/eixxKzEJur.png', NULL, 1),
-(15, 'Node JS', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-21 08:30:55', '2019-04-21 12:15:53', 'node-js', '2/PScwlRZVzZ.png', NULL, 1);
+(13, 'Bootstrap', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-20 16:24:25', '2019-04-23 18:01:11', 'bootstrap', '1/y5c2EPT6gQ.png', NULL, 0),
+(14, 'JavaScript', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-20 17:02:08', '2019-04-23 18:01:28', 'javascript', '1/eixxKzEJur.png', NULL, 0),
+(15, 'Node JS', 'Курс, без которого освоить профессию JavaScript-разработчика невозможно!', '2019-04-21 08:30:55', '2019-04-23 18:01:08', 'node-js', '2/PScwlRZVzZ.png', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `data_rows` (
   `order` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `data_rows_data_type_id_foreign` (`data_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=148 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=151 ;
 
 --
 -- Дамп данных таблицы `data_rows`
@@ -297,6 +297,9 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (43, 7, 'promo_id', 'text', 'Promo Id', 0, 1, 1, 1, 1, 1, '{}', 8),
 (44, 7, 'target_id', 'text', 'Target Id', 0, 1, 1, 1, 1, 1, '{}', 9),
 (45, 7, 'deleted_at', 'timestamp', 'Deleted At', 0, 0, 0, 0, 0, 0, '{}', 10),
+(46, 7, 'transaction_belongsto_user_relationship', 'relationship', 'Пользователь', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"data_rows","pivot":"0","taggable":"0"}', 11),
+(47, 7, 'transaction_belongsto_promo_relationship', 'relationship', 'Промо', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Promo","table":"promos","type":"belongsTo","column":"promo_id","key":"id","label":"name","pivot_table":"data_rows","pivot":"0","taggable":"0"}', 12),
+(48, 7, 'transaction_belongsto_unit_relationship', 'relationship', 'План', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Plan","table":"plans","type":"belongsTo","column":"target_id","key":"id","label":"name","pivot_table":"data_rows","pivot":"0","taggable":"0"}', 13),
 (49, 7, 'status', 'checkbox', 'Status', 0, 1, 1, 1, 1, 1, '{"on":"\\u041f\\u0440\\u043e\\u0432\\u0435\\u0434\\u0435\\u043d\\u043e","off":"\\u041d\\u0435 \\u043f\\u0440\\u043e\\u0432\\u0435\\u0434\\u0435\\u043d\\u043e","checked":"false"}', 11),
 (50, 4, 'cost', 'text', 'Cost', 0, 1, 1, 1, 1, 1, '{}', 10),
 (51, 6, 'value', 'text', 'Value', 0, 1, 1, 1, 1, 1, '{}', 5),
@@ -339,7 +342,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (104, 15, 'completed', 'checkbox', 'Completed', 1, 1, 1, 1, 1, 1, '{"on":"\\u0414\\u043e\\u0434\\u0435\\u043b\\u0430\\u043d","off":"\\u0412 \\u043f\\u0440\\u043e\\u0446\\u0435\\u0441\\u0441\\u0435","checked":"true"}', 4),
 (105, 15, 'test_id', 'text', 'Test Id', 0, 1, 1, 1, 1, 1, '{}', 8),
 (106, 15, 'youtube_video_id', 'text', 'ID Ютуба', 0, 1, 1, 1, 1, 1, '{}', 9),
-(107, 15, 'lesson_type', 'select_dropdown', 'Тип занятия', 0, 1, 1, 1, 1, 1, '{"default":"video","options":{"divider":"\\u0420\\u0430\\u0437\\u0434\\u0435\\u043b\\u0438\\u0442\\u0435\\u043b\\u044c","video":"\\u0412\\u0438\\u0434\\u0435\\u043e","test":"\\u0422\\u0435\\u0441\\u0442\\u0438\\u0440\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435","practices":"\\u041f\\u0440\\u0430\\u043a\\u0442\\u0438\\u043a\\u0430 \\u043a\\u043e\\u0434\\u043e\\u043c","homework":"\\u0414\\u043e\\u043c\\u0430\\u0448\\u043d\\u0435\\u0435 \\u0437\\u0430\\u0434\\u0430\\u043d\\u0438\\u0435"}}', 10),
+(107, 15, 'lesson_type', 'select_dropdown', 'Тип занятия', 1, 1, 1, 1, 1, 1, '{"default":"video","options":{"divider":"\\u0420\\u0430\\u0437\\u0434\\u0435\\u043b\\u0438\\u0442\\u0435\\u043b\\u044c","video":"\\u0412\\u0438\\u0434\\u0435\\u043e","test":"\\u0422\\u0435\\u0441\\u0442\\u0438\\u0440\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435","practices":"\\u041f\\u0440\\u0430\\u043a\\u0442\\u0438\\u043a\\u0430 \\u043a\\u043e\\u0434\\u043e\\u043c","homework":"\\u0414\\u043e\\u043c\\u0430\\u0448\\u043d\\u0435\\u0435 \\u0437\\u0430\\u0434\\u0430\\u043d\\u0438\\u0435"}}', 10),
 (108, 12, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 7),
 (109, 12, 'thumb', 'media_picker', 'Превью', 0, 1, 1, 1, 1, 1, '{"max":1,"min":0,"show_folders":true,"show_toolbar":true,"allow_upload":true,"allow_move":false,"allow_delete":true,"allow_create_folder":true,"allow_rename":true,"allow-multi-select":false,"allow_crop":true,"allowed":["image"],"base_path":"\\/{uid}\\/","rename":"{random:10}"}', 8),
 (110, 11, 'thumb', 'media_picker', 'Thumb', 0, 1, 1, 1, 1, 1, '{"max":1,"min":0,"show_folders":true,"show_toolbar":true,"allow_upload":true,"allow_move":false,"allow_delete":true,"allow_create_folder":true,"allow_rename":true,"allow-multi-select":false,"allow_crop":true,"allowed":["image"],"base_path":"\\/{uid}\\/","rename":"{random:10}"}', 6),
@@ -349,37 +352,40 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (114, 12, 'unlocked', 'checkbox', 'Разблокирован по умолчанию', 1, 1, 1, 1, 1, 1, '{"on":"\\u041e\\u0442\\u043a\\u0440\\u044b\\u0442\\u044b\\u0439","off":"\\u0417\\u0430\\u043a\\u0440\\u044b\\u0442\\u044b\\u0439","checked":"true"}', 4),
 (115, 15, 'short_description', 'text', 'Короткое описание', 0, 1, 1, 1, 1, 1, '{}', 12),
 (116, 11, 'slug', 'text', 'Slug', 0, 1, 1, 1, 1, 1, '{}', 8),
-(117, 15, 'lesson_belongstomany_course_relationship', 'relationship', 'courses', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Course","table":"courses","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"course_lesson","pivot":"1","taggable":"0"}', 14),
+(117, 15, 'lesson_belongstomany_course_relationship', 'relationship', 'courses', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Course","table":"courses","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"course_lesson","pivot":"1","taggable":null}', 14),
 (118, 12, 'course_belongstomany_program_relationship', 'relationship', 'programs', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Program","table":"programs","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"program_course","pivot":"1","taggable":null}', 10),
-(119, 7, 'is_real', 'text', 'Is Real', 0, 1, 1, 1, 1, 1, '{}', 11),
-(120, 7, 'target_type', 'text', 'Target Type', 0, 1, 1, 1, 1, 1, '{}', 12),
-(121, 16, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(122, 16, 'target_id', 'text', 'Target Id', 1, 1, 1, 1, 1, 1, '{}', 2),
-(123, 16, 'destination_type', 'text', 'Destination Type', 1, 1, 1, 1, 1, 1, '{}', 3),
-(124, 16, 'parent_id', 'text', 'Parent Id', 1, 1, 1, 1, 1, 1, '{}', 4),
-(125, 16, 'text', 'text', 'Text', 1, 1, 1, 1, 1, 1, '{}', 5),
-(126, 16, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 6),
-(127, 16, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
-(128, 16, 'user_id', 'text', 'User Id', 1, 1, 1, 1, 1, 1, '{}', 8),
-(129, 16, 'important', 'text', 'Important', 0, 1, 1, 1, 1, 1, '{}', 9),
-(130, 16, 'right', 'text', 'Right', 0, 1, 1, 1, 1, 1, '{}', 10),
-(131, 16, 'message_type', 'text', 'Message Type', 1, 1, 1, 1, 1, 1, '{}', 11),
-(132, 17, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(133, 17, 'lesson_id', 'text', 'Lesson Id', 1, 1, 1, 1, 1, 1, '{}', 2),
-(134, 17, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 3),
-(135, 17, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
-(136, 17, 'user_id', 'text', 'User Id', 1, 1, 1, 1, 1, 1, '{}', 5),
-(137, 17, 'status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 6),
-(138, 17, 'user_lessons_progress_belongsto_user_relationship', 'relationship', 'users', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"course_lesson","pivot":"0","taggable":"0"}', 7),
-(139, 17, 'user_lessons_progress_belongsto_lesson_relationship', 'relationship', 'lessons', 0, 1, 1, 1, 1, 1, '{"model":"App\\\\Lesson","table":"lessons","type":"belongsTo","column":"lesson_id","key":"id","label":"name","pivot_table":"course_lesson","pivot":"0","taggable":"0"}', 8),
-(140, 1, 'first_name', 'text', 'First Name', 1, 1, 1, 1, 1, 1, '{}', 4),
-(141, 1, 'last_name', 'text', 'Last Name', 1, 1, 1, 1, 1, 1, '{}', 5),
-(142, 1, 'nickname', 'text', 'Nickname', 1, 1, 1, 1, 1, 1, '{}', 6),
-(143, 1, 'email_verified_at', 'timestamp', 'Email Verified At', 0, 1, 1, 1, 1, 1, '{}', 8),
-(144, 1, 'api_token', 'text', 'Api Token', 0, 1, 1, 1, 1, 1, '{}', 10),
-(145, 1, 'provider', 'text', 'Provider', 0, 1, 1, 1, 1, 1, '{}', 11),
-(146, 1, 'provider_user_id', 'text', 'Provider User Id', 0, 1, 1, 1, 1, 1, '{}', 12),
-(147, 1, 'provider_user_token', 'text', 'Provider User Token', 0, 1, 1, 1, 1, 1, '{}', 13);
+(119, 16, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(120, 16, 'target_id', 'text', 'Target Id', 1, 1, 1, 1, 1, 1, '{}', 2),
+(121, 16, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 3),
+(122, 16, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 4),
+(123, 16, 'target_type', 'text', 'Target Type', 1, 1, 1, 1, 1, 1, '{}', 5),
+(124, 16, 'cost', 'number', 'Cost', 0, 1, 1, 1, 1, 1, '{}', 6),
+(125, 16, 'description', 'rich_text_box', 'Description', 0, 1, 1, 1, 1, 1, '{}', 7),
+(126, 16, 'recommended', 'checkbox', 'Recommended', 0, 1, 1, 1, 1, 1, '{}', 8),
+(127, 16, 'discount', 'number', 'Discount', 1, 1, 1, 1, 1, 1, '{}', 9),
+(128, 16, 'name', 'text', 'Name', 0, 1, 1, 1, 1, 1, '{}', 10),
+(129, 16, 'conversion_tag', 'text', 'Conversion Tag', 0, 1, 1, 1, 1, 1, '{}', 11),
+(130, 7, 'is_real', 'text', 'Is Real', 0, 1, 1, 1, 1, 1, '{}', 11),
+(131, 7, 'target_type', 'text', 'Target Type', 0, 1, 1, 1, 1, 1, '{}', 12),
+(132, 1, 'first_name', 'text', 'First Name', 1, 1, 1, 1, 1, 1, '{}', 4),
+(133, 1, 'last_name', 'text', 'Last Name', 1, 1, 1, 1, 1, 1, '{}', 5),
+(134, 1, 'nickname', 'text', 'Nickname', 1, 1, 1, 1, 1, 1, '{}', 6),
+(135, 1, 'email_verified_at', 'timestamp', 'Email Verified At', 0, 1, 1, 1, 1, 1, '{}', 8),
+(136, 1, 'api_token', 'text', 'Api Token', 0, 1, 1, 1, 1, 1, '{}', 10),
+(137, 1, 'provider', 'text', 'Provider', 0, 1, 1, 1, 1, 1, '{}', 11),
+(138, 1, 'provider_user_id', 'text', 'Provider User Id', 0, 1, 1, 1, 1, 1, '{}', 12),
+(139, 1, 'provider_user_token', 'text', 'Provider User Token', 0, 1, 1, 1, 1, 1, '{}', 13),
+(140, 17, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(141, 17, 'target_id', 'text', 'Target Id', 1, 1, 1, 1, 1, 1, '{}', 2),
+(142, 17, 'destination_type', 'text', 'Destination Type', 1, 1, 1, 1, 1, 1, '{}', 3),
+(143, 17, 'parent_id', 'text', 'Parent Id', 1, 1, 1, 1, 1, 1, '{}', 4),
+(144, 17, 'text', 'text', 'Text', 1, 1, 1, 1, 1, 1, '{}', 5),
+(145, 17, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 6),
+(146, 17, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
+(147, 17, 'user_id', 'text', 'User Id', 1, 1, 1, 1, 1, 1, '{}', 8),
+(148, 17, 'important', 'text', 'Important', 0, 1, 1, 1, 1, 1, '{}', 9),
+(149, 17, 'right', 'text', 'Right', 0, 1, 1, 1, 1, 1, '{}', 10),
+(150, 17, 'message_type', 'text', 'Message Type', 1, 1, 1, 1, 1, 1, '{}', 11);
 
 -- --------------------------------------------------------
 
@@ -406,27 +412,27 @@ CREATE TABLE IF NOT EXISTS `data_types` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `data_types_name_unique` (`name`),
   UNIQUE KEY `data_types_slug_unique` (`slug`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=18 ;
 
 --
 -- Дамп данных таблицы `data_types`
 --
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES
-(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}', '2019-04-08 13:44:21', '2019-04-21 18:35:46'),
+(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}', '2019-04-08 13:44:21', '2019-04-24 10:59:37'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-04-08 13:44:21', '2019-04-08 13:44:21'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-04-08 13:44:21', '2019-04-08 13:44:21'),
 (4, 'units', 'units', 'Unit', 'Units', NULL, 'App\\Unit', NULL, 'App\\Http\\Controllers\\Voyager\\UnitController', NULL, 1, 1, '{"order_column":"id","order_display_column":null,"order_direction":"asc","default_search_key":"name","scope":null}', '2019-04-08 13:46:36', '2019-04-15 13:01:54'),
 (5, 'promo', 'promo', 'Promo', 'Promo', NULL, 'App\\Promo', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-10 17:56:21', '2019-04-10 18:01:08'),
 (6, 'promos', 'promos', 'Promo', 'Promos', NULL, 'App\\Promo', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-10 18:02:27', '2019-04-11 13:44:49'),
-(7, 'transactions', 'transactions', 'Transaction', 'Transactions', NULL, 'App\\Transaction', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-10 18:07:47', '2019-04-21 13:40:36'),
+(7, 'transactions', 'transactions', 'Transaction', 'Transactions', NULL, 'App\\Transaction', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-10 18:07:47', '2019-04-23 13:47:17'),
 (9, 'test_questions', 'test-questions', 'Test Question', 'Test Questions', NULL, 'App\\TestQuestion', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}', '2019-04-12 22:11:48', '2019-04-12 22:11:48'),
 (10, 'test_answers', 'test-answers', 'Test Answer', 'Test Answers', NULL, 'App\\TestAnswer', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}', '2019-04-12 22:12:14', '2019-04-12 22:12:14'),
 (11, 'programs', 'programs', 'Program', 'Programs', NULL, 'App\\Program', NULL, 'App\\Http\\Controllers\\Voyager\\ProgramController', NULL, 1, 0, '{"order_column":null,"order_display_column":"id","order_direction":"asc","default_search_key":"name","scope":null}', '2019-04-17 18:59:11', '2019-04-19 04:40:40'),
 (12, 'courses', 'courses', 'Course', 'Courses', NULL, 'App\\Course', NULL, 'App\\Http\\Controllers\\Voyager\\CourseController', NULL, 1, 0, '{"order_column":null,"order_display_column":"id","order_direction":"asc","default_search_key":"name","scope":null}', '2019-04-17 19:01:40', '2019-04-17 23:48:36'),
-(15, 'lessons', 'lessons', 'Lesson', 'Lessons', NULL, 'App\\Lesson', NULL, 'App\\Http\\Controllers\\Voyager\\LessonController', NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":"name","scope":null}', '2019-04-17 19:19:06', '2019-04-19 14:16:55'),
-(16, 'messages', 'messages', 'Message', 'Messages', NULL, 'App\\Message', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}', '2019-04-21 17:43:36', '2019-04-21 17:43:36'),
-(17, 'user_lessons_progress', 'user-lessons-progress', 'User Lessons Progress', 'User Lessons Progresses', NULL, 'App\\UserLessonsProgress', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-21 17:46:00', '2019-04-21 17:50:46');
+(15, 'lessons', 'lessons', 'Lesson', 'Lessons', NULL, 'App\\Lesson', NULL, 'App\\Http\\Controllers\\Voyager\\LessonController', NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":"name","scope":null}', '2019-04-17 19:19:06', '2019-04-18 02:49:33'),
+(16, 'plans', 'plans', 'Plan', 'Plans', NULL, 'App\\Plan', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}', '2019-04-23 11:48:16', '2019-04-23 17:45:20'),
+(17, 'messages', 'messages', 'Message', 'Messages', NULL, 'App\\Message', NULL, NULL, NULL, 1, 0, '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}', '2019-04-25 14:47:29', '2019-04-25 14:47:29');
 
 -- --------------------------------------------------------
 
@@ -704,34 +710,34 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
   `parameters` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `menu_items_menu_id_foreign` (`menu_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `menu_items`
 --
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
-(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-04-08 13:44:21', '2019-04-10 17:58:41', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2019-04-08 13:44:21', '2019-04-12 19:30:00', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2019-04-08 13:44:21', '2019-04-17 19:16:06', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 5, '2019-04-08 13:44:21', '2019-04-12 19:30:00', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 7, '2019-04-08 13:44:21', '2019-04-12 19:30:00', NULL, NULL),
+(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-04-08 13:44:21', '2019-04-23 17:43:06', 'voyager.dashboard', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2019-04-08 13:44:21', '2019-04-23 17:43:07', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2019-04-08 13:44:21', '2019-04-23 17:43:07', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 5, '2019-04-08 13:44:21', '2019-04-23 17:43:07', 'voyager.roles.index', NULL),
+(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 7, '2019-04-08 13:44:21', '2019-04-23 17:43:07', NULL, NULL),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-04-08 13:44:21', '2019-04-08 13:49:02', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-04-08 13:44:21', '2019-04-08 13:49:02', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-04-08 13:44:21', '2019-04-08 13:49:02', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-04-08 13:44:21', '2019-04-08 13:49:02', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 8, '2019-04-08 13:44:21', '2019-04-12 19:30:00', 'voyager.settings.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 8, '2019-04-08 13:44:21', '2019-04-23 17:43:08', 'voyager.settings.index', NULL),
 (11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 5, '2019-04-08 13:44:21', '2019-04-08 13:49:02', 'voyager.hooks', NULL),
 (13, 1, 'Промокоды', '', '_self', 'voyager-hotdog', '#20b3cc', 15, 1, '2019-04-10 17:56:21', '2019-04-10 18:02:44', 'voyager.promos.index', 'null'),
-(15, 1, 'Деньги', '', '_self', 'voyager-wineglass', '#24a62b', NULL, 3, '2019-04-10 17:59:01', '2019-04-17 19:16:06', NULL, ''),
-(16, 1, 'Promos', '', '_self', NULL, NULL, NULL, 9, '2019-04-10 18:02:27', '2019-04-12 19:30:00', 'voyager.promos.index', NULL),
+(15, 1, 'Деньги', '', '_self', 'voyager-wineglass', '#24a62b', NULL, 3, '2019-04-10 17:59:01', '2019-04-23 17:43:07', NULL, ''),
 (17, 1, 'Транзакции', '', '_self', 'voyager-dollar', '#75db4f', 15, 2, '2019-04-10 18:07:47', '2019-04-10 18:12:13', 'voyager.transactions.index', 'null'),
-(19, 1, 'Обучение', '', '_self', 'voyager-study', '#84bcfb', NULL, 2, '2019-04-12 19:29:52', '2019-04-12 19:30:57', NULL, ''),
+(19, 1, 'Обучение', '', '_self', 'voyager-study', '#84bcfb', NULL, 2, '2019-04-12 19:29:52', '2019-04-23 17:43:06', NULL, ''),
 (22, 1, 'Программы', '', '_self', NULL, '#000000', 19, 1, '2019-04-17 18:59:11', '2019-04-17 19:20:00', 'voyager.programs.index', 'null'),
 (23, 1, 'Курсы', '', '_self', NULL, '#000000', 19, 2, '2019-04-17 19:01:41', '2019-04-17 19:20:07', 'voyager.courses.index', 'null'),
-(26, 1, 'Уроки', '', '_self', NULL, '#000000', 19, 3, '2019-04-19 14:17:38', '2019-04-19 14:18:00', 'voyager.lessons.index', NULL),
-(27, 1, 'Messages', '', '_self', NULL, NULL, NULL, 10, '2019-04-21 17:43:38', '2019-04-21 17:43:38', 'voyager.messages.index', NULL),
-(28, 1, 'User Lessons Progresses', '', '_self', NULL, NULL, NULL, 11, '2019-04-21 17:46:01', '2019-04-21 17:46:01', 'voyager.user-lessons-progress.index', NULL);
+(24, 1, 'Тарифы', '', '_self', NULL, '#000000', 15, 3, '2019-04-23 11:48:16', '2019-04-23 17:43:07', 'voyager.plans.index', 'null'),
+(25, 1, 'Уроки', 'admin/lessons', '_self', NULL, '#000000', 19, 3, '2019-04-23 12:07:19', '2019-04-23 12:09:37', NULL, ''),
+(26, 1, 'Тарифы', 'admin/plans', '_self', NULL, '#000000', NULL, 9, '2019-04-23 17:38:59', '2019-04-23 17:43:08', NULL, ''),
+(27, 1, 'Messages', '', '_self', NULL, NULL, NULL, 10, '2019-04-25 14:47:30', '2019-04-25 14:47:30', 'voyager.messages.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -832,7 +838,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `permissions_key_index` (`key`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=92 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=97 ;
 
 --
 -- Дамп данных таблицы `permissions`
@@ -919,7 +925,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (88, 'read_user_lessons_progress', 'user_lessons_progress', '2019-04-21 17:46:01', '2019-04-21 17:46:01'),
 (89, 'edit_user_lessons_progress', 'user_lessons_progress', '2019-04-21 17:46:01', '2019-04-21 17:46:01'),
 (90, 'add_user_lessons_progress', 'user_lessons_progress', '2019-04-21 17:46:01', '2019-04-21 17:46:01'),
-(91, 'delete_user_lessons_progress', 'user_lessons_progress', '2019-04-21 17:46:01', '2019-04-21 17:46:01');
+(91, 'delete_user_lessons_progress', 'user_lessons_progress', '2019-04-21 17:46:01', '2019-04-21 17:46:01'),
+(92, 'browse_plans', 'plans', '2019-04-23 17:38:12', '2019-04-23 17:38:12'),
+(93, 'read_plans', 'plans', '2019-04-23 17:38:12', '2019-04-23 17:38:12'),
+(94, 'edit_plans', 'plans', '2019-04-23 17:38:12', '2019-04-23 17:38:12'),
+(95, 'add_plans', 'plans', '2019-04-23 17:38:12', '2019-04-23 17:38:12'),
+(96, 'delete_plans', 'plans', '2019-04-23 17:38:12', '2019-04-23 17:38:12');
 
 -- --------------------------------------------------------
 
@@ -1019,7 +1030,42 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (88, 1),
 (89, 1),
 (90, 1),
-(91, 1);
+(91, 1),
+(92, 1),
+(93, 1),
+(94, 1),
+(95, 1),
+(96, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `plans`
+--
+
+CREATE TABLE IF NOT EXISTS `plans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `target_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `target_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'program',
+  `cost` int(11) DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `recommended` tinyint(4) DEFAULT NULL,
+  `discount` tinyint(3) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `conversion_tag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `plans`
+--
+
+INSERT INTO `plans` (`id`, `target_id`, `created_at`, `updated_at`, `target_type`, `cost`, `description`, `recommended`, `discount`, `name`, `conversion_tag`) VALUES
+(1, 1, '2019-04-23 12:03:00', '2019-04-25 11:05:13', 'program', 845, '<ul style="font-family: ''Exo 2'', sans-serif; padding: 0px 26px; margin: 0px 0px 34px; box-sizing: border-box; display: flex; list-style: none; flex-direction: column; color: #000000; font-size: medium;">\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все лекции из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все видео из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Домашние задания</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Безвременный доступ к урокам</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Интерактивные тесты</li>\r\n</ul>', 0, 0, 'Я сам', 'tarif-ya-sam'),
+(2, 1, '2019-04-23 12:04:00', '2019-04-25 11:04:56', 'program', 5100, '<ul style="font-family: ''Exo 2'', sans-serif; padding: 0px 26px; margin: 0px 0px 34px; box-sizing: border-box; display: flex; list-style: none; flex-direction: column; color: #000000; font-size: medium;">\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все лекции из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все видео из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Домашние задания</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Безвременный доступ к урокам</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Проверка домашних заданий</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Интерактивные тесты</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Консультации (8 часов)</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Сертификат об окончании</li>\r\n</ul>', 1, 53, 'Комфортный', 'tarif-komfortniy'),
+(3, 1, '2019-04-23 12:04:00', '2019-04-25 11:05:08', 'program', 25000, '<ul style="font-family: ''Exo 2'', sans-serif; padding: 0px 26px; margin: 0px 0px 34px; box-sizing: border-box; display: flex; list-style: none; flex-direction: column; color: #000000; font-size: medium;">\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все лекции из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Все видео из курса</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Домашние задания</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Безвременный доступ к урокам</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Проверка домашних заданий</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Интерактивные тесты</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;"><span class="pinky" style="padding: 0px; margin: 0px; box-sizing: border-box; color: #e6346e;">Безлимитные </span>консультации</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Премиальные вебинары</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Доступ к премиум-группе</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;"><span class="pinky" style="padding: 0px; margin: 0px; box-sizing: border-box; color: #e6346e;">Личное </span>наставничество и решение любых вопросов</li>\r\n<li style="padding: 8px 0px; margin: 0px; box-sizing: border-box; line-height: 1; font-size: 15px;">Сертификат об окончании</li>\r\n</ul>', 1, 50, 'Премиум', 'tarif-premium');
 
 -- --------------------------------------------------------
 
@@ -1185,7 +1231,7 @@ INSERT INTO `test_answers` (`id`, `type`, `name`, `question_id`, `order`, `creat
 (8, 0, 'за серверную часть', 6, 1, '2019-04-19 17:33:28', '2019-04-19 17:36:57', NULL),
 (10, 0, 'отвечает за визуальную часть сайта', 7, 1, '2019-04-19 17:33:35', '2019-04-19 17:40:25', 1),
 (11, 0, 'реагирует на события', 7, 0, '2019-04-19 17:33:36', '2019-04-19 17:40:52', NULL),
-(12, 0, 'программирует действия пользователя', 8, 1, '2019-04-19 17:38:50', '2019-04-19 17:40:04', 1),
+(12, 0, 'задает логику работы веб-страницы и отвечает за взаимодействие с пользователем', 8, 1, '2019-04-19 17:38:50', '2019-04-23 17:59:47', 1),
 (13, 0, 'меняет тему на сайте', 8, 0, '2019-04-19 17:38:52', '2019-04-19 17:39:59', NULL),
 (14, 0, 'h1', 9, 2, '2019-04-19 17:46:00', '2019-04-19 17:47:40', 1),
 (15, 0, 'ul', 9, 0, '2019-04-19 17:46:02', '2019-04-19 17:47:33', NULL),
@@ -1223,7 +1269,7 @@ INSERT INTO `test_answers` (`id`, `type`, `name`, `question_id`, `order`, `creat
 (49, 0, 'ссылочный тег', 20, 2, '2019-04-19 18:04:42', '2019-04-19 18:05:23', NULL),
 (50, 0, 'блочный элемент, который нужен, чтобы выделить определенный кусок текста', 21, 0, '2019-04-19 18:05:41', '2019-04-19 18:06:10', NULL),
 (51, 0, 'тег заголовка', 21, 1, '2019-04-19 18:05:42', '2019-04-19 18:06:17', NULL),
-(52, 0, 'строчный элемент, который нужен, чтобы выделить определенный кусок текста', 21, 2, '2019-04-19 18:05:42', '2019-04-19 18:05:57', 1),
+(52, 0, 'строчный тег, который нужен, чтобы выделить определенный кусок текста и придать ему стиль', 21, 2, '2019-04-19 18:05:42', '2019-04-23 18:15:28', 1),
 (53, 0, 'table=>tr=>td', 22, 0, '2019-04-19 18:08:50', '2019-04-19 18:09:01', 1),
 (54, 0, 'table=>tr=>p', 22, 1, '2019-04-19 18:08:51', '2019-04-19 18:09:16', NULL),
 (55, 0, 'table=>p=>h1', 22, 2, '2019-04-19 18:08:51', '2019-04-19 18:09:16', NULL),
@@ -1242,11 +1288,11 @@ INSERT INTO `test_answers` (`id`, `type`, `name`, `question_id`, `order`, `creat
 (68, 0, 'основной атрибут тега table', 27, 2, '2019-04-19 19:44:15', '2019-04-19 19:44:37', NULL),
 (69, 0, 'чтобы в форме отображалось то, что человек должен вписать', 28, 1, '2019-04-19 19:49:13', '2019-04-19 19:52:07', 1),
 (70, 0, 'чтобы загружать файл в форму', 28, 0, '2019-04-19 19:49:13', '2019-04-19 19:51:02', NULL),
-(71, 0, 'отправляет данные прямо внутри ссылки', 29, 1, '2019-04-19 19:56:26', '2019-04-19 19:57:06', 1),
-(72, 0, 'отправляет данные на сервер', 29, 0, '2019-04-19 19:56:26', '2019-04-19 19:57:06', NULL),
-(73, 0, 'назначает ссылку, куда форма будет отправлять данные', 30, 1, '2019-04-19 19:57:58', '2019-04-19 20:06:54', 1),
-(74, 0, 'сохраняет пароль', 30, 0, '2019-04-19 19:57:58', '2019-04-19 20:06:54', NULL),
-(76, 0, 'выделяет нужную часть формы', 31, 2, '2019-04-19 20:09:57', '2019-04-19 20:11:10', 1),
+(71, 0, 'отправить данные на сервер внутри ссылки', 29, 1, '2019-04-19 19:56:26', '2019-04-23 18:21:51', 1),
+(72, 0, 'получить данные с сервера', 29, 0, '2019-04-19 19:56:26', '2019-04-23 18:21:44', NULL),
+(73, 0, 'это назначение, куда форма будет отправлять данные', 30, 1, '2019-04-19 19:57:58', '2019-04-23 18:23:19', 1),
+(74, 0, 'назначает действие при отправке данных', 30, 0, '2019-04-19 19:57:58', '2019-04-23 18:22:57', NULL),
+(76, 0, 'задает ярлычок для поля ввода', 31, 2, '2019-04-19 20:09:57', '2019-04-23 18:25:14', 1),
 (77, 0, 'открывает файл', 31, 1, '2019-04-19 20:09:58', '2019-04-19 20:11:10', NULL),
 (78, 0, 'делает текст жирным', 31, 0, '2019-04-19 20:10:52', '2019-04-19 20:11:09', NULL),
 (79, 0, 'name', 32, 0, '2019-04-19 20:13:39', '2019-04-19 20:14:17', NULL),
@@ -1259,12 +1305,12 @@ INSERT INTO `test_answers` (`id`, `type`, `name`, `question_id`, `order`, `creat
 (86, 0, 'accept', 34, 1, '2019-04-19 20:53:04', '2019-04-19 20:54:45', NULL),
 (87, 0, 'checked', 34, 2, '2019-04-19 20:53:05', '2019-04-19 20:54:45', 1),
 (88, 0, 'Определяет дополнительную информацию об элементе', 35, 0, '2019-04-19 20:56:00', '2019-04-19 20:56:44', NULL),
-(89, 0, 'Определяет значение элемента формы, которое будет отправлено на сервер или получено с помощью клиентских скриптов', 35, 1, '2019-04-19 20:56:02', '2019-04-19 20:56:47', 1),
+(89, 0, 'Задает значение инпута', 35, 1, '2019-04-19 20:56:02', '2019-04-23 18:28:20', 1),
 (91, 0, 'да', 36, 0, '2019-04-19 20:58:24', '2019-04-19 20:58:51', NULL),
 (92, 0, 'нет', 36, 1, '2019-04-19 20:58:24', '2019-04-19 20:58:47', 1),
 (93, 0, 'form=>select=>option', 37, 1, '2019-04-19 21:02:19', '2019-04-19 21:03:48', 1),
 (94, 0, 'form=>ul=>li', 37, 0, '2019-04-19 21:02:19', '2019-04-19 21:03:48', NULL),
-(95, 0, 'rows и cols', 38, 0, '2019-04-19 21:22:36', '2019-04-19 21:26:21', NULL),
+(95, 0, 'rows и cols', 38, 0, '2019-04-19 21:22:36', '2019-04-23 18:33:54', 1),
 (96, 0, 'name и id', 38, 1, '2019-04-19 21:22:38', '2019-04-19 21:26:28', NULL);
 
 -- --------------------------------------------------------
@@ -1298,10 +1344,10 @@ INSERT INTO `test_questions` (`id`, `order`, `name`, `created_at`, `updated_at`,
 (10, 1, 'Для чего нужен тег p?', '2019-04-19 17:47:45', '2019-04-19 17:48:26', 45),
 (11, 2, 'Найди тег непронумерованного списка (unordered list)', '2019-04-19 17:49:39', '2019-04-19 17:50:40', 45),
 (12, 3, 'Какой тег означает элемент списка?', '2019-04-19 17:50:57', '2019-04-21 18:03:48', 45),
-(13, 0, 'Какой тег перенаправляет на ссылку?', '2019-04-19 17:53:14', '2019-04-19 17:53:24', 46),
-(14, 1, 'Можно ли открывать ссылку в новой кладке с помощью атрибута target?', '2019-04-19 17:54:55', '2019-04-19 17:55:48', 46),
+(13, 0, 'Какой тег используется для создания ссылки?', '2019-04-19 17:53:14', '2019-04-23 18:09:57', 46),
+(14, 1, 'Если задать ссылке target="_blank", откроется ли страница в новой вкладке?', '2019-04-19 17:54:55', '2019-04-23 18:09:19', 46),
 (15, 2, 'Тег img самозакрывающийся или нет?', '2019-04-19 17:56:01', '2019-04-19 17:56:22', 46),
-(16, 3, 'Какой атрибут нужен для отображения картинки (для тега img)?', '2019-04-19 17:56:51', '2019-04-19 17:57:11', 46),
+(16, 3, 'Какой атрибут нужен для указания источника картинки?', '2019-04-19 17:56:51', '2019-04-23 18:10:40', 46),
 (17, 0, 'Как автоматически написать в Sublime правильную структуру html документа?', '2019-04-19 17:59:08', '2019-04-19 17:59:21', 47),
 (18, 0, 'Какой тег из ниже представленных строчный?', '2019-04-19 18:01:11', '2019-04-19 18:01:22', 48),
 (19, 1, 'Какой тег из ниже представленных блочный?', '2019-04-19 18:02:01', '2019-04-19 18:02:44', 48),
@@ -1314,14 +1360,14 @@ INSERT INTO `test_questions` (`id`, `order`, `name`, `created_at`, `updated_at`,
 (26, 1, 'Input это', '2019-04-19 19:43:14', '2019-04-19 19:43:45', 52),
 (27, 2, 'Type это', '2019-04-19 19:43:51', '2019-04-19 19:44:05', 52),
 (28, 3, 'Зачем нужен placeholder?', '2019-04-19 19:48:50', '2019-04-19 19:49:10', 52),
-(29, 0, 'Метод GET', '2019-04-19 19:56:12', '2019-04-19 19:56:23', 53),
+(29, 0, 'Внутри формы, method="GET" указывает, что нужно:', '2019-04-19 19:56:12', '2019-04-23 18:21:38', 53),
 (30, 1, 'Атрибут action', '2019-04-19 19:57:45', '2019-04-19 19:58:49', 53),
 (31, 0, 'Что делает тег label?', '2019-04-19 20:09:21', '2019-04-19 20:09:52', 54),
 (32, 1, 'Чтобы работал атрибут for, нужно указать', '2019-04-19 20:12:45', '2019-04-19 20:14:25', 54),
 (33, 0, 'Какой атрибут нужен, чтобы форма требовала заполнить поле?', '2019-04-19 20:31:39', '2019-04-19 20:32:09', 55),
-(34, 0, 'Какой атрибут делает ответ формы выбранным по умолчанию?', '2019-04-19 20:38:42', '2019-04-19 20:54:55', 56),
+(34, 0, 'Какой атрибут устанавливает галочку в чекбокс?', '2019-04-19 20:38:42', '2019-04-23 18:27:30', 56),
 (35, 1, 'Атрибут value', '2019-04-19 20:55:48', '2019-04-19 20:56:47', 56),
-(36, 2, 'Можно ли поставить два атрибута checked в одной форме?', '2019-04-19 20:57:49', '2019-04-19 20:58:22', 56),
+(36, 2, 'Можно ли выбрать сразу два значения в radio-инпутах?', '2019-04-19 20:57:49', '2019-04-23 18:31:28', 56),
 (37, 0, 'Какой последовательностью тегов сделать выпадающий список?', '2019-04-19 21:01:57', '2019-04-19 21:02:17', 57),
 (38, 1, 'Какие атрибуты задают длину и высоту textarea?', '2019-04-19 21:21:41', '2019-04-19 21:26:28', 57);
 
@@ -1341,7 +1387,7 @@ CREATE TABLE IF NOT EXISTS `test_results` (
   `mistakes` tinyint(4) DEFAULT NULL,
   `is_passed` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=40 ;
 
 --
 -- Дамп данных таблицы `test_results`
@@ -1368,7 +1414,25 @@ INSERT INTO `test_results` (`id`, `created_at`, `updated_at`, `lesson_id`, `user
 (18, '2019-04-21 13:05:06', '2019-04-21 13:05:06', 45, 3, '{"9":"14","10":"18","11":"20","12":"24"}', 0, 1),
 (19, '2019-04-21 13:07:06', '2019-04-21 13:07:06', 46, 3, '{"13":"26","14":"32","15":"34","16":"36"}', 1, 0),
 (20, '2019-04-21 13:08:03', '2019-04-21 13:08:03', 46, 3, '{"13":"26","14":"32","15":"34","16":"37"}', 2, 0),
-(21, '2019-04-21 13:47:35', '2019-04-21 13:47:35', 44, 11, '{"3":"5","6":"7","7":"10","8":"12"}', 0, 1);
+(21, '2019-04-21 13:47:35', '2019-04-21 13:47:35', 44, 11, '{"3":"5","6":"7","7":"10","8":"12"}', 0, 1),
+(22, '2019-04-23 17:58:16', '2019-04-23 17:58:16', 44, 1, '{"3":"5","6":"7","7":"10","8":"12"}', 0, 1),
+(23, '2019-04-23 18:06:32', '2019-04-23 18:06:32', 45, 1, '{"9":"14","10":"18","11":"20","12":"24"}', 0, 1),
+(24, '2019-04-23 18:10:55', '2019-04-23 18:10:55', 46, 1, '{"13":"26","14":"32","15":"33","16":"36"}', 0, 1),
+(25, '2019-04-23 18:11:44', '2019-04-23 18:11:44', 47, 1, '{"17":"39"}', 0, 1),
+(26, '2019-04-23 18:12:40', '2019-04-23 18:12:40', 48, 1, '{"18":"42","19":"46"}', 0, 1),
+(27, '2019-04-23 18:15:54', '2019-04-23 18:15:54', 49, 1, '{"20":"48","21":"52"}', 0, 1),
+(28, '2019-04-23 18:16:58', '2019-04-23 18:16:58', 50, 1, '{"22":"53","23":"56"}', 0, 1),
+(29, '2019-04-23 18:19:23', '2019-04-23 18:19:23', 52, 1, '{"25":"63","26":"64","27":"67","28":"69"}', 0, 1),
+(30, '2019-04-23 18:22:17', '2019-04-23 18:22:17', 53, 1, '{"29":"71","30":"73"}', 0, 1),
+(31, '2019-04-23 18:25:33', '2019-04-23 18:25:33', 54, 1, '{"31":"76","32":"80"}', 0, 1),
+(32, '2019-04-23 18:26:00', '2019-04-23 18:26:00', 55, 1, '{"33":"82"}', 0, 1),
+(33, '2019-04-23 18:31:50', '2019-04-23 18:31:50', 56, 1, '{"34":"87","35":"89","36":"92"}', 0, 1),
+(34, '2019-04-23 18:33:59', '2019-04-23 18:33:59', 57, 1, '{"37":"93","38":"95"}', 0, 1),
+(35, '2019-04-25 10:15:56', '2019-04-25 10:15:56', 44, 1, '{"3":"5","6":"7","7":"10","8":"12"}', 0, 1),
+(36, '2019-04-25 10:17:22', '2019-04-25 10:17:22', 45, 1, '{"9":"14","10":"18","11":"20","12":"24"}', 0, 1),
+(37, '2019-04-25 10:55:08', '2019-04-25 10:55:08', 46, 1, '{"13":"26","14":"32","15":"33","16":"36"}', 0, 1),
+(38, '2019-04-26 11:06:48', '2019-04-26 11:06:48', 46, 3, '{"13":"26","14":"32","15":"34","16":"36"}', 1, 0),
+(39, '2019-04-26 11:07:19', '2019-04-26 11:07:19', 46, 3, '{"13":"26","14":"32","15":"33","16":"36"}', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1390,7 +1454,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `is_real` tinyint(4) DEFAULT '0',
   `target_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'program',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=54 ;
 
 --
 -- Дамп данных таблицы `transactions`
@@ -1399,7 +1463,6 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 INSERT INTO `transactions` (`id`, `user_id`, `created_at`, `updated_at`, `description`, `value`, `promo_id`, `target_id`, `deleted_at`, `status`, `is_real`, `target_type`) VALUES
 (33, 2, '2019-04-19 15:02:13', '2019-04-19 15:02:13', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
 (34, 2, '2019-04-19 15:02:18', '2019-04-19 15:02:18', 'Разблокировка учебного юнита', -20000, NULL, 1, NULL, 1, 1, 'program'),
-(35, 1, '2019-04-20 21:33:39', '2019-04-20 21:33:39', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
 (36, 3, '2019-04-21 12:31:35', '2019-04-21 12:31:35', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
 (37, 3, '2019-04-21 12:32:19', '2019-04-21 12:32:19', 'Разблокировка учебного юнита', -20000, NULL, 1, NULL, 1, 1, 'program'),
 (38, 4, '2019-04-21 12:43:58', '2019-04-21 12:43:58', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
@@ -1411,7 +1474,11 @@ INSERT INTO `transactions` (`id`, `user_id`, `created_at`, `updated_at`, `descri
 (44, 10, '2019-04-21 13:05:33', '2019-04-21 13:05:33', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
 (45, 10, '2019-04-21 13:06:04', '2019-04-21 13:06:04', 'Разблокировка учебного юнита', -20000, NULL, 1, NULL, 1, 1, 'program'),
 (46, 11, '2019-04-21 13:45:29', '2019-04-21 13:45:29', 'Зачисление с промокода', 20000, 2, NULL, NULL, 1, 0, 'program'),
-(47, 11, '2019-04-21 13:45:41', '2019-04-21 13:45:41', 'Разблокировка учебного юнита', -20000, NULL, 1, NULL, 1, 1, 'program');
+(47, 11, '2019-04-21 13:45:41', '2019-04-21 13:45:41', 'Разблокировка учебного юнита', -20000, NULL, 1, NULL, 1, 1, 'program'),
+(49, 1, '2019-04-23 17:49:33', '2019-04-23 17:49:33', 'Зачисление на баланс', 1000, NULL, NULL, NULL, 1, 1, NULL),
+(51, 1, '2019-04-25 10:12:23', '2019-04-25 10:12:23', 'Разблокировка учебного юнита', -845, NULL, 1, NULL, 1, 1, 'plan'),
+(52, 26, '2019-04-29 12:30:18', '2019-04-29 12:30:18', 'Зачисление на баланс', 1500, NULL, 1, NULL, 1, 1, 'program'),
+(53, 26, '2019-04-29 12:31:31', '2019-04-29 12:31:31', 'Разблокировка учебного юнита', -845, NULL, 1, NULL, 1, 1, 'plan');
 
 -- --------------------------------------------------------
 
@@ -1461,15 +1528,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_api_token_unique` (`api_token`),
   KEY `users_role_id_foreign` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=27 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `first_name`, `last_name`, `nickname`, `email`, `email_verified_at`, `password`, `api_token`, `provider`, `provider_user_id`, `provider_user_token`, `avatar`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Антон Платонов', 'Антон', 'Платонов', 'neerone', NULL, NULL, NULL, NULL, 'vkontakte', '46973575', 'a76e6f7c54ed2d0248b2ce97fb7fdb3ba011eaa4763cbd83da49cdd0da71cbb40105d7af238c8355c5ed5', 'https://pp.userapi.com/c844724/v844724095/15f348/dKnyg8hNwj8.jpg?ava=1', 'KFIALnjnVoPHPpwgXYg1wRYSaU64UYrJMqsrzHaUhZtbwsjM9SrAPAj506RR', NULL, '2019-04-08 13:44:23', '2019-04-21 12:50:41'),
-(2, 1, 'Милана Федотова', 'Милана', 'Федотова', 'moonna_mjm', NULL, NULL, NULL, NULL, 'vkontakte', '321319571', '3a1a14a0fe415fee9d5e5126b022aa1fe5cc44dad23c1293ab5ec3724539633941e193d06ddca147e287d', 'https://pp.userapi.com/c846016/v846016448/1e8fc5/blPr-55nhis.jpg?ava=1', '2d3SVA10VqInZHTnk07MoVbbka4ueCVQGC3WjiUsixZQoV6gCFxbqYRmZ55Z', '{"locale":"en"}', '2019-04-19 14:18:23', '2019-04-21 16:35:07'),
+(1, 1, 'Антон Платонов', 'Антон', 'Платонов', 'neerone', NULL, NULL, NULL, NULL, 'vkontakte', '46973575', 'd33c63000c4b3e2fe6955854cc7ed23b8a55a1f9b2efe01c48c7a3f6225df93d9a1414bc899f49ed695c5', 'https://pp.userapi.com/c844724/v844724095/15f348/dKnyg8hNwj8.jpg?ava=1', 'sIRcJgEolvuirxiWA1G4O70i60pR1argAsCyGCXEzPPj7UaBDHt3csmKrOG6', NULL, '2019-04-08 13:44:23', '2019-04-25 11:39:21'),
 (3, 1, 'Никита Деникин', 'Никита', 'Деникин', 'id500826796', NULL, NULL, NULL, NULL, 'vkontakte', '500826796', 'a29a97b656d00068c16351da637a91204eb828cc090457f6170557769aa94192c980e53b158328b220362', 'https://pp.userapi.com/c846416/v846416055/ba1ff/rEp_sQscjgw.jpg?ava=1', 'RLEIMcvxQ4Xyqp18ov6GbkMuxICY23J3jcOC0Xv3kf8RsidQeshaMpkFLSIK', '{"locale":"en"}', '2019-04-21 12:12:30', '2019-04-21 12:54:31'),
 (4, 2, 'Лёха Волк', 'Лёха', 'Волк', 'id347430156', NULL, NULL, NULL, NULL, 'vkontakte', '347430156', 'dd59cc99182ad1199f8826074d1f0260d3649ce070d29b0dc97c1dcc780b3dec46889f4f3e88bafccc878', 'https://sun1-14.userapi.com/c852136/v852136181/f4e3e/n-Rde-RalYI.jpg?ava=1', 'rgck1fRUPDMjWZKxXZsmn9gBpzRuIQSizAMe0W9sdPahs0i7zbyaHyzZMUpE', NULL, '2019-04-21 12:43:23', '2019-04-21 12:43:23'),
 (5, 2, 'Канчоро Курманбеков', 'Канчоро', 'Курманбеков', 'id332175317', NULL, NULL, NULL, NULL, 'vkontakte', '332175317', 'a699cba63ba7344afd01d506b451b0761b0764cd4e34911f39f99bd22f398141980f21c876c106851d24b', 'https://pp.userapi.com/c846021/v846021057/7fdd2/7l04ucLI5b8.jpg?ava=1', 'Fc2eMkmJH63NEjemoKuxn9ZXM2zttuwI5Ir4XGzeWUhGj3rHw48Jgu7tctjb', NULL, '2019-04-21 12:45:20', '2019-04-21 12:45:20'),
@@ -1478,7 +1544,22 @@ INSERT INTO `users` (`id`, `role_id`, `name`, `first_name`, `last_name`, `nickna
 (8, 2, 'Александр Волков', 'Александр', 'Волков', 'id380167090', NULL, NULL, NULL, NULL, 'vkontakte', '380167090', '5671631b3d92cc189100e749af5da83b4eb0894f891de136c78e0847e96344c060e28dd37d18f62158f0b', 'https://pp.userapi.com/c850128/v850128599/a6817/QyaynvS5u2U.jpg?ava=1', 'WYHNaDiLhCuQ8Oec47VIfGRNnyVSFv0w4UOJRWQvJ31u9EDBLE1tEbXAVW3b', NULL, '2019-04-21 12:54:20', '2019-04-21 12:54:20'),
 (9, 2, 'Максим Паль', 'Максим', 'Паль', 'bkgdojbx', NULL, NULL, NULL, NULL, 'vkontakte', '91434129', 'da5422a0dc819bc934afc39791d0a2773e1f592f2e655dd0fddc35dd6a0cf802cfc1009449ffb9099c7a5', 'https://pp.userapi.com/c837523/v837523129/5138/MQrmxTjCOlA.jpg?ava=1', 'ZHVtbMAK4znEaxcLBTVQyxOnBYEICke1KgkV19JG2CG2OJUQM6dOWwUfzDhI', NULL, '2019-04-21 12:55:18', '2019-04-21 12:55:18'),
 (10, 2, 'Борис Брежнев', 'Борис', 'Брежнев', 'bloshkarev99', NULL, NULL, NULL, NULL, 'vkontakte', '211489557', 'f9085944adefe37c2cc5efca8b4f3bcc5eaafc68bdff5c9ca031c81e9e9e6210c3822b1c834e93bd323a0', 'https://pp.userapi.com/c849132/v849132248/120b7c/g00g1QtmG0U.jpg?ava=1', 'vpwaWd4AZemGnZRInAINw5tt3QRSmFw4S8NDejsau6BHoFarZEWttnew5gJW', NULL, '2019-04-21 13:03:54', '2019-04-21 13:03:54'),
-(11, 2, 'Данила Платонов', 'Данила', 'Платонов', 'dvplat', NULL, NULL, NULL, NULL, 'vkontakte', '17714538', '14431b3da158de242b30a873069d3c7e4cc4db9a20450cfe483f3eb3f12f2723106f6b17d01ac30e1869f', 'https://pp.userapi.com/c837421/v837421538/3e7b6/mmIx2nk--vo.jpg?ava=1', 'ZLphZBcGsHkvYbtsWGU07D7ZQY23Hw6MN6LPYT1JzPpIW6udbxYOrteSjep0', '{"locale":"en"}', '2019-04-21 13:36:39', '2019-04-21 17:44:58');
+(11, 2, 'Данила Платонов', 'Данила', 'Платонов', 'dvplat', NULL, NULL, NULL, NULL, 'vkontakte', '17714538', '14431b3da158de242b30a873069d3c7e4cc4db9a20450cfe483f3eb3f12f2723106f6b17d01ac30e1869f', 'https://pp.userapi.com/c837421/v837421538/3e7b6/mmIx2nk--vo.jpg?ava=1', 'ZLphZBcGsHkvYbtsWGU07D7ZQY23Hw6MN6LPYT1JzPpIW6udbxYOrteSjep0', '{"locale":"en"}', '2019-04-21 13:36:39', '2019-04-21 17:44:58'),
+(12, 1, 'Милана Федотова', 'Милана', 'Федотова', 'moonna_mjm', NULL, NULL, NULL, NULL, 'vkontakte', '321319571', 'dd1a586d92e8a6ebd7dd6d23609a2ba62e5267a36f21454f97264d5e83f3f07c9bcd4ed5a9a16c0da2da4', 'https://sun1-21.userapi.com/c846016/v846016448/1e8fc5/blPr-55nhis.jpg?ava=1', 'RCyUK2iLI11FDKKkrEghIIiBc8ij8Udp3vXpTdsgwipYR4ZiRj1ZYd2XasZg', '{"locale":"en"}', '2019-04-24 08:44:33', '2019-04-24 08:45:03'),
+(13, 2, 'Артём Игнатьев', 'Артём', 'Игнатьев', 'karuma69sun', NULL, NULL, NULL, NULL, 'vkontakte', '467525273', 'bde4371897bfb004f99a9f68594f14f7663e0822d30ecdb61f1902b80ffaaf3ca34f274355d0de4ba2b11', 'https://pp.userapi.com/c851420/v851420367/df09e/-A3_KO3MqWc.jpg?ava=1', '41z2gm5Kf6IJwTN5H3oaADkBDyHWuZTfCU7dgqAUwrUqv7HNxZICI8yZzASX', NULL, '2019-04-24 10:07:34', '2019-04-25 09:21:41'),
+(14, 2, 'Кирилл Яковлев', 'Кирилл', 'Яковлев', 'intellegent_human', NULL, NULL, NULL, NULL, 'vkontakte', '330199342', 'acbeef54190d1d34891e30e264d6d0282d73764942b322437faf0dd5bcb1f0fe55dcd3308538f23c08d69', 'https://pp.userapi.com/c845216/v845216710/1efaee/TywAN_ytEr4.jpg?ava=1', 'u9CsUenB7sfvb682uop3CLzB2JtBwQTMsYNPubvVRtPZdpt4tdprsBszwIKX', NULL, '2019-04-24 10:32:39', '2019-04-24 10:32:39'),
+(15, 2, 'Andrey Kochenev', 'Andrey', 'Kochenev', 'id470488170', NULL, NULL, NULL, NULL, 'vkontakte', '470488170', '0b603c5afdb098ecd2c5856b4f97155f03ca5756737555bc9795eb4b8b923e1c38ba8e5ace5f242527840', 'https://sun1-89.userapi.com/c844417/v844417525/d37a3/Q4KF5s-Ot5w.jpg?ava=1', 'fE3JOCALDofsPsFRO7CF8TLu5Y4PW3xbb59kRP3RluivXNwmGse6XsBBcOdM', NULL, '2019-04-24 10:57:53', '2019-04-24 10:57:53'),
+(16, 2, 'Яярик Беркут', 'Яярик', 'Беркут', 'w1kk1_163', NULL, NULL, NULL, NULL, 'vkontakte', '417510415', '309b90acf3264b97c5849a4a4158d7623d9869716855e49cdf615906a9c3cb8a97b6f3297985b76f572a2', 'https://pp.userapi.com/c846520/v846520601/1f043e/xvJJLbsQDG8.jpg?ava=1', '9TnUU5IjWKYnVxyknUhH41tbOWa4RquOho4DR4DaDaegTa5kKIHmWUYVmKMn', NULL, '2019-04-24 13:09:07', '2019-04-24 13:09:07'),
+(17, 2, 'Вова Климанов', 'Вова', 'Климанов', 'sladenkiy0', NULL, NULL, NULL, NULL, 'vkontakte', '303533347', '669777df3cae51182030fc6b0970c3d38da133677f78f065b63cb996cc57e80a7f08f0674a3e563414d59', 'https://pp.userapi.com/c845417/v845417412/9d6fc/S-oiitzPlbE.jpg?ava=1', 'Sbne25s4j2Ov4cV8aO3Xdi5dkl2b58ziIBcBWu4fwmIfqBNgVTc9YohgOVqU', NULL, '2019-04-24 13:12:47', '2019-04-24 13:12:47'),
+(18, 2, 'Данил Гамалеев', 'Данил', 'Гамалеев', 'id205162513', NULL, NULL, NULL, NULL, 'vkontakte', '205162513', 'bbf8b6113e66aed2cfbd75c931f7cc66dbb0719abdfa607f099ce6e62a67cc18aa0ff0f896ee439f64007', 'https://pp.userapi.com/c845221/v845221498/9f76d/wPUP4UWOvHc.jpg?ava=1', '3tjWBXvZOV4xBTBVn3syRrDmRzmf1pDF7h0tqYEFzPY1u5Ks6MPW5QA9o8Uu', NULL, '2019-04-24 13:42:04', '2019-04-24 13:42:04'),
+(19, 2, 'Syoma Pirogov', 'Syoma', 'Pirogov', 'despairdoto', NULL, NULL, NULL, NULL, 'vkontakte', '344880504', 'deecbe41d2462daa8be6c64c565048e8ee45f750060a2f5bdbd0220bc8c3965882714ef8a09db1c4c58e2', 'https://sun1-18.userapi.com/c848416/v848416228/133835/LAMa8w8ac8Q.jpg?ava=1', 'tDTpXE2rFx5NxYbF1kXPx3sXwtRrHIhrR0IILMgeYdQSOML2XIU2a1lT7KdK', NULL, '2019-04-24 13:52:17', '2019-04-24 13:52:17'),
+(20, 2, 'Максим Кудаев', 'Максим', 'Кудаев', 'mkudaev', NULL, NULL, NULL, NULL, 'vkontakte', '142927454', '0777cba1460243afa17ec84208b1f5c7cc8191fdabbb3622c6ca9123c0b8a337f65dd051588e88d1f21e7', 'https://pp.userapi.com/c846420/v846420774/1ea2a0/UVxscgMihHk.jpg?ava=1', '3q0jfB0pbXEYTlXTm362UTdiRKiHuykkVCxkOPX1BwnNjXD7n7je5Mzf6LAg', NULL, '2019-04-24 14:31:27', '2019-04-24 14:31:27'),
+(21, 2, 'Макс Ким', 'Макс', 'Ким', 'max_kim98', NULL, NULL, NULL, NULL, 'vkontakte', '332000588', 'e8a031ff187044ec2ff9db735267191d48718e4699343ee6b44427c70d766fe69d3365520f09a20d78a1a', 'https://pp.userapi.com/c852232/v852232368/105387/VoUnjE2ddsE.jpg?ava=1', 'qC2NFvH4vYVh55X3RfA73VSh3PwYhlh1DInNhHkuPzfb4OHmuys5vdo2qQwQ', NULL, '2019-04-25 08:06:38', '2019-04-25 08:06:38'),
+(22, 2, 'Игорь Морковкин', 'Игорь', 'Морковкин', 'dolboeb1ebannyi', NULL, NULL, NULL, NULL, 'vkontakte', '480147184', '1cb5fdc3acc86493e35a5ce8724c5052734088c91195c9a062b803d9eae71865ec4abcc04c9bb906cd936', 'https://pp.userapi.com/c849228/v849228815/1724dc/XgfKDfmCQk8.jpg?ava=1', '7I4UMZ7wuL9RLzS3XjJoqsugLG9INl0BFmUGAff1Q0mQhDzNz8zycK4COX8J', NULL, '2019-04-25 08:51:31', '2019-04-25 08:51:31'),
+(23, 2, 'Артём Тищенко', 'Артём', 'Тищенко', 'id255399377', NULL, NULL, NULL, NULL, 'vkontakte', '255399377', 'fbe7ffeb3a74ba972e5bb04d151f0a12c2910125cde15284a7ffd73311de032ca83d49b90f7da29120d7f', 'https://pp.userapi.com/c830400/v830400217/1a34cb/zL1eXSPDnXM.jpg?ava=1', 'C7ss5ULsC5A0jlenaZdmB6Up64puFVQ2e53Lb1LKwqe14xv0km2zAVjN6niR', NULL, '2019-04-25 10:12:19', '2019-04-25 10:12:19'),
+(24, 2, 'Аркадий Гичев', 'Аркадий', 'Гичев', 'kaa_g', NULL, NULL, NULL, NULL, 'vkontakte', '106590108', '849dc53ac451a7b66f14dc057b3f4a51d489d6fcbe110f0f4e57fbe72a939bb2f83a29c0ea16d73a49314', 'https://pp.userapi.com/c639522/v639522108/c417/4sElBwaFn2k.jpg?ava=1', 'bFnnkdKxnXGm22tROG36tIfFom1nhpJIsZmf7SjXvAJEAnWnQU68s9Km9qh8', NULL, '2019-04-25 11:48:48', '2019-04-25 11:48:48'),
+(25, 2, 'Валерий Кузнецов', 'Валерий', 'Кузнецов', 'id476186911', NULL, NULL, NULL, NULL, 'vkontakte', '476186911', '1433408713f0d0a25e34bd232ca6a5085e910f0d7da3e165fb84f768851d2c4c8a8ea38b41a4c77140fc8', 'https://pp.userapi.com/c851216/v851216463/face9/vVL-JzKrYS0.jpg?ava=1', 'reoOd8Wnr2u4sxQHQ3o2Av2nnZSQM0Z4UnEyWqIOyjkHWg8qKcUE7IBJD6on', NULL, '2019-04-25 12:18:36', '2019-04-25 12:18:36'),
+(26, 2, 'Марк Чуров', 'Марк', 'Чуров', 'id377206846', NULL, NULL, NULL, NULL, 'vkontakte', '377206846', '16ae3e77b349f0ea77467a9759e3eb34525cef620541418d0907e0aa2f2961c42790bdc2abb85d7f5dd1f', 'https://pp.userapi.com/c543101/v543101846/26fea/Tl7bXJh4njA.jpg?ava=1', 'tu7LifqgnSqNAUSDFMiGwhJxatjwLL0TcIqdwYBbDKEyNGyPSO5BmIzUSS0A', NULL, '2019-04-29 12:25:43', '2019-04-29 12:25:43');
 
 -- --------------------------------------------------------
 
@@ -1494,7 +1575,7 @@ CREATE TABLE IF NOT EXISTS `user_courses_progress` (
   `course_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Дамп данных таблицы `user_courses_progress`
@@ -1508,7 +1589,10 @@ INSERT INTO `user_courses_progress` (`id`, `created_at`, `updated_at`, `status`,
 (10, '2019-04-21 12:49:38', '2019-04-21 12:49:38', 0, 11, 6),
 (11, '2019-04-21 13:06:04', '2019-04-21 13:06:04', 0, 11, 10),
 (12, '2019-04-21 13:45:41', '2019-04-21 13:47:36', 1, 11, 11),
-(13, '2019-04-21 13:47:36', '2019-04-21 13:47:36', 0, 8, 11);
+(13, '2019-04-21 13:47:36', '2019-04-21 13:47:36', 0, 8, 11),
+(17, '2019-04-25 10:12:23', '2019-04-25 10:15:57', 1, 11, 1),
+(18, '2019-04-25 10:15:57', '2019-04-25 10:15:57', 0, 8, 1),
+(19, '2019-04-29 12:31:31', '2019-04-29 12:31:31', 0, 11, 26);
 
 -- --------------------------------------------------------
 
@@ -1524,7 +1608,7 @@ CREATE TABLE IF NOT EXISTS `user_lessons_progress` (
   `user_id` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=101 ;
 
 --
 -- Дамп данных таблицы `user_lessons_progress`
@@ -1547,13 +1631,27 @@ INSERT INTO `user_lessons_progress` (`id`, `lesson_id`, `created_at`, `updated_a
 (36, 45, '2019-04-21 13:04:36', '2019-04-21 13:05:06', 3, 1),
 (37, 18, '2019-04-21 13:05:06', '2019-04-21 13:06:07', 3, 1),
 (38, 9, '2019-04-21 13:06:04', '2019-04-21 13:06:04', 10, 0),
-(39, 46, '2019-04-21 13:06:07', '2019-04-21 13:06:07', 3, 0),
+(39, 46, '2019-04-21 13:06:07', '2019-04-26 11:07:20', 3, 1),
 (40, 9, '2019-04-21 13:45:42', '2019-04-21 13:46:42', 11, 1),
 (41, 8, '2019-04-21 13:46:42', '2019-04-21 13:46:49', 11, 1),
 (42, 35, '2019-04-21 13:46:49', '2019-04-21 13:46:56', 11, 1),
 (43, 11, '2019-04-21 13:46:56', '2019-04-21 13:47:05', 11, 1),
 (44, 44, '2019-04-21 13:47:05', '2019-04-21 13:47:36', 11, 1),
-(45, 13, '2019-04-21 13:47:36', '2019-04-21 13:47:36', 11, 0);
+(45, 13, '2019-04-21 13:47:36', '2019-04-21 13:47:36', 11, 0),
+(87, 9, '2019-04-25 10:12:24', '2019-04-25 10:15:07', 1, 1),
+(88, 8, '2019-04-25 10:15:07', '2019-04-25 10:15:12', 1, 1),
+(89, 35, '2019-04-25 10:15:12', '2019-04-25 10:15:18', 1, 1),
+(90, 11, '2019-04-25 10:15:18', '2019-04-25 10:15:24', 1, 1),
+(91, 44, '2019-04-25 10:15:24', '2019-04-25 10:15:57', 1, 1),
+(92, 13, '2019-04-25 10:15:57', '2019-04-25 10:16:56', 1, 1),
+(93, 14, '2019-04-25 10:16:56', '2019-04-25 10:17:02', 1, 1),
+(94, 45, '2019-04-25 10:17:02', '2019-04-25 10:17:22', 1, 1),
+(95, 18, '2019-04-25 10:17:22', '2019-04-25 10:54:46', 1, 1),
+(96, 46, '2019-04-25 10:54:46', '2019-04-25 10:55:08', 1, 1),
+(97, 19, '2019-04-25 10:55:08', '2019-04-25 16:20:03', 1, 1),
+(98, 47, '2019-04-25 16:20:03', '2019-04-25 16:20:03', 1, 0),
+(99, 19, '2019-04-26 11:07:20', '2019-04-26 11:07:20', 3, 0),
+(100, 9, '2019-04-29 12:31:31', '2019-04-29 12:31:31', 26, 0);
 
 -- --------------------------------------------------------
 

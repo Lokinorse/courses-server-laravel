@@ -42,6 +42,10 @@ class Course extends Model
     {
         return CourseLesson::where('course_id', $this->id)->delete();
     }
+    
+    public function program() {
+        return $this->belongsToMany('App\Program', 'program_course');
+    }
 
     private function createOrder($order)
     {

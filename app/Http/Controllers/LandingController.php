@@ -11,11 +11,14 @@ use App\Message;
 class LandingController extends Controller
 {
     public function index() {
-        $program = Program::find(1);
+
+        $program = Program::with(['plans'])->find(1);
 
         
-        $messages = Message::getMessages(0)->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(5);
+        $messages = Message::getMessages(0)->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(5);
         
+        
+        //return "test";
 
 
         //$messagesCount = Message::getMessages(0)->count();

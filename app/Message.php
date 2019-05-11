@@ -20,12 +20,22 @@ class Message extends Model
     }
 
     public function answers() {
-        return Message::getMessages(10000)->orderBy('created_at', 'asc')->where('parent_id', $this->id);
+        //return $this->hasMany('App\Message', 'parent_id')->orderBy('created_at', 'asc');
+
+        if(Auth::user() && Auth::user()->hasRole('admin'))  {
+            return $this->hasMany('App\Message', 'parent_id')->orderBy('created_at', 'asc')->where('created_at', "<=", (new Carbon())->addDays(10000));
+            //return Message::where('created_at', "<=", (new Carbon())->addDays($offset));
+        }
+        return $this->hasMany('App\Message', 'parent_id')->orderBy('created_at', 'asc')->where('created_at', "<=", new Carbon())->where('approved', 1);
+        //return Message::where('created_at', "<=", new Carbon())->where('approved', 1);
+
+
+        //return Message::getMessages(10000)->orderBy('created_at', 'asc')->where('parent_id', $this->id);
     }
 
     public function getAnswersCountAttribute()
     {
-        return $this->answers()->count();
+        return $this->answers->count();
     }
 
 
@@ -62,7 +72,8 @@ class Message extends Model
 
     public function lesson() {
         if (!$this->destionation_type != "lesson") return null;
-        return Lesson::where('id', $this->target_id)->first();
+        return $this->hasOne("App\Lesson", 'id', 'target_id');
+        //return Lesson::where('id', $this->target_id)->first();
     }
 
     public function hasChangePermission() {

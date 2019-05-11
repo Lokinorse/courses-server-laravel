@@ -12,6 +12,7 @@ use App\CourseLesson;
 use App\Course;
 use App\ProgramCourse;
 use App\Program;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Lesson extends Model
 {
@@ -118,23 +119,22 @@ class Lesson extends Model
     }
 
     public function renderQuestions() {
-        $questions = $this->questions()->get();
+        $questions = $this->questions;
 
         return new \Illuminate\Support\HtmlString(
             \Illuminate\Support\Facades\View::make("vendor.voyager.lessons.questions", ['questions' => $questions])->render()
         );
     }
 
-    public function getUrl() {
-        $courselesson = CourseLesson::where('lesson_id', $this->id)->first();
-        if (!$courselesson) return "";
-        $course = Course::find($courselesson->course_id);
-        if (!$course) return "";
-        $programcourse = ProgramCourse::where('course_id', $course->id)->first();
-        if (!$programcourse) return "";
-        $program = Program::find($programcourse->program_id);
-        //dd($program);
+    public function course() {
+        return $this->belongsToMany('App\Course', 'course_lesson');
+    }
 
+    public function getUrl() {
+
+        $course = $this->course->first();
+        $program = $course->program->first();
+        
         return url($program->slug . "/" . $course->slug . '/' . $this->slug);
     }
 
