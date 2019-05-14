@@ -3,7 +3,7 @@
 @section('content')
 
 @php 
-$author = $question->user()->first();
+$author = $question->user;
 $text = $question->getBody();
 @endphp 
 
@@ -21,7 +21,7 @@ $text = $question->getBody();
                     <span class="message-heading-author">{{$author->name}}</span>
                     <span class="message-heading-time">{{$question->humanDiff()}}</span>
                     @php 
-                        $lesson = $question->lesson(); 
+                        $lesson = $question->lesson;
                     @endphp 
                     @if ($lesson)
                         <object class="related-lesson">
@@ -51,7 +51,7 @@ $text = $question->getBody();
     </div>
 
     @php
-        $answers = $question->answers()->get();
+        $answers = $question->answers;
     @endphp
     @if ($answers->count()>0) 
         <h3>{{$answers->count()}} {{Lang::choice('ответ|ответа|ответов', $answers->count(), [], 'ru')}}</h3>

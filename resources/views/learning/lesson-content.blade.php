@@ -36,7 +36,7 @@
 
 
 @php
-    $messages = $current_lesson->messages()->orderBy("id", "desc")->paginate(50);
+    //$messages = $current_lesson->messages->orderBy("id", "desc")->paginate(50);
 @endphp
 
 
@@ -63,22 +63,25 @@
             
             </div>   
     
-        <div class="row">
-            <div class="col-md-12">
-            <h1 class="program-name">К уроку - {{ $messages->total() }} {{Lang::choice('вопрос|вопроса|вопросов', $messages->total(), [], 'ru')}}</h1>
+        @if ($messages->total()>0)
+
+            <div class="row">
+                <div class="col-md-12">
+                <h1 class="program-name">К уроку - {{ $messages->total() }} {{Lang::choice('вопрос|вопроса|вопросов', $messages->total(), [], 'ru')}}</h1>
+                </div>
             </div>
-        </div>
-    
-        <div class="community-preview-wrapper">
-            @foreach ($messages as $msg)
-    
-            @include('community.message-preview', ["msg" => $msg, "show_destination" => false])
-            @endforeach
-        </div>
         
-        <div class="community-preview-pagination">
-            {{ $messages->links() }}
-        </div>
+            <div class="community-preview-wrapper">
+                @foreach ($messages as $msg)
+        
+                @include('community.message-preview', ["msg" => $msg, "show_destination" => false])
+                @endforeach
+            </div>
+            
+            <div class="community-preview-pagination">
+                {{ $messages->links() }}
+            </div>
+        @endif
 </div>
 
 

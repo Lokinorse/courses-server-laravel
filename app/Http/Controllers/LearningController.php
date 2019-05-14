@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Course;
 use App\Lesson;
 use App\Program;
+use App\Message;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class LearningController extends Controller
 
     public function showLesson($program_slug, $course_slug = null, $lesson_slug = null)
     {
-        $program = Program::where("slug", $program_slug)->first(); 
+        $program = Program::with(["orderedCourses", "orderedCourses.orderedLessons"])->where("slug", $program_slug)->first(); 
         
         if (!$program) {
             abort(404);
@@ -30,7 +31,7 @@ class LearningController extends Controller
             return redirect($program->getResumeUrl());
         }
 
-        $course = Course::where("slug", $course_slug)->first();
+        $course = Course::with(['orderedLessons'])->where("slug", $course_slug)->first();
         if (!$course || !$program) {
             abort(404);
         }
@@ -46,7 +47,9 @@ class LearningController extends Controller
 
         $sorted_lessons = $course->sortedLessons();
 
-        $current_lesson = Lesson::where("slug", $lesson_slug)->first();
+        $current_lesson = Lesson::where("slug", $lesson_slug)
+        //->with(['messages','messages.lesson', 'messages.lesson.course', 'messages.lesson.course.program', 'messages.user', 'messages.answers'])
+        ->first();
 
         if (!$current_lesson) {
             abort(404);
@@ -73,6 +76,15 @@ class LearningController extends Controller
             $user_courses_progress = auth()->user()->coursesProgress()->get();
         }
 
+
+        $messages = Message::getMessages(1000)
+        ->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
+        ->where("parent_id", 0)
+        ->where("target_id", $current_lesson->id)
+        ->where('destination_type', "lesson")
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
         return view('learning.main', compact(
             'course',
             'current_lesson',
@@ -80,7 +92,8 @@ class LearningController extends Controller
             'progress',
             'sorted_lessons',
             'percentProgress',
-            'user_courses_progress'
+            'user_courses_progress',
+            'messages'
         ));
     }
 

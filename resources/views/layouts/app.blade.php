@@ -61,12 +61,13 @@
         </main>
     </div>
     @include("parts.footer")
-    @include('parts.metrics')
+
     <!-- Scripts -->
     <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     @if(Auth::user() && Auth::user()->hasRole('admin')) 
         @yield('custom-admin-script')
     @endif
+    @include('parts.metrics')
 </body>
 </html>

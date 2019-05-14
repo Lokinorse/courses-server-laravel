@@ -16,36 +16,36 @@
 						<div class="person-badge">веб-программист</div>
 						<div class="person-text">
 							Опыт программирования около 10 лет, из них веб-разработка порядка 8 лет.
-							<br/>
-							<br/>
+							<br>
+							<br>
 							4 года работал в крупной фирме над высоконагруженным проектом, 4 года занимался фрилансом.
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Огромный багаж опыта и навыков в решении задач бизнес-автоматизации.
-							<br/>
+							<br>
 							Разрабатывал собственноручно или участвовал в разработке большого количества различного софта: от парсеров и чатботов до соцсетей.
-							<br/>
+							<br>
 							Имею опыт в интернет-маркетинге и SEO-продвижении.
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Активно программирую на: JS (клиентский и серверный ES6-ES8), Elm, PHP
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Также владею: Typescript, ActionScript, C++, C#, pascal/delphi, elixir, java, scala, closure/closurescript
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Базы данных: mysql, mongodb
-							<br/>
-							<br/>
+							<br>
+							<br>
 							In-memory БД: memcached, redis
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Клиентские фреймворки и библиотеки: jQuery, React.js, Elm, Angular, Radi.js
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Серверные фреймворки: Express.js, Laravel
-							<br/>
-							<br/>
+							<br>
+							<br>
 							Связаться со мной: <a target="_blank" data-conversion="stranica-uchitela" href="https://vk.com/neerone">профиль вконтакте</a>
 
 						</div>

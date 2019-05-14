@@ -17643,6 +17643,19 @@ a.community-message {
   margin-left: 15px;
 }
 
+@media (max-width: 550px) {
+  .modal-wrapper .modal-inner-content .modal-footer .actions-group {
+    flex-direction: column;
+  }
+
+  .modal-wrapper .modal-inner-content .modal-footer .actions-group a,
+  .modal-wrapper .modal-inner-content .modal-footer .actions-group button {
+    width: 100%;
+    margin: 0px;
+    margin-top: 10px;
+  }
+}
+
 .main-input {
   border: 1px solid #add6ff;
   border-radius: 2px;

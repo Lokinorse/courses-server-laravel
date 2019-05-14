@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="{{ asset('img/favicon/manifest.json') }}">
 
-    @include('parts.metrics')
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -71,14 +71,16 @@
     <!-- Scripts -->
     <script src="{{ asset('js/zepto.min.js') }}"></script>
     <script src="{{ asset('js/landing.js') }}"></script>
+    @include('parts.metrics')
 
 
+    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?160"></script>
 
     <!-- VK Widget -->
-<div id="vk_community_messages"></div>
-<script type="text/javascript">
-VK.Widgets.CommunityMessages("vk_community_messages", 129168187, {disableExpandChatSound: "1",disableNewMessagesSound: "1",tooltipButtonText: "Есть вопрос?"});
-</script>
+    <div id="vk_community_messages"></div>
+    <script type="text/javascript">
+    VK.Widgets.CommunityMessages("vk_community_messages", 129168187, {disableExpandChatSound: "1",tooltipButtonText: "Есть вопрос?"});
+    </script>
 
 </body>
 </html>

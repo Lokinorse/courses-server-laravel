@@ -16,7 +16,7 @@ class LandingController extends Controller
 
         
         $messages = Message::getMessages(0)->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])->where("parent_id", 0)->orderBy('created_at', 'desc')->paginate(5);
-        
+        //dd($messages->total());
         
         //return "test";
 
@@ -25,6 +25,7 @@ class LandingController extends Controller
         
         //$messagesCount = 4643;
         $messagesCount = Message::getMessages(0)->where('deleted_at', null)->count();
+        //dd($messagesCount);
         $users = ceil($messagesCount * 3.535);
         $passed = ceil($users * 58.055);
 

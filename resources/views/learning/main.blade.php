@@ -40,7 +40,7 @@
         
         <div class="col-md-8">
             <h2 class="program-section-header">Урок: {{$current_lesson->name}}</h2>
-            @include("learning.lesson-content", compact('current_lesson', 'progress', 'course', 'program'))
+            @include("learning.lesson-content", compact('current_lesson', 'progress', 'course', 'program', 'messages'))
         </div>
     </div>
 </div>

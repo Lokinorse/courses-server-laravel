@@ -1,7 +1,7 @@
 @component('components.modal')
     {{-- SETTINGS --}}
     @slot('modal_id', 'vk-login')
-    @slot('modal_max_height', '300px')
+    @slot('modal_max_height', '500px')
     @slot('modal_max_width', '700px')
 
     {{-- HEADER --}}
@@ -21,7 +21,7 @@
             <a class="modal-actions main-button" href="{{route('login')}}">Войти</a>
             <a class="animated-button" href="{{ route('oauth', ['provider'=>'vkontakte']) }}">
                 <img src="{{asset('img/vk_logo.png')}}"/>
-                Войти с помощью Вконтакте
+                Войти через Вконтакте
             </a>
         </div>
     @endslot

@@ -55,6 +55,16 @@
             a,button {
                 margin-left:15px;
             }
+            .actions-group {
+                @media (max-width: 550px) {
+                    flex-direction: column;
+                    a, button {
+                        width:100%;
+                        margin:0px;
+                        margin-top: 10px;
+                    }
+                }
+            }
         }
     }
 }

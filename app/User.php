@@ -24,6 +24,7 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
         'provider',
         'provider_user_id',
         'provider_user_token',
+        'email_verified_at',
         'nickname',
         'name',
         'password',
@@ -116,11 +117,13 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 
     public function coursesProgress()
     {
+        return $this->hasMany('App\UserCoursesProgress');
         return UserCoursesProgress::where("user_id", $this->id);
     }
-
+    
     public function lessonsProgress()
     {
+        return $this->hasMany('App\UserLessonsProgress');
         return UserLessonsProgress::where("user_id", $this->id);
     }
 

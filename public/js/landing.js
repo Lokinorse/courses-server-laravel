@@ -187,25 +187,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-VK.Retargeting.Init('VK-RTRG-317062-3gRde');
 
-var convert = window.convert = function (conversionName) {
-  console.log(conversionName);
-
-  if (conversionName.startsWith("tarif")) {
-    window.selectedPlan = conversionName;
-  }
-
-  if (window.location.href.startsWith("http://courses")) return;
-  if (!window.location.href.startsWith("https://varilo.ru")) return;
-  ym(51609848, 'reachGoal', conversionName);
-  VK.Retargeting.Event(conversionName);
-};
-
-$(document).on("click", "[data-conversion]", function (e) {
-  var conversionName = $(this).data("conversion");
-  window.convert(conversionName);
-});
 
 /***/ }),
 
@@ -321,13 +303,19 @@ function Inc(obj) {
 } // Inc
 
 
-$(".count").each(function () {
-  new Inc({
-    elem: this,
-    decimal: 0,
-    speed: 50
+var width = window.innerWidth;
+
+if (width > 550) {
+  $(".count").each(function () {
+    $(this).text("0");
+    new Inc({
+      elem: this,
+      decimal: 0,
+      speed: 50
+    });
   });
-});
+}
+
 initModal({
   name: "vk-login",
   onBeforeOpen: function onBeforeOpen(model) {

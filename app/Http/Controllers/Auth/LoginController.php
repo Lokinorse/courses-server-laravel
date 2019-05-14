@@ -78,12 +78,12 @@ class LoginController extends Controller
             $authUser->provider_user_id = $data->id;
             $authUser->provider_user_token = $data->token;
             //$authUser->nickname = $data->nickname;
-            //$authUser->name = $data->name;
+            $authUser->name = $data->name;
             $authUser->avatar = $data->avatar;
             $authUser->email = $data->email;
             $authUser->first_name = $user["first_name"];
             $authUser->last_name = $user["last_name"];
-            $authUser->email_verified_at = new Carbon();
+            $authUser->email_verified_at = Carbon::now();
             $authUser->save();
             return $authUser;
         }
@@ -94,8 +94,8 @@ class LoginController extends Controller
             'provider_user_id' => $data->id,
             'provider_user_token' => $data->token,
             //'nickname' => $data->nickname,
-            'email_verified_at' => new Carbon(),
-            //'name' => $data->name,
+            'email_verified_at' => Carbon::now(),
+            'name' => $user["first_name"] . " " . $user["last_name"],
             'avatar' => $data->avatar,
             'email' => $data->email,
             'first_name' => $user["first_name"],

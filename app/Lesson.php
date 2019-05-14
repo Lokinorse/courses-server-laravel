@@ -13,15 +13,23 @@ use App\Course;
 use App\ProgramCourse;
 use App\Program;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Lesson extends Model
 {
+    use Cachable;
+    
     public function messages()
     {
         $destination_type = "lesson";
-        return Message::getMessages()->where('destination_type', $destination_type)
+        return $this
+        ->hasMany('App\Message', 'target_id', 'id')
+        ->where("parent_id", 0)
+        ->where('destination_type', $destination_type);
+
+/*         return Message::getMessages()->where('destination_type', $destination_type)
             ->where('target_id', $this->id)
-            ->where("parent_id", 0);
+            ->where("parent_id", 0); */
     }
 
 /*     public function rootMessages()

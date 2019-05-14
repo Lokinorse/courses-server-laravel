@@ -7,10 +7,11 @@ use App\UserCoursesProgress;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Course extends Model
 {
-
+    use Cachable;
     public function renderChildren($active)
     {
         return new \Illuminate\Support\HtmlString(
@@ -25,7 +26,7 @@ class Course extends Model
 
     public function sortedLessons()
     {
-        return $this->orderedLessons()->get()->sortByDesc(function ($item, $key) {
+        return $this->orderedLessons->sortByDesc(function ($item, $key) {
             return $item->id;
         })->sortBy(function ($item, $key) {
             return $item->pivot->order;
@@ -42,7 +43,7 @@ class Course extends Model
     {
         return CourseLesson::where('course_id', $this->id)->delete();
     }
-    
+
     public function program() {
         return $this->belongsToMany('App\Program', 'program_course');
     }

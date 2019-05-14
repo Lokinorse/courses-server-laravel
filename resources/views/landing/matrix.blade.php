@@ -1,6 +1,6 @@
 <section class="lp-section matrix-section" id="matrix">
 
-	<canvas id="canvas">ОСВОЙ ПРОФЕССИЮ «JAVASCRIPT-РАЗРАБОТЧИК»</canvas>
+	<canvas id="canvas">ОСВОЙ ПРОФЕССИЮ <br/> «JAVASCRIPT-РАЗРАБОТЧИК»</canvas>
 
 
 	<div class="lp-utp-action-wrapper">
@@ -13,7 +13,7 @@
 					@include('landing.icons.video')
 				</div>
 				<div class="stat-info">
-					<b class="count" data-inc-value="{{$stats->passed}}" data-inc-duration="1000" data-inc-delay="0">0</b>
+					<b class="count" data-inc-value="{{$stats->passed}}" data-inc-duration="1000" data-inc-delay="0">{{$stats->passed}}</b>
 					<span>{{Lang::choice('Урок пройден|Урока пройдено|Уроков пройдено', $stats->passed, [], 'ru')}}</span> 
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 					@include('landing.icons.users')
 				</div>
 				<div class="stat-info">
-					<b class="count" data-inc-value="{{$stats->users}}" data-inc-duration="1500" data-inc-delay="0">0</b>
+					<b class="count" data-inc-value="{{$stats->users}}" data-inc-duration="1500" data-inc-delay="0">{{$stats->users}}</b>
 					<span>{{Lang::choice('Ученик обучается|Ученика обучается|Учеников обучается', $stats->users, [], 'ru')}}</span> 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					@include('landing.icons.comments')
 				</div>
 				<div class="stat-info">
-					<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">0</b>
+					<b class="count" data-inc-value="{{$stats->questions}}" data-inc-duration="2000" data-inc-delay="0">{{$stats->questions}}</b>
 					<span>{{Lang::choice('Вопрос и ответ|Вопроса и ответа|Вопросов и ответов', $stats->questions, [], 'ru')}}</span> 
 				</div>
 			</div>
@@ -39,14 +39,7 @@
 
 		</div>
 
-		<a class="scroll-down" href="/#program">
 
-				<svg width="40px" height="100%" viewBox="0 0 247 390" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-					<path id="wheel" d="M123.359,79.775l0,72.843" style="fill:none;stroke:#fff;stroke-width:20px;"/>
-					<path id="mouse" d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z" style="fill:none;stroke:#fff;stroke-width:20px;"/>
-				</svg>
-				<p>вниз</p>
-		</a>
 
 	</div>
 
@@ -151,7 +144,9 @@
 			}, 1000)
 		}
 
-		start();
+		if (width > 550) {
+			start();
+		}
 		
 	
 	</script>  

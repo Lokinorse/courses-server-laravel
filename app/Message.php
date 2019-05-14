@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Auth;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+
+
 class Message extends Model
 {
+    use Cachable;
     use SoftDeletes;
 /*     public function childs() {
         return $this->hasMany("App\Message", 'parent_id');

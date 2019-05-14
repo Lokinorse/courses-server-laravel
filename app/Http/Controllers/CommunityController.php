@@ -53,8 +53,17 @@ class CommunityController extends Controller
 	public function question($question_slug)
 	{
 		//dd($question_slug);
-		$question = Message::getMessages(100)->where('slug', $question_slug)->where("parent_id", 0)->first();
-		if (Is_Numeric($question_slug) && !$question)  $question = Message::getMessages()->where('id', $question_slug)->where("parent_id", 0)->first();
+		$question = Message::getMessages(100)
+		->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
+		->where('slug', $question_slug)
+		->where("parent_id", 0)->first();
+
+		if (Is_Numeric($question_slug) && !$question)  $question = Message::getMessages()
+		->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
+		->where('id', $question_slug)
+		->where("parent_id", 0)
+		->first();
+		
 		//dd(Message::getMessages()->where('slug', $question_slug)->get());
 		if (!$question) return abort(404);
 

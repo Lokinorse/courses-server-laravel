@@ -77,13 +77,20 @@ function Inc(obj) {
     }.bind(this);
   } // Inc
 
-$(".count").each(function() {
-    new Inc({
-        elem: this,
-        decimal: 0,
-        speed: 50,
+
+var width = window.innerWidth;
+if (width > 550) {
+    $(".count").each(function() {
+        $(this).text("0")
+        new Inc({
+            elem: this,
+            decimal: 0,
+            speed: 50,
+        })
     })
-})
+}
+
+
 
 
 initModal({

@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\ProgramCourse;
 use Auth;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Program extends Model
 {
 
-
+    use Cachable;
+    
 
     public function renderChildren($active = null)
     {
@@ -110,16 +112,31 @@ class Program extends Model
         return true;
     }
 
+/*     public function courses() {
+        return $this->belongsToMany('App\Course', 'program_course');
+    } */
+
+
     public function getProgramLessons()
     {
-        return ProgramCourse::where("program_id", $this->id)->get()->reduce(function ($acc, $program_course) {
-            $course = Course::find($program_course->course_id);
+        $courses = $this->orderedCourses;
+        
+        return $courses->reduce(function ($acc, $course) {
             $course->pureLessons()->each(function ($l) use (&$acc, &$course) {
                 $l->course = $course;
                 $acc->push($l);
             });
             return $acc;
         }, collect([]));
+
+/*         return ProgramCourse::where("program_id", $this->id)->get()->reduce(function ($acc, $program_course) {
+            $course = Course::find($program_course->course_id);
+            $course->pureLessons()->each(function ($l) use (&$acc, &$course) {
+                $l->course = $course;
+                $acc->push($l);
+            });
+            return $acc;
+        }, collect([])); */
     }
 
     public function getNextLessonUrl($current_lesson_id) {
