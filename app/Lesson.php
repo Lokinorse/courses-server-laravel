@@ -12,6 +12,7 @@ use App\CourseLesson;
 use App\Course;
 use App\ProgramCourse;
 use App\Program;
+use App\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
@@ -79,10 +80,14 @@ class Lesson extends Model
 
     }
 
-    public function unlock()
+    public function unlock($user_id = null)
     {
+        if (!$user_id) {    
+            $user = Auth::user();
+        } else {            
+            $user = User::find($user_id);
+        }
 
-        $user = Auth::user();
         if (!$user) {
             throw new Exception("Пользователь не залогинен");
         }
@@ -102,6 +107,7 @@ class Lesson extends Model
         $progress->save();
 
     }
+
     public function complete()
     {
         $user = Auth::user();

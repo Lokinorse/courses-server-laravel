@@ -15,12 +15,12 @@ class Plan extends Model
     public function getDiscountedCostAttribute()
     {
         if (!$this->discount) return $this->getCostStringAttribute();
-        return $this->cost * ($this->discount/100);
+        return $this->cost - ($this->cost * ($this->discount/100));
     }
 
     public function getDiscountedCostStringAttribute()
     {
         if (!$this->discount) return $this->getCostStringAttribute();
-        return number_format($this->cost * ($this->discount/100), 0, '.', ' ');
+        return number_format($this->discounted_cost, 0, '.', ' ');
     }
 }

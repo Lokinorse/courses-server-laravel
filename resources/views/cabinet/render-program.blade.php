@@ -21,7 +21,13 @@
                 </a>
                 @endif
             @else 
-                @foreach ($program->plans()->get() as $plan)
+                <a class="cabinet-program-cta animated-button"  target="_blank" data-conversion="unlock" href="{{route("cabinet_pay")}}">
+                    <i class="fa fa-unlock"></i>
+                    <div class="cabinet-program-action-text">
+                        <span>Разблокировать программу</span>
+                    </div>
+                </a>
+{{--                 @foreach ($program->plans()->get() as $plan)
                     
                     <button class="cabinet-program-cta" data-modaltrigger="{{"unlock-" . $plan->id}}">
                             <i class="fa fa-unlock"></i>
@@ -35,7 +41,7 @@
                         </div>
                     </button>
                     @include("cabinet.modals.paymodal", ["plan" => $plan])
-                @endforeach
+                @endforeach --}}
 
             @endif
             <br/>

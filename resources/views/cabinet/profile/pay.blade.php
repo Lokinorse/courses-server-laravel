@@ -1,4 +1,11 @@
+@extends('layouts.landing')
 
+@section('content')
+	@include("landing.tarifs") 
+@endsection
+
+
+{{-- 
 
 @extends('layouts.app')
 
@@ -58,3 +65,4 @@
 @endsection
 
 
+ --}}

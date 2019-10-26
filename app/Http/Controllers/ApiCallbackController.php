@@ -12,7 +12,9 @@ use Carbon\Carbon;
 use App\Transaction;
 use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\json_encode;
-
+use App\Plan;
+use App\Program;
+use Illuminate\Support\Facades\DB;
 class ApiCallbackController extends Controller
 {
     public function handleProviderCallback(Request $req, $provider)
@@ -48,60 +50,80 @@ class ApiCallbackController extends Controller
     
     public function yandexMoneyProviderCallback(Request $req)
     {
-                        
-/*         $trans = Transaction::find(56);
-        $trans->status = 1;
-        $trans->is_real = 1;
-        $trans->is_real = 1;
-        $trans->value = $req->amount;
-        $trans->payed_at = new Carbon($req->datetime);
-        Storage::disk('local')->put('test.json',json_encode($trans));
-        $trans->save(); */
+        //dd("TEST");
+        Storage::disk('local')->put('error0.test',"ВОШЛИ");
+
+        //dd("TEST");
+        if (!$this->isRequestValidSHA1($req)) {
+            Storage::disk('local')->put('error1.test',"INVALID SHA1");
+            if (!$req->test_notification) return;
+            
+        }
+
+        $transaction_info = $req->label;
+        $transaction_info = explode("/", $transaction_info);
+        if (count($transaction_info) != 3 ) return abort(404);
+        //dd($transaction_info);
+        Storage::disk('local')->put('error0.test',"0");
+        $user_id = $transaction_info[0];
+        $transaction_id = $transaction_info[1];
+        $plan_id = $transaction_info[2];
 
 
-        ////////////////////////////////////////////////////
-
-        if (!$this->isRequestValidSHA1($req)) return;
-        
-        $id = $req->label;
-
-        
+        $user = User::find($user_id);
         if ($req->test_notification) {
             $user = User::find(1);
-            $id =  $user->transactions()->get()->last()->id;
         }
+        $trans = Transaction::find($transaction_id);
+        $plan = Plan::find($plan_id);
 
-        
-        $trans = Transaction::find($id);
+        Storage::disk('local')->put('error2.test',"2");
+        if (!$user) return "done";
+        if (!$plan) return "done";
         if (!$trans || $trans->status == 1) return "done";
-        $trans->status = 1;
-        $trans->is_real = 1;
-        $trans->request_data = json_encode($req->all());
-        $trans->value = ceil($req->amount);
-        $trans->payed_at = new Carbon($req->datetime);
-        Storage::disk('local')->put('test.json',json_encode($trans));
-        $trans->save();
-/* 
-        {
-            "notification_type": "p2p-incoming",
-            "amount": "963.73",
-            "datetime": "2019-05-06T23:55:56Z",
-            "codepro": "false",
-            "sender": "41001000040",
-            "sha1_hash": "c12f486dd7444863be68bf9f81c028d18a700bbc",
-            "test_notification": "true",
-            "operation_label": null,
-            "operation_id": "test-notification",
-            "currency": "643",
-            "label": null
+
+        if ($plan->discounted_cost != ceil($req->amount)) return "done";
+        
+
+        Storage::disk('local')->put('error3.test',"3");
+
+
+        DB::beginTransaction();
+        try {
+            $trans->description = "Разблокировка пакета " . $plan->name;
+            $trans->target_type = "plan";
+            $trans->target_id = $plan->id;
+            $trans->status = 1;
+            $trans->is_real = 1;
+            $trans->request_data = json_encode($req->all());
+            $trans->value = ceil($req->amount);
+            $trans->payed_at = new Carbon($req->datetime);
+            
+
+            $program = Program::find($plan->target_id);
+
+            $first_course = $program->sortedCourses()->first();
+
+            $first_course->unlock($user_id);
+
+            //throw new \Exception("TEST");
+            Storage::disk('local')->put('error3.test',"3");
+            $trans->save();
+        } catch (\Throwable $th) {
+            //throw $th;
+            Storage::disk('local')->put('error5.test',json_encode($th));
+            //dd($th);
+            DB::rollback();
         }
-         */
-
-        //notification_type&operation_id&amount&currency&datetime&sender&codepro&notification_secret&label
 
 
-        //return abort(404);
-        //Storage::disk('local')->put('test.json',"VALID!");
+        DB::commit();
+
+        Storage::disk('local')->put('errorCOMMITED.test',"COMMITED");
+
+        //Storage::disk('local')->put('test.json',json_encode($trans));
+
+
 
         return "done";
 

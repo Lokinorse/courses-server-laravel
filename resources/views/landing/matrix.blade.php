@@ -136,7 +136,7 @@
 				  context.fillText(text, x_pos, y_pos);
 				  letters[index] = (y_pos > height + Math.random() * 1e4) ? 0 : y_pos + font_size;
 				});
-
+				
 			};
 			//setInterval(draw, 60);
 			setTimeout(function() {

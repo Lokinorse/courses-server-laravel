@@ -1,7 +1,7 @@
 <section class="lp-section white padded costs-section" id="costs">
 	<div class="lp-content">
 		
-		<h1 class="lp-h1"><span>ТАРИФЫ</span> ОБУЧЕНИЯ</h1>
+		<h1 class="lp-h1"><span>ВЫБЕРИ ТАРИФ</span> ОБУЧЕНИЯ</h1>
 
 
 		<div class="costs-wrapper">
@@ -25,8 +25,23 @@
 						@endif
 						<span class="new-price">{{$plan->discounted_cost_String}}<i class="fa fa-ruble-sign"></i></span>
 					</div>
+					<form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" target="_blank">    
 
-					<button class="cta-btn conversion pay-submit" data-modaltrigger="vk-login" data-conversion="tarif-ya-sam">Начать обучение</button>
+						<input type="hidden" name="receiver" value="410015198324774">    
+						<input type="hidden" name="formcomment" value="Добровольное пожертвование на развитие проекта">    
+						<input type="hidden" name="short-dest" value="Добровольное пожертвование на развитие проекта">    
+						<input type="hidden" name="label" value="{{Auth::user()->id}}/{{$current_transaction->id}}/{{$plan->id}}">    
+						<input type="hidden" name="quickpay-form" value="donate">    
+						<input type="hidden" name="targets" value="Транзакция {{Auth::user()->id}}/{{$current_transaction->id}}/{{$plan->id}}"> 
+						<input type="hidden" name="sum" value="{{$plan->discounted_cost}}"> 
+						<input type="hidden" name="comment" value="«{{$plan->name}}». Добровольное пожертвование на развитие проекта">    
+						<input type="hidden" name="need-fio" value="true">    
+						<input type="hidden" name="need-email" value="true">    
+						<input type="hidden" name="need-phone" value="true">    
+						<input type="hidden" name="need-address" value="false">
+						<button class="cta-btn conversion pay-submit" type="submit" name="paymentType" value="AC">Оплатить</button>
+					</form>
+
 				</div>
 			@endforeach
 

@@ -17,7 +17,7 @@
 @else 
     <div class="new-question-wrapper">
         <i>Ты не можешь задать вопрос, так как у тебя нету доступа к сообществу. Необходимо оплатить любой тариф для получения этой возможности</i>
-        <a href="{{route('cabinet')}}" class="main-button">Оплатить</a>
+        <a href="{{route('cabinet_pay')}}" target="_blank" data-conversion="oplata" class="main-button">Оплатить</a>
     </div>
 @endif
 @endif 

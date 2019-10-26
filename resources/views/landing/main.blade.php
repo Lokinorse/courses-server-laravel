@@ -4,18 +4,19 @@
 	@include("landing.matrix", ["stats" => $stats])
 	@include("landing.program")
 	@include("landing.advantages")
-	@include("landing.how-to-learn")
+	@include("landing.starter", ["position" => 0])
+    @include("landing.how-to-learn")
 	@include("landing.community")
-	@include("landing.tarifs")
+	{{-- @include("landing.tarifs") --}}
+	@include("landing.starter", ["position" => 1])
 	@include("landing.teacher")
 	@include("landing.resume")
-	@include("landing.faq")
 	@include("landing.starter", ["position" => 2])
+	@include("landing.faq")
+	@include("landing.starter", ["position" => 3])
 	
-
     @include("landing.modals.vk-login")
 
-  
 
 @endsection
 

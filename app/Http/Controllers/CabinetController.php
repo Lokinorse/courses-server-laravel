@@ -91,12 +91,14 @@ class CabinetController extends Controller
 		$current_transaction->updated_at = new Carbon();
 		$current_transaction->save();
 
+
+		$program = Program::find(1);
 		//notification_type&operation_id&amount&currency&datetime&sender&codepro&notification_secret&label
 
 
 
 
-		return view('cabinet.profile.pay', ['current_transaction' => $current_transaction]);
+		return view('cabinet.profile.pay', compact('current_transaction', 'program'));
 	}
 
 

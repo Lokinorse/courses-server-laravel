@@ -8,6 +8,8 @@ use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use App\User;
+
 
 class Course extends Model
 {
@@ -137,9 +139,13 @@ class Course extends Model
 
 
 
-    public function unlock()
+    public function unlock($user_id = null)
     {
-        $user = Auth::user();
+        if (!$user_id) {    
+            $user = Auth::user();
+        } else {            
+            $user = User::find($user_id);
+        }
         if (!$user) {
             throw new \Exception("Пользователь не залогинен");
         }
@@ -152,7 +158,7 @@ class Course extends Model
         $progress->status = 0;
         $progress->save();
         $first_lesson = $this->sortedLessons()->first();
-        $first_lesson->unlock();
+        $first_lesson->unlock($user_id);
     }
 
     public function complete()
