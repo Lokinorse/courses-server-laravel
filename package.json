@@ -35,7 +35,7 @@
         "prosemirror-state": "^1.2.2",
         "prosemirror-view": "^1.8.9",
         "pusher-js": "^4.4.0",
-        "tinymce": "^5.0.4",
+        "tinymce": "^5.2.2",
         "video.js": "^7.5.4"
     }
 }
