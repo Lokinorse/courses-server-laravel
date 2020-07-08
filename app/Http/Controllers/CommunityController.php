@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\MessageReport;
 use App\User;
 use App\Message;
+use App\Tag;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,11 +25,13 @@ class CommunityController extends Controller
 		if (!$days_next) $days_next = 0;
 
 		if ($request->search) {
+
 			$messages = Message::getMessages($days_next)
 			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
 			->where("title", 'like', "%".$request->search."%")
 			->where("parent_id", 0)
 			->orderBy('created_at', 'desc')->paginate(10);
+
 		} else {
 			$messages = Message::getMessages($days_next)
 			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
@@ -42,11 +45,17 @@ class CommunityController extends Controller
 		return view('community.main', compact('messages'));
 	}
 
+	public function all_tags(){
+		$tags = Tag::all();
+		return view('community.all-tags', compact('tags'));
+	}
+
 
 	public function new_question(Request $request) {
-		
+	
 		return view('community.new-question');
 	}
+
 
 
 
@@ -87,25 +96,34 @@ class CommunityController extends Controller
 	}
 
 
+	private  function save_tags($tags){
+
+	}
 	public function save_message($message_id, Request $request) {
 		//dd("test");
 
 		$content =  $request->content;
 		$title =  $request->title;
+		$tags = $request->tags;
 
 		$user = Auth::user();
 
 		if ($message_id == "new") {
 			$message = new Message();
+			$message_id;
 			$message->user_id = $user->id;
 			$message->destination_type = $request->destination_type; 
 			$message->target_id = $request->target_id; 
-
 			$parent_id = $request->parent_id;
 			if (!isset($parent_id)) $parent_id = 0;
 			$message->parent_id = $parent_id; 
 			$message->message_type = $request->message_type; 
 			$message->approved = 1; 
+			//saving tags:
+			$tag = new Tag();
+			$tag->name = $tags;
+			$tag->save();
+
 		} else {
 			$message = Message::find($message_id);
 		}
@@ -119,7 +137,8 @@ class CommunityController extends Controller
 			$message->slug = Str::slug($title, '-');
 		}
 		$message->save();
-
+		//attach relation between this msg and a tag(s):
+		$message->tags()->attach($tag);
 		if (isset($request->redirect)) {
 			return redirect($message->getUrl());
 		}

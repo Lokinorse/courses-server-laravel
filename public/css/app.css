@@ -17290,6 +17290,26 @@ a.community-message {
   background: #efefef;
 }
 
+.tags {
+  background-color: #e1ecf4;
+  color: #39739d;
+  display: inline-block;
+  padding: 0.4em 0.5em;
+  margin: 2px 2px 2px 0;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+}
+
+.tag_container {
+  display: flex;
+}
+
 .new-message-editor {
   width: 100%;
 }

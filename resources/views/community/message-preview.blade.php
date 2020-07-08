@@ -1,6 +1,8 @@
 @php 
 $author = $msg->user;
 $text = $msg->getBodyPreview();
+$tags = $msg->tags;
+
 
 $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
 @endphp 
@@ -36,6 +38,15 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
         <div class="message-text-preview">
                 <h4>{{$msg->getTitle()}}</h4>
             {{$text}}
+        </div>
+        @endif 
+
+        @if ($tags) 
+        <div class="tag_container">
+            <h4>Тэги:</h4> 
+            @foreach($tags as $tag)
+                {{$tag->name}}
+            @endforeach            
         </div>
         @endif 
     </div>

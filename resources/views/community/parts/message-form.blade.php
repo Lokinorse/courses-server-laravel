@@ -15,8 +15,12 @@
     <label for="body">Текст сообщения</label>
     <br/>
     <textarea class="new-message-editor" data-editorid="new" name="content"></textarea>
-
+    <label for="title">Добавьте тэги через запятую</label>
+    <input name = 'tags' id = 'tags' onfocus='this.value="через запятую"'/>
     <button class="main-button">Отправить</button>  
 
 </form>
 
+<script>
+
+</script>
