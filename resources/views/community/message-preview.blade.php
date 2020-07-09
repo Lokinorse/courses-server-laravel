@@ -45,7 +45,7 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
         <div class="tag_container">
             <h4>Тэги:</h4> 
             @foreach($tags as $tag)
-                {{$tag->name}}
+               <span class = 'tags'> {{$tag->name}}</span>
             @endforeach            
         </div>
         @endif 

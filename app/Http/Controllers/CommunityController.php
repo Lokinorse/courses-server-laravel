@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -48,6 +49,14 @@ class CommunityController extends Controller
 	public function all_tags(){
 		$tags = Tag::all();
 		return view('community.all-tags', compact('tags'));
+	}
+
+	public function livesearch($livesearch_slug){
+
+		$results = DB::select("select name from tags where name like '%".$livesearch_slug."%'  LIMIT 5", array(1));
+		$prettyResult = array_column($results, "name");
+		return $prettyResult;
+
 	}
 
 

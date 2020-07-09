@@ -17310,6 +17310,11 @@ a.community-message {
   display: flex;
 }
 
+#livesearch {
+  background: white;
+  width: 250px;
+}
+
 .new-message-editor {
   width: 100%;
 }

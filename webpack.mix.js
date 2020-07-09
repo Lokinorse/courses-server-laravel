@@ -22,3 +22,4 @@ mix
 //SCSS
 .sass('resources/sass/app.scss', 'public/css')
 .sass('resources/sass/landing.scss', 'public/css');
+

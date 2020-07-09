@@ -161,6 +161,3 @@ $(document).on("click", ".report-message", function() {
 
 });
 
-
-
-

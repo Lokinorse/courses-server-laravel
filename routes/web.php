@@ -107,7 +107,7 @@ Route::prefix('cabinet')->group(function () {
 Route::prefix('community')->group(function () {
 	Route::get('/', 'CommunityController@index')->name("community");
     Route::get('/question/new', 'CommunityController@new_question')->name("community_new_question");
-
+    Route::get('/question/livesearch/{livesearch_slug}', 'CommunityController@livesearch')->name("community_livesearch");
     Route::get('/tags', 'CommunityController@all_tags')->name("community_all_tags");
     
     
