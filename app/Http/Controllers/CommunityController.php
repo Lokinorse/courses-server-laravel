@@ -95,17 +95,13 @@ class CommunityController extends Controller
 		return json_encode(['location' => $url ]);
 	}
 
-
-	private  function save_tags($tags){
-
-	}
 	public function save_message($message_id, Request $request) {
 		//dd("test");
 
 		$content =  $request->content;
 		$title =  $request->title;
-		$tags = $request->tags;
-
+/* 		$tags = $request->tags; */
+		$tagsArr = explode(",",$request->tags);
 		$user = Auth::user();
 
 		if ($message_id == "new") {
@@ -119,11 +115,6 @@ class CommunityController extends Controller
 			$message->parent_id = $parent_id; 
 			$message->message_type = $request->message_type; 
 			$message->approved = 1; 
-			//saving tags:
-			$tag = new Tag();
-			$tag->name = $tags;
-			$tag->save();
-
 		} else {
 			$message = Message::find($message_id);
 		}
@@ -137,8 +128,14 @@ class CommunityController extends Controller
 			$message->slug = Str::slug($title, '-');
 		}
 		$message->save();
-		//attach relation between this msg and a tag(s):
-		$message->tags()->attach($tag);
+		//saving tags + creating relations between posts and tags:
+		foreach ($tagsArr as $singleTag) {
+			$tag = new Tag();
+			$tag->name = $singleTag;
+			$tag->save();
+			$message->tags()->attach($tag);
+		}
+
 		if (isset($request->redirect)) {
 			return redirect($message->getUrl());
 		}
