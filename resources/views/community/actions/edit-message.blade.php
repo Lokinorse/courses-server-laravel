@@ -1,3 +1,4 @@
+
 <div class="message-actions-wrapper">
     <div class="action-group">
         <button class="report-message" data-messageid="{{$msg->id}}">СООБЩИТЬ О НАРУШЕНИИ</button>
@@ -18,6 +19,7 @@
             </div>
         @endif
     @endcomponent
+
 
 
     @if ($msg->hasChangePermission())
@@ -64,3 +66,19 @@
     </div>
 @endcomponent
 
+@if(sizeof($tags)>0)
+    @component('components.admin-only')
+        ОДОБРИТЬ ТЕГИ:
+        @foreach($tags as $tag)
+            @if (!$tag->approved)
+                <div class = 'admin_tag_review_container'> {{$tag->name }}
+                    <div class = 'tag_review_buttons'>
+                        <div class = 'decline_tag'></div> 
+                        <div data-tagid="{{$tag->id}}" class = 'approve_tag'></div>
+                    </div>
+                </div>
+            @endif
+
+        @endforeach
+    @endcomponent
+@endif

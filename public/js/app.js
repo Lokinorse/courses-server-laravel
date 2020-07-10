@@ -36645,29 +36645,6 @@ var answerModal = initModal({
 //
 //initTabs('.communication-tabs');
 
-/* window.showSuggestions = function(e){
-    if(e.value.length==0) {
-        $('#livesearch').html("");
-        $('#livesearch').css('border', "0px");
-        $('#livesearch').css('height', "0px");
-        return    
-    } 
-    var xmlhttp=new XMLHttpRequest();
-    xmlhttp.onreadystatechange=function() {
-      if (this.readyState==4 && this.status==200) {
-        var responseFromServer = this.responseText;
-        console.log(this.responseText);
-        $('#livesearch').html(this.responseText);
-        $('#livesearch').css('height', "50px");
-        $('#livesearch').css('border', "1px solid #a5acb2");
-      }
-    }
-    xmlhttp.open("GET","livesearch/" + e.value, true);
-    xmlhttp.send();
-
-}
- */
-
 window.showSuggestions = function (e) {
   if (e.value.length == 0) {
     $('#livesearch').html("");
@@ -36932,10 +36909,18 @@ $(document).on("click", ".report-message", function () {
     }
   });
 });
-/* $(document).on("keyup", "#tags", function(e) {
-    alert(e.value)
-    $('#livesearch').css('width', "200px")
-}) */
+$(document).on("click", ".approve_tag", function (e) {
+  var tagId = $(this).data("tagid");
+  $.ajax({
+    url: "/community/tech/approve_tag/" + tagId,
+    method: "POST",
+    success: function success() {
+      console.log(e);
+      console.log('nicely done');
+      console.log($(e.target).parent().parent().remove());
+    }
+  });
+});
 
 /***/ }),
 

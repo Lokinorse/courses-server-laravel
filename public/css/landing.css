@@ -6467,6 +6467,36 @@ a.community-message {
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
+  cursor: pointer;
+}
+
+.decline_tag {
+  background-image: url("/img/cross.jpg");
+  background-size: contain;
+  width: 19px;
+  height: 19px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.approve_tag {
+  background-image: url("/img/check.png");
+  background-size: contain;
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}
+
+.admin_tag_review_container {
+  display: flex;
+  font-size: 17px;
+  line-height: 15px;
+  width: 200px;
+}
+
+.tag_review_buttons {
+  display: flex;
+  margin-left: auto;
 }
 
 .tag_container {
@@ -6476,6 +6506,10 @@ a.community-message {
 #livesearch {
   background: white;
   width: 250px;
+}
+
+.suggest {
+  cursor: pointer;
 }
 
 .new-message-editor {

@@ -166,6 +166,12 @@ class CommunityController extends Controller
 
 	}
 
+	public function approve_tag($tag_id) {
+		$approve = Tag::approve($tag_id);
+		return;
+
+	}
+
 
 	public function report_message($message_id, Request $request) {
 		$user = Auth::user();

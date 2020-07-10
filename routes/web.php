@@ -125,6 +125,7 @@ Route::prefix('community')->group(function () {
 
         Route::post('/approve_message/{message_id}', 'CommunityController@approve_message')->name("community_approve_message");
         Route::post('/delete_message/{message_id}', 'CommunityController@delete_message')->name("community_delete_message");
+        Route::post('/approve_tag/{tag_id}', 'CommunityController@approve_tag')->name("community_approve_tag");
         Route::post('/report_message/{message_id}', 'CommunityController@report_message')->name("community_report_message");
 
         
