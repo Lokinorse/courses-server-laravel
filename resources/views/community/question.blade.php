@@ -53,7 +53,9 @@ $tags = $question->tags;
         <div class="tag_container">
             <h4>Тэги:</h4> 
             @foreach($tags as $tag)
-               <span class = 'tags'> {{$tag->name}}</span>
+                @if($tag->approved)
+                    <span class = 'tags'> {{$tag->name}}</span>
+                @endif
             @endforeach            
         </div>
         @endif 

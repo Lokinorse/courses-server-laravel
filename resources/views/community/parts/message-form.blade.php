@@ -15,9 +15,11 @@
     <label for="body">Текст сообщения</label>
     <br/>
     <textarea class="new-message-editor" data-editorid="new" name="content"></textarea>
+    @if ($message_type == "question" )
     <label for="title">Добавьте тэги через запятую</label>
     <input name = 'tags' id = 'tags' onkeyup="showSuggestions(this)"/>
     <div id='livesearch'></div>
+    @endif
     <button class="main-button">Отправить</button>  
 
 </form>

@@ -165,9 +165,20 @@ $(document).on("click", ".approve_tag", function(e) {
         url: "/community/tech/approve_tag/"+tagId,
         method: "POST",
         success: function() {
-            console.log(e);
-            console.log('nicely done');
             console.log($(e.target).parent().parent().remove())
+            location.reload();
+        }
+    })
+});
+
+$(document).on("click", ".decline_tag", function(e) {
+    var tagId = $(this).data("tagid");
+    $.ajax({
+        url: "/community/tech/delete_tag/"+tagId,
+        method: "POST",
+        success: function() {
+            console.log($(e.target).parent().parent().remove())
+            location.reload();
         }
     })
 });

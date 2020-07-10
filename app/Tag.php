@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Tag extends Model
 {
+    protected $fillable = ['name'];
     public function index(){
 
     }
@@ -19,6 +20,10 @@ class Tag extends Model
         $approve = DB::table('tags')
               ->where('id', $tagId)
               ->update(['approved' => 1]);
+    }
+
+    public static function delete_tag($tagId){
+        $delete_tag = Tag::where('id', $tagId)->delete();
     }
 }
 

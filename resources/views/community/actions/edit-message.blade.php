@@ -68,12 +68,13 @@
 
 @if(sizeof($tags)>0)
     @component('components.admin-only')
-        ОДОБРИТЬ ТЕГИ:
+
         @foreach($tags as $tag)
             @if (!$tag->approved)
+            ОДОБРИТЬ ТЕГИ:
                 <div class = 'admin_tag_review_container'> {{$tag->name }}
                     <div class = 'tag_review_buttons'>
-                        <div class = 'decline_tag'></div> 
+                        <div data-tagid="{{$tag->id}}" class = 'decline_tag'></div> 
                         <div data-tagid="{{$tag->id}}" class = 'approve_tag'></div>
                     </div>
                 </div>

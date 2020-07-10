@@ -66,8 +66,6 @@ class CommunityController extends Controller
 	}
 
 
-
-
 	public function question($question_slug)
 	{
 		//dd($question_slug);
@@ -109,7 +107,6 @@ class CommunityController extends Controller
 
 		$content =  $request->content;
 		$title =  $request->title;
-/* 		$tags = $request->tags; */
 		$tagsArr = explode(",",$request->tags);
 		$user = Auth::user();
 
@@ -139,9 +136,10 @@ class CommunityController extends Controller
 		$message->save();
 		//saving tags + creating relations between posts and tags:
 		foreach ($tagsArr as $singleTag) {
-			$tag = new Tag();
-			$tag->name = $singleTag;
-			$tag->save();
+			//purge spaces from singleTag
+			$singleTag = ltrim($singleTag);
+			//insert tag if not exists
+			$tag = Tag::firstOrCreate(['name' =>  $singleTag]);
 			$message->tags()->attach($tag);
 		}
 
@@ -152,8 +150,6 @@ class CommunityController extends Controller
 		
 	}
 	
-	
-
 
 	public function delete_message($message_id) {
 		$message = Message::find($message_id);
@@ -163,12 +159,6 @@ class CommunityController extends Controller
 		$message->delete();
 
 		return $message->getUrl();
-
-	}
-
-	public function approve_tag($tag_id) {
-		$approve = Tag::approve($tag_id);
-		return;
 
 	}
 
@@ -222,5 +212,15 @@ class CommunityController extends Controller
 		if (!$user) return abort(500);
 
 		Auth::login($user, true);
+	}
+
+	public function approve_tag($tag_id) {
+		$approve = Tag::approve($tag_id);
+		return;
+	}
+
+	public function delete_tag($tag_id) {
+		$delete=Tag::delete_tag($tag_id);
+		return;
 	}
 }
