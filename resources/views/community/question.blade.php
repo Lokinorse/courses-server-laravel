@@ -49,12 +49,12 @@ $tags = $question->tags;
 
         <div class="message-text-editor"></div>
         @endif 
-        @if ($tags) 
+        @if ($tags->count()) 
         <div class="tag_container">
             <h4>Тэги:</h4> 
             @foreach($tags as $tag)
                 @if($tag->approved)
-                    <span class = 'tags'> {{$tag->name}}</span>
+                    <span class = 'tags'><a href="{{route('community_posts_by_tag', ['tag_slug' => $tag->name])}}"> {{$tag->name}}</a></span>
                 @endif
             @endforeach            
         </div>

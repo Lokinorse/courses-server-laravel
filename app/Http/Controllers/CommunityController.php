@@ -107,7 +107,10 @@ class CommunityController extends Controller
 
 		$content =  $request->content;
 		$title =  $request->title;
-		$tagsArr = explode(",",$request->tags);
+		// if no tags passed
+		if($request->tags !==null){
+			$tagsArr = explode(",",$request->tags);
+		}
 		$user = Auth::user();
 
 		if ($message_id == "new") {
@@ -135,12 +138,14 @@ class CommunityController extends Controller
 		}
 		$message->save();
 		//saving tags + creating relations between posts and tags:
-		foreach ($tagsArr as $singleTag) {
-			//purge spaces from singleTag
-			$singleTag = ltrim($singleTag);
-			//insert tag if not exists
-			$tag = Tag::firstOrCreate(['name' =>  $singleTag]);
-			$message->tags()->attach($tag);
+		if (isset($tagsArr)){
+			foreach ($tagsArr as $singleTag) {
+				//purge spaces from singleTag
+				$singleTag = ltrim($singleTag);
+				//insert tag if not exists
+				$tag = Tag::firstOrCreate(['name' =>  $singleTag]);
+				$message->tags()->attach($tag);
+			}
 		}
 
 		if (isset($request->redirect)) {
@@ -222,5 +227,11 @@ class CommunityController extends Controller
 	public function delete_tag($tag_id) {
 		$delete=Tag::delete_tag($tag_id);
 		return;
+	}
+
+	public function postsByTag($tag_slug){
+		$tagInstance = Tag::where('name', $tag_slug)->first();
+		$messagesByTag = $tagInstance->messages()->paginate(10);
+		return view('community.posts-by-tag', compact('messagesByTag', 'tagInstance'));
 	}
 }

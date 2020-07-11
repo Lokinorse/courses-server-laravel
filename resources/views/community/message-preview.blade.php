@@ -41,7 +41,7 @@ $needCheckClass = (!$msg->approved) ? "message-unchecked" : "";
         </div>
         @endif 
 
-        @if ($tags) 
+        @if ($tags->count()) 
         <div class="tag_container">
             <h4>Тэги:</h4> 
             @foreach($tags as $tag)

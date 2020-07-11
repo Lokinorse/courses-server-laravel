@@ -109,7 +109,7 @@ Route::prefix('community')->group(function () {
     Route::get('/question/new', 'CommunityController@new_question')->name("community_new_question");
     Route::get('/question/livesearch/{livesearch_slug}', 'CommunityController@livesearch')->name("community_livesearch");
     Route::get('/tags', 'CommunityController@all_tags')->name("community_all_tags");
-    
+    Route::get('/tags/{tag_slug}', 'CommunityController@postsByTag')->name("community_posts_by_tag");
     
 	Route::get('/question/{question_slug}', 'CommunityController@question')->name("community_question");
 	Route::get('/flood/', 'CommunityController@flood')->name("community_flood");

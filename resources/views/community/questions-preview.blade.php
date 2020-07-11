@@ -13,14 +13,13 @@
         @if (!isset($hide_title))
         <div class="row">
             <div class="col-md-12">
-                <h1 class="program-name">{{$title}} - {{ $messages->total() }} {{Lang::choice('вопрос|вопроса|вопросов', $messages->total(), [], 'ru')}}</h1>
+                <h1 class="program-name">{{$title}} - {{ $messages->count() }} {{Lang::choice('вопрос|вопроса|вопросов', $messages->count(), [], 'ru')}}</h1>
             </div>
         </div>
         @endif
     
         <div class="community-preview-wrapper">
             @foreach ($messages as $msg)
-    
             @include('community.message-preview', ["msg" => $msg, "show_destination" => true])
             @endforeach
         </div>

@@ -12,8 +12,8 @@ class Tag extends Model
 
     }
 
-    public function messages() {
-        return $this->belongsTo("App\Message");
+    public  function messages() {
+        return $this->belongsToMany("App\Message");
     }
 
     public static function approve($tagId){
