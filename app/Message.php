@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Auth;
 
+
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 
@@ -22,6 +23,14 @@ class Message extends Model
     } */  
     public function user() {
         return $this->belongsTo("App\User");
+    }
+
+    public function tags(){
+        return $this->belongsToMany('App\Tag');
+    }
+
+    public function getThisTags(){
+        return $this->tags();
     }
 
     public function answers() {

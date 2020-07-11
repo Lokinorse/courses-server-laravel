@@ -5,6 +5,8 @@
 @php 
 $author = $question->user;
 $text = $question->getBody();
+$tags = $question->tags;
+
 @endphp 
 
 <div class="container cabinet-room">
@@ -44,7 +46,18 @@ $text = $question->getBody();
         <div class="message-text-preview" data-editorid="{{$question->id}}">
             {!!$text!!}
         </div>
+
         <div class="message-text-editor"></div>
+        @endif 
+        @if ($tags->count()) 
+        <div class="tag_container">
+            <h4>Тэги:</h4> 
+            @foreach($tags as $tag)
+                @if($tag->approved)
+                    <span class = 'tags'><a href="{{route('community_posts_by_tag', ['tag_slug' => $tag->name])}}"> {{$tag->name}}</a></span>
+                @endif
+            @endforeach            
+        </div>
         @endif 
 
         @include('community.actions.edit-message', ["msg" => $question])
@@ -80,6 +93,7 @@ $text = $question->getBody();
                     </div>
                     @include('community.actions.edit-message', ["msg" => $answer])
                 </div>
+                
                 
             @endforeach
 

@@ -157,10 +157,28 @@ $(document).on("click", ".report-message", function() {
             alert("Ваша жалоба была успешно принята")
         }
     })
-
-
 });
 
+$(document).on("click", ".approve_tag", function(e) {
+    var tagId = $(this).data("tagid");
+    $.ajax({
+        url: "/community/tech/approve_tag/"+tagId,
+        method: "POST",
+        success: function() {
+            console.log($(e.target).parent().parent().remove())
+            location.reload();
+        }
+    })
+});
 
-
-
+$(document).on("click", ".decline_tag", function(e) {
+    var tagId = $(this).data("tagid");
+    $.ajax({
+        url: "/community/tech/delete_tag/"+tagId,
+        method: "POST",
+        success: function() {
+            console.log($(e.target).parent().parent().remove())
+            location.reload();
+        }
+    })
+});

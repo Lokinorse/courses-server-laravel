@@ -107,6 +107,9 @@ Route::prefix('cabinet')->group(function () {
 Route::prefix('community')->group(function () {
 	Route::get('/', 'CommunityController@index')->name("community");
     Route::get('/question/new', 'CommunityController@new_question')->name("community_new_question");
+    Route::get('/question/livesearch/{livesearch_slug}', 'CommunityController@livesearch')->name("community_livesearch");
+    Route::get('/tags', 'CommunityController@all_tags')->name("community_all_tags");
+    Route::get('/tags/{tag_slug}', 'CommunityController@postsByTag')->name("community_posts_by_tag");
     
 	Route::get('/question/{question_slug}', 'CommunityController@question')->name("community_question");
 	Route::get('/flood/', 'CommunityController@flood')->name("community_flood");
@@ -124,6 +127,8 @@ Route::prefix('community')->group(function () {
         Route::post('/delete_message/{message_id}', 'CommunityController@delete_message')->name("community_delete_message");
         Route::post('/report_message/{message_id}', 'CommunityController@report_message')->name("community_report_message");
 
+        Route::post('/approve_tag/{tag_id}', 'CommunityController@approve_tag')->name("community_approve_tag");
+        Route::post('/delete_tag/{tag_id}', 'CommunityController@delete_tag')->name("community_delete_tag");
         
         Route::post('/skin_user/{user_id}', 'CommunityController@skin_user')->name("community_skin_user");
     });

@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\MessageReport;
 use App\User;
 use App\Message;
+use App\Tag;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -24,11 +26,13 @@ class CommunityController extends Controller
 		if (!$days_next) $days_next = 0;
 
 		if ($request->search) {
+
 			$messages = Message::getMessages($days_next)
 			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
 			->where("title", 'like', "%".$request->search."%")
 			->where("parent_id", 0)
 			->orderBy('created_at', 'desc')->paginate(10);
+
 		} else {
 			$messages = Message::getMessages($days_next)
 			->with(['lesson', 'lesson.course', 'lesson.course.program', 'user', 'answers'])
@@ -42,12 +46,24 @@ class CommunityController extends Controller
 		return view('community.main', compact('messages'));
 	}
 
-
-	public function new_question(Request $request) {
-		
-		return view('community.new-question');
+	public function all_tags(){
+		$tags = Tag::all();
+		return view('community.all-tags', compact('tags'));
 	}
 
+	public function livesearch($livesearch_slug){
+
+		$results = DB::select("select name from tags where name like '%".$livesearch_slug."%'  LIMIT 5", array(1));
+		$prettyResult = array_column($results, "name");
+		return $prettyResult;
+
+	}
+
+
+	public function new_question(Request $request) {
+	
+		return view('community.new-question');
+	}
 
 
 	public function question($question_slug)
@@ -86,21 +102,23 @@ class CommunityController extends Controller
 		return json_encode(['location' => $url ]);
 	}
 
-
 	public function save_message($message_id, Request $request) {
 		//dd("test");
 
 		$content =  $request->content;
 		$title =  $request->title;
-
+		// if no tags passed
+		if($request->tags !==null){
+			$tagsArr = explode(",",$request->tags);
+		}
 		$user = Auth::user();
 
 		if ($message_id == "new") {
 			$message = new Message();
+			$message_id;
 			$message->user_id = $user->id;
 			$message->destination_type = $request->destination_type; 
 			$message->target_id = $request->target_id; 
-
 			$parent_id = $request->parent_id;
 			if (!isset($parent_id)) $parent_id = 0;
 			$message->parent_id = $parent_id; 
@@ -119,6 +137,16 @@ class CommunityController extends Controller
 			$message->slug = Str::slug($title, '-');
 		}
 		$message->save();
+		//saving tags + creating relations between posts and tags:
+		if (isset($tagsArr)){
+			foreach ($tagsArr as $singleTag) {
+				//purge spaces from singleTag
+				$singleTag = ltrim($singleTag);
+				//insert tag if not exists
+				$tag = Tag::firstOrCreate(['name' =>  $singleTag]);
+				$message->tags()->attach($tag);
+			}
+		}
 
 		if (isset($request->redirect)) {
 			return redirect($message->getUrl());
@@ -127,8 +155,6 @@ class CommunityController extends Controller
 		
 	}
 	
-	
-
 
 	public function delete_message($message_id) {
 		$message = Message::find($message_id);
@@ -191,5 +217,21 @@ class CommunityController extends Controller
 		if (!$user) return abort(500);
 
 		Auth::login($user, true);
+	}
+
+	public function approve_tag($tag_id) {
+		$approve = Tag::approve($tag_id);
+		return;
+	}
+
+	public function delete_tag($tag_id) {
+		$delete=Tag::delete_tag($tag_id);
+		return;
+	}
+
+	public function postsByTag($tag_slug){
+		$tagInstance = Tag::where('name', $tag_slug)->first();
+		$messagesByTag = $tagInstance->messages()->paginate(10);
+		return view('community.posts-by-tag', compact('messagesByTag', 'tagInstance'));
 	}
 }

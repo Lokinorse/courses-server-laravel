@@ -6453,6 +6453,65 @@ a.community-message {
   background: #efefef;
 }
 
+.tags {
+  background-color: #e1ecf4;
+  color: #39739d;
+  display: inline-block;
+  padding: 0.4em 0.5em;
+  margin: 2px 2px 2px 0;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.decline_tag {
+  background-image: url("/img/cross.jpg");
+  background-size: contain;
+  width: 19px;
+  height: 19px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.approve_tag {
+  background-image: url("/img/check.png");
+  background-size: contain;
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}
+
+.admin_tag_review_container {
+  display: flex;
+  font-size: 17px;
+  line-height: 15px;
+  width: 200px;
+}
+
+.tag_review_buttons {
+  display: flex;
+  margin-left: auto;
+}
+
+.tag_container {
+  display: flex;
+}
+
+#livesearch {
+  background: white;
+  width: 250px;
+}
+
+.suggest {
+  cursor: pointer;
+}
+
 .new-message-editor {
   width: 100%;
 }
